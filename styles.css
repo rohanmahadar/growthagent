@@ -207,7 +207,7 @@ section{position:relative; z-index:1}
   .cm-cell .cv{font-size:13px}
 }
 
-/* ---------- journey swarm hero (signature) ---------- */
+/* ---------- agent swarm hero (signature) ---------- */
 .swarm-hero{display:flex; flex-direction:column; align-items:center; gap:14px}
 .goalbar{display:flex; align-items:center; gap:10px; width:100%; max-width:440px;
   background:var(--bg-surface); border:1px solid var(--border-default); border-radius:var(--r-pill);
@@ -241,7 +241,7 @@ section{position:relative; z-index:1}
   .core-ring{animation:corepulse 3.4s ease-out infinite}
 }
 
-/* ---------- interactive micro-journey swarm (micro-journeys page) ---------- */
+/* ---------- interactive agent swarm (agents page) ---------- */
 .ms-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; justify-content:center; margin-bottom:8px}
 .ms-chip{font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:var(--r-pill);
   border:1px solid var(--border-default); background:transparent; color:var(--text-secondary);
@@ -260,7 +260,7 @@ section{position:relative; z-index:1}
 .ms-svg .core-lbl{font-family:var(--mono); font-size:10px; letter-spacing:.06em; fill:#0A0F1A}
 .ms-dot{transition:opacity .45s ease, transform .45s ease; cursor:pointer}
 
-/* legacy console swarm (still used on micro-journeys page) */
+/* legacy console swarm (agents page) */
 .swarm-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px}
 .counter{font-family:var(--mono); font-weight:500}
 .counter .n{font-size:30px; color:#fff; letter-spacing:-.02em}
@@ -334,7 +334,7 @@ section{position:relative; z-index:1}
 .feature-panel .inner{background:var(--bg-sunken); border:1px solid var(--border-subtle);
   border-radius:18px; padding:20px; min-height:320px}
 
-/* journey path mini diagram */
+/* agent path mini diagram */
 .path{display:flex; flex-direction:column; gap:10px}
 .node{display:flex; align-items:center; gap:12px; background:var(--bg-surface-alt);
   border:1px solid var(--border-subtle); border-radius:12px; padding:12px 14px}

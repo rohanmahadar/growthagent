@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask aiRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+  .ask-stage{min-height:calc(100vh - 64px - 80px); display:flex; flex-direction:column; align-items:center; justify-content:center}
+  .ask-bar{display:flex; align-items:center; margin-bottom:6px}
+  .ask-bar .grow{flex:1}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="spark" viewBox="0 0 40 40"><g fill="#5660F0">
+    <path transform="translate(15 22) scale(1.05)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <path transform="translate(29 11) scale(.5)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <path transform="translate(30 27) scale(.38)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+  </g></symbol>
+</defs></svg>
+
+<div class="app">
+  <!-- TOP BAR (shared with AI Workspace) -->
+  <header class="app-top">
+    <div class="brand"><span class="clogo">C</span><span class="cw">capillary</span></div>
+    <span class="aira-badge">AIRA</span>
+    <div class="ctx">
+      <span class="ws"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-5-3 5 3 5-10-5z"/></svg> Airlines</span>
+      <span>AI Workspace</span>
+    </div>
+    <span class="grow"></span>
+    <div class="search"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="7.5" r="5"/><path d="M11 11l4 4"/></svg><input placeholder="Search playbooks, agents, workflows…"></div>
+    <button class="iconbtn" aria-label="Notifications"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2.5a5 5 0 015 5v3l1.5 2.5h-13L5 10.5v-3a5 5 0 015-5zM8 16a2 2 0 004 0"/></svg></button>
+    <button class="iconbtn" aria-label="Help"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M8 8a2 2 0 113 1.7c-.6.4-1 .8-1 1.8M10 14.2v.1"/></svg></button>
+    <span class="avatar">MA</span>
+  </header>
+
+  <div class="app-body">
+    <!-- SIDEBAR (shared) -->
+    <aside class="app-side">
+      <div class="nav-item active"><span class="ni-ic"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3h12a1 1 0 011 1v8a1 1 0 01-1 1H7l-4 3V4a1 1 0 011-1z"/></svg></span> Ask aiRA</div>
+      <div class="side-div"></div>
+      <div class="side-sec">Build</div>
+      <div class="nav-item" onclick="location.href='app.html#playbooks'"><span class="ni-ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20"><path d="M10 2l8 4-8 4-8-4 8-4z"/><path d="M2 10l8 4 8-4M2 14l8 4 8-4"/></svg></span> Playbooks <span class="ct">10</span></div>
+      <div class="nav-item" onclick="location.href='app.html#agents'"><span class="ni-ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20"><rect x="4" y="6" width="12" height="9" rx="2"/><path d="M10 3v3M7 10v1M13 10v1M2 9v3M18 9v3"/></svg></span> Agents <span class="ct">4</span></div>
+      <div class="nav-item" onclick="location.href='app.html#workflows'"><span class="ni-ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20"><circle cx="5" cy="5" r="2"/><circle cx="5" cy="15" r="2"/><circle cx="15" cy="10" r="2"/><path d="M5 7v6M7 5h4a2 2 0 012 2v1"/></svg></span> Workflows <span class="ct">2</span></div>
+      <div class="side-div"></div>
+      <div class="side-sec">Workspace</div>
+      <div class="nav-item" onclick="location.href='app.html#insights'"><span class="ni-ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20"><path d="M3 14l4-5 3 3 5-7"/><path d="M2 17h16"/></svg></span> Insights</div>
+      <div class="nav-item" onclick="location.href='app.html#settings'"><span class="ni-ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6"/><path d="M10 1.6v2.2M10 16.2v2.2M2.8 10H.6M19.4 10h-2.2M4.6 4.6l1.6 1.6M13.8 13.8l1.6 1.6M15.4 4.6l-1.6 1.6M6.2 13.8l-1.6 1.6"/></svg></span> Settings</div>
+      <div class="tip">
+        <div class="th"><svg width="15" height="15" fill="#5660F0"><path d="M7.5 0l1.6 4.4L13.5 6 9.1 7.6 7.5 12 5.9 7.6 1.5 6l4.4-1.6z"/></svg> AIRA tip</div>
+        <p>Describe a goal and aiRA will assemble the agents and playbooks to reach it.</p>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="app-main">
+      <div class="ask-bar"><span class="grow"></span>
+        <button class="gbtn" onclick="newChat()"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.5 2v11M2 7.5h11"/></svg> New Chat</button>
+      </div>
+      <div class="ask-stage">
+        <div class="ask-inner" style="max-width:760px">
+          <div class="ask-spark"><svg viewBox="0 0 40 40"><use href="#spark"/></svg></div>
+          <div class="ask-hi">Good Afternoon Rohan, What's next?</div>
+          <div class="ask-composer">
+            <span class="plus" onclick="enter()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3v10M3 8h10"/></svg></span>
+            <input id="msg" placeholder="What's our mission today?" onkeydown="if(event.key==='Enter')enter()">
+            <svg class="ci" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 12.5a2.5 2.5 0 002.5-2.5V5a2.5 2.5 0 10-5 0v5a2.5 2.5 0 002.5 2.5z"/><path d="M5 9.5v.5a5 5 0 0010 0v-.5M10 15v3"/></svg>
+            <svg class="send" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" onclick="enter()" style="cursor:pointer"><path d="M3 11l18-8-8 18-2.5-7.5L3 11z"/></svg>
+          </div>
+          <div class="ask-cards">
+            <div class="ask-card" onclick="location.href='app.html#agents'"><h4>Pick a starting point</h4><p>See what's possible — from pulling reports to launching agents.</p></div>
+            <div class="ask-card" onclick="location.href='app.html#insights'"><h4>Program Health</h4><p>Ask about performance, customer trends, and retention.</p></div>
+            <div class="ask-card" onclick="location.href='app.html#insights'"><h4>Trend Analysis</h4><p>Gain comprehensive insights along with recommendations.</p></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},1800);}
+function newChat(){document.getElementById('msg').value='';document.getElementById('msg').focus();toast('Started a new chat');}
+function enter(){var v=document.getElementById('msg').value.trim();toast(v?'aiRA is on it — opening your workspace…':'Opening your AI Workspace…');setTimeout(function(){location.href='app.html#agents';},700);}
+</script>
+</body>
+</html>

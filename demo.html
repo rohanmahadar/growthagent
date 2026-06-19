@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try aiRA — Set up your growth workspace</title>
+<meta name="description" content="See how aiRA turns a goal and your data into always-on, self-optimizing growth agents — a guided, no-login demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body{min-height:100vh}
+  .demo-nav{position:sticky; top:0; z-index:40; height:56px; display:flex; align-items:center;
+    padding:0 22px; border-bottom:1px solid var(--border-subtle); background:rgba(14,20,36,.8); backdrop-filter:blur(10px)}
+  .demo-nav .spacer{flex:1}
+  .demo-nav .step-dots{display:flex; gap:6px}
+  .demo-nav .sd{width:7px;height:7px;border-radius:50%; background:var(--border-strong); transition:background var(--motion)}
+  .demo-nav .sd.on{background:var(--brand)}
+  .demo-pill{font-family:var(--mono); font-size:11px; color:var(--text-tertiary); border:1px solid var(--border-default);
+    border-radius:var(--r-pill); padding:5px 12px}
+  .stage{display:none; min-height:calc(100vh - 56px); padding:48px 22px; animation:fade .4s ease}
+  .stage.active{display:flex}
+  @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+  .col{margin:auto; width:100%}
+  .skip{position:absolute; right:26px; bottom:22px; font-family:var(--mono); font-size:12px; color:var(--text-tertiary); cursor:pointer}
+  .skip:hover{color:var(--text-secondary)}
+
+  /* sign up */
+  .signup{display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:920px; align-items:center}
+  .auth-card{max-width:380px}
+  .auth-btn{display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    background:var(--bg-surface); border:1px solid var(--border-default); border-radius:var(--r-md);
+    padding:12px; font-size:14px; color:var(--text-primary); cursor:pointer; margin-bottom:10px; transition:all var(--motion)}
+  .auth-btn:hover{border-color:var(--border-strong)}
+  .divider{display:flex; align-items:center; gap:12px; color:var(--text-tertiary); font-size:12px; margin:16px 0}
+  .divider::before,.divider::after{content:''; flex:1; height:1px; background:var(--border-subtle)}
+  .field{margin-bottom:12px}
+  .field label{display:block; font-size:12px; color:var(--text-secondary); margin-bottom:6px}
+  .field input{width:100%; background:var(--bg-sunken); border:1px solid var(--border-default); border-radius:var(--r-md);
+    padding:11px 12px; color:var(--text-primary); font-family:var(--sans); font-size:14px}
+  .field input:focus{outline:none; border-color:var(--border-focus)}
+  .brandwall{display:flex; flex-wrap:wrap; gap:10px}
+  .brandwall span{font-size:15px; font-weight:600; color:var(--text-tertiary); opacity:.7}
+  .fineprint{font-size:11px; color:var(--text-tertiary); margin-top:14px; line-height:1.5}
+
+  /* google account chooser */
+  .gcard{max-width:420px; margin:auto; background:#fff; color:#202124; border-radius:10px; overflow:hidden;
+    box-shadow:var(--shadow-lg); font-family:'Roboto',sans-serif}
+  .gcard .gh{padding:18px 22px; border-bottom:1px solid #ebebeb}
+  .gcard .gh .glogo{font-size:20px; font-weight:500}
+  .gcard .gh h2{color:#202124; font-size:20px; font-weight:400; margin:14px 0 0}
+  .gcard .gh p{color:#5f6368; font-size:13px; margin:4px 0 0}
+  .acct{display:flex; align-items:center; gap:14px; padding:13px 22px; cursor:pointer}
+  .acct:hover{background:#f7f8f8}
+  .acct .av{width:32px;height:32px;border-radius:50%; display:grid;place-items:center; color:#fff; font-size:13px; font-weight:500}
+  .acct .nm{font-size:14px; color:#202124; font-weight:500}
+  .acct .em{font-size:13px; color:#5f6368}
+  .acct.alt{color:#5f6368}.acct.alt .ic{width:32px;height:32px;border-radius:50%;border:1px solid #dadce0;display:grid;place-items:center}
+  .gfoot{font-size:11px; color:#5f6368; padding:14px 22px 18px; line-height:1.5}
+
+  /* workspace + adventure */
+  .opt-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:760px; margin:28px auto 0}
+  .opt{background:var(--bg-surface); border:1px solid var(--border-default); border-radius:var(--r-lg);
+    padding:22px; cursor:pointer; transition:all var(--motion); text-align:left}
+  .opt:hover{border-color:var(--brand); transform:translateY(-2px)}
+  .opt .oic{width:42px;height:42px;border-radius:11px; background:var(--bg-brand-subtle); color:var(--text-link);
+    display:grid;place-items:center; margin-bottom:14px}
+  .opt h3{font-size:17px; margin:0 0 6px}
+  .opt p{font-size:13.5px; color:var(--text-tertiary); margin:0; line-height:1.5}
+  .ws-list{max-width:460px; margin:24px auto 0}
+  .ws-card{display:flex; align-items:center; gap:14px; background:var(--bg-surface); border:1px solid var(--border-default);
+    border-radius:var(--r-lg); padding:16px 18px; cursor:pointer; transition:all var(--motion); margin-bottom:12px}
+  .ws-card:hover{border-color:var(--brand)}
+  .ws-card .wl{width:40px;height:40px;border-radius:10px; background:var(--grad); display:grid;place-items:center; color:#0A0F1A; font-weight:600}
+  .ws-card .wn{font-size:15px; font-weight:500}
+  .ws-card .wm{font-size:12px; color:var(--text-tertiary)}
+  .ws-card .go{margin-left:auto; color:var(--text-tertiary)}
+
+  /* session / connect data */
+  .sess{max-width:680px; margin:auto; width:100%}
+  .chips-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0}
+  .pchip{font-size:13px; padding:7px 13px; border-radius:var(--r-pill); border:1px solid var(--border-default);
+    background:var(--bg-surface); color:var(--text-secondary); cursor:pointer; transition:all var(--motion)}
+  .pchip:hover{border-color:var(--brand); color:var(--text-primary)}
+  .composer{background:var(--bg-surface); border:1px solid var(--border-strong); border-radius:var(--r-lg); padding:14px 16px}
+  .composer textarea{width:100%; background:transparent; border:none; resize:none; color:var(--text-primary);
+    font-family:var(--sans); font-size:15px; min-height:46px}
+  .composer textarea:focus{outline:none}
+  .composer .crow{display:flex; align-items:center; gap:10px; margin-top:6px}
+  .composer .crow .meta{font-family:var(--mono); font-size:11px; color:var(--text-tertiary)}
+  .composer .crow .send{margin-left:auto}
+  .connect-h{font-size:13px; color:var(--text-tertiary); margin:26px 0 12px; font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase}
+  .connect-tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .ctile{background:var(--bg-surface); border:1px dashed var(--border-strong); border-radius:var(--r-lg); padding:22px;
+    text-align:center; cursor:pointer; transition:all var(--motion)}
+  .ctile:hover{border-color:var(--brand); border-style:solid}
+  .ctile .ti{width:36px;height:36px;border-radius:9px; background:var(--bg-brand-subtle); color:var(--text-link);
+    display:grid;place-items:center; margin:0 auto 10px}
+  .ctile .tt{font-size:14px; font-weight:500}
+  .ctile .ts{font-size:12px; color:var(--text-tertiary); margin-top:4px}
+
+  /* modal */
+  .overlay{position:fixed; inset:0; background:rgba(8,12,22,.7); display:none; align-items:flex-start; justify-content:center;
+    z-index:60; padding:60px 20px; overflow:auto}
+  .overlay.open{display:flex}
+  .modal{background:var(--bg-surface); border:1px solid var(--border-default); border-radius:var(--r-xl);
+    width:100%; max-width:620px; box-shadow:var(--shadow-lg)}
+  .modal-h{display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--border-subtle)}
+  .modal-h h3{font-size:16px} .modal-h .sub{font-size:12px; color:var(--text-tertiary)}
+  .modal-h .close{cursor:pointer; color:var(--text-tertiary)}
+  .conn-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:20px}
+  .conn-tile{display:flex; align-items:center; gap:9px; background:var(--bg-sunken); border:1px solid var(--border-subtle);
+    border-radius:var(--r-md); padding:12px; cursor:pointer; transition:all var(--motion); font-size:13px}
+  .conn-tile:hover{border-color:var(--brand); background:var(--bg-surface-alt)}
+  .conn-tile .cdot{width:20px;height:20px;border-radius:5px; flex:none; display:grid;place-items:center; font-size:11px; font-weight:600; color:#0A0F1A; font-family:var(--mono)}
+  .modal-f{padding:14px 22px 20px; font-size:12px; color:var(--text-tertiary); border-top:1px solid var(--border-subtle)}
+  /* config form */
+  .cfg{padding:20px 22px}
+  .cfg .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .cfg-actions{display:flex; justify-content:flex-end; gap:10px; padding:0 22px 20px}
+
+  /* working / build view */
+  .work{max-width:1080px; margin:auto; width:100%}
+  .work-top{display:flex; align-items:center; gap:12px; margin-bottom:18px}
+  .work-top .wl{width:34px;height:34px;border-radius:9px; background:var(--grad); display:grid;place-items:center; color:#0A0F1A; font-weight:600}
+  .work-top .wt b{font-size:15px} .work-top .wt span{font-size:12px; color:var(--text-tertiary); display:block}
+  .work-top .status{margin-left:auto; font-family:var(--mono); font-size:12px; padding:6px 13px; border-radius:var(--r-pill);
+    border:1px solid var(--border-default); color:var(--amber-300); display:flex; align-items:center; gap:7px}
+  .work-top .status.live{color:var(--green-300)}
+  .work-top .status i{width:7px;height:7px;border-radius:50%; background:currentColor}
+  .work-grid{display:grid; grid-template-columns:340px 1fr; gap:16px}
+  .work-pane{background:var(--bg-surface); border:1px solid var(--border-default); border-radius:var(--r-xl); padding:18px}
+  .goal-bubble{background:var(--bg-selected); border:1px solid var(--border-default); border-radius:12px 12px 12px 4px;
+    padding:11px 13px; font-size:14px; margin-bottom:16px}
+  .bstep{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-secondary); padding:7px 0;
+    opacity:0; transform:translateY(4px)}
+  .bstep.show{opacity:1; transform:none; transition:all .4s}
+  .bstep .tick{width:17px;height:17px;border-radius:50%; border:1.5px solid var(--border-strong); flex:none; display:grid;place-items:center}
+  .bstep.done .tick{border-color:var(--green-300); background:rgba(79,190,118,.14)}
+  .bstep.done .tick svg{stroke:var(--green-300)}
+  .bstep .sp{margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--text-tertiary)}
+  .canvas{position:relative; min-height:380px}
+  .canvas-svg{width:100%; height:auto; overflow:visible}
+  .wnode{opacity:0; transform:scale(.9); transform-box:fill-box; transform-origin:center}
+  .wnode.show{opacity:1; transform:none; transition:all .5s cubic-bezier(.2,.8,.3,1.2)}
+  .wedge{opacity:0; transition:opacity .5s} .wedge.show{opacity:.55}
+  .build-count{position:absolute; right:6px; top:6px; text-align:right}
+  .build-count .bn{font-family:var(--mono); font-size:26px; font-weight:500; color:#fff}
+  .build-count .bl{font-size:11px; color:var(--text-tertiary); font-family:var(--mono)}
+  .done-bar{margin-top:16px; background:linear-gradient(180deg,var(--bg-surface),var(--bg-surface-alt));
+    border:1px solid var(--border-default); border-radius:var(--r-lg); padding:18px 22px; display:flex; align-items:center; gap:16px;
+    opacity:0; transform:translateY(8px)}
+  .done-bar.show{opacity:1; transform:none; transition:all .5s}
+  .done-bar .dt b{font-size:15px} .done-bar .dt span{font-size:13px; color:var(--text-tertiary)}
+  .done-bar .da{margin-left:auto; display:flex; gap:10px}
+  /* business-problem picker */
+  .pp-h{font-size:14px; color:var(--text-secondary); margin-bottom:14px}
+  .pp-opt{display:block; width:100%; text-align:left; background:var(--bg-surface-alt); border:1px solid var(--border-default);
+    border-radius:var(--r-lg); padding:14px 16px; margin-bottom:10px; cursor:pointer; transition:all var(--motion); color:inherit; font-family:var(--sans)}
+  .pp-opt:hover{border-color:var(--brand); transform:translateY(-1px)}
+  .pp-opt b{display:block; font-size:15px; color:var(--text-primary); margin-bottom:3px}
+  .pp-opt span{font-size:13px; color:var(--text-tertiary)}
+  .spawn-chip{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-family:var(--mono); color:var(--text-secondary);
+    background:var(--bg-surface-alt); border:1px solid var(--border-default); border-radius:var(--r-pill); padding:5px 11px; margin:0 6px 8px 0;
+    opacity:0; transform:translateY(4px)}
+  .spawn-chip.show{opacity:1; transform:none; transition:all .35s}
+  .spawn-chip i{width:6px;height:6px;border-radius:50%; background:var(--brand)}
+
+  @media (max-width:820px){
+    .signup{grid-template-columns:1fr} .signup .brandside{display:none}
+    .opt-grid,.connect-tiles{grid-template-columns:1fr}
+    .conn-grid{grid-template-columns:1fr 1fr}
+    .work-grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    @keyframes wpulse{0%,100%{opacity:.5}50%{opacity:1}}
+    .status:not(.live) i{animation:wpulse 1.2s ease-in-out infinite}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E97FF"/><stop offset="1" stop-color="#5EA8FF"/></linearGradient>
+  <symbol id="aira-mark" viewBox="0 0 24 24"><g fill="url(#aira-grad)">
+    <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+  </g></symbol>
+</defs></svg>
+<div class="aura"></div>
+
+<nav class="demo-nav">
+  <a class="lockup" href="index.html"><svg class="mark"><use href="#aira-mark"/></svg><span class="word">aiRA</span></a>
+  <span class="demo-pill" style="margin-left:14px">guided demo</span>
+  <div class="spacer"></div>
+  <div class="step-dots" id="dots"></div>
+  <a class="btn btn-ghost" href="index.html" style="margin-left:18px">Exit</a>
+</nav>
+
+<!-- 1. SIGN UP -->
+<section class="stage active" data-step="0">
+  <div class="col signup">
+    <div>
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Start free</span>
+      <h1 class="h2" style="margin:14px 0 8px">Set up aiRA</h1>
+      <p class="muted" style="margin:0 0 22px; font-size:14px">Stand up your growth workspace in minutes. This is a guided demo — no real account is created.</p>
+      <div class="auth-card">
+        <button class="auth-btn" onclick="go(1)"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-7.8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.5-2.7c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.7 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.1-3.1A11 11 0 0 0 2 7.1l3.7 2.8C6.6 7.3 9.1 5.4 12 5.4z"/></svg> Continue with Google</button>
+        <button class="auth-btn" onclick="go(2)"><svg width="15" height="15" viewBox="0 0 23 23"><path fill="#f25022" d="M1 1h10v10H1z"/><path fill="#7fba00" d="M12 1h10v10H12z"/><path fill="#00a4ef" d="M1 12h10v10H1z"/><path fill="#ffb900" d="M12 12h10v10H12z"/></svg> Continue with Microsoft</button>
+        <div class="divider">or</div>
+        <div class="field"><label>Work email</label><input type="email" value="elena.voss@starairlines.com"></div>
+        <div class="field"><label>Password</label><input type="password" value="••••••••••"></div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center" onclick="go(2)">Create workspace</button>
+        <p class="fineprint">By signing up you agree to aiRA's Terms and Privacy Policy. Already have an account? <span style="color:var(--text-link)">Log in</span></p>
+      </div>
+    </div>
+    <div class="brandside">
+      <p class="muted" style="font-size:13px; margin-bottom:16px">Growth teams running on aiRA</p>
+      <div class="brandwall">
+        <span>Star Airlines</span><span>Northwind</span><span>Crescent</span><span>Lumen</span>
+        <span>Orbit Bank</span><span>Vanta</span><span>Pulse</span><span>Maven&amp;Co</span>
+      </div>
+      <div style="margin-top:28px; border:1px solid var(--border-subtle); border-radius:var(--r-lg); padding:18px; background:var(--bg-surface)">
+        <p style="font-size:14px; margin:0 0 10px">"aiRA stood up a handful of always-on agents in an afternoon and kept tuning them while we slept."</p>
+        <p class="muted" style="font-size:12px; margin:0">Elena Voss · Chief Technology Officer, Star Airlines</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. GOOGLE ACCOUNT CHOOSER -->
+<section class="stage" data-step="1">
+  <div class="col">
+    <div class="gcard">
+      <div class="gh"><div class="glogo"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></div>
+        <h2>Choose an account</h2><p>to continue to aiRA</p></div>
+      <div class="acct" onclick="go(2)"><div class="av" style="background:#6268FF">EV</div><div><div class="nm">Elena Voss</div><div class="em">elena.voss@starairlines.com</div></div></div>
+      <div class="acct" onclick="go(2)"><div class="av" style="background:#2A9D55">GT</div><div><div class="nm">Growth Team</div><div class="em">growth@starairlines.com</div></div></div>
+      <div class="acct alt" onclick="go(2)"><div class="ic">+</div><div class="nm" style="color:#5f6368;font-weight:400">Use another account</div></div>
+      <div class="gfoot">To continue, Google will share your name, email address, and profile picture with aiRA. This is a demo screen — no real sign-in occurs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. WORKSPACE -->
+<section class="stage" data-step="2">
+  <div class="col" style="max-width:520px">
+    <div class="center"><span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> Workspace</span>
+      <h1 class="h2" style="margin:14px 0 4px">Choose your workspace</h1>
+      <p class="muted" style="font-size:14px">Join your team, or start a new one.</p></div>
+    <div class="ws-list">
+      <div class="ws-card" onclick="go(3)"><div class="wl">S</div><div><div class="wn">Star Airlines</div><div class="wm">8 members · you're invited</div></div><span class="go"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 9h9M10 5l4 4-4 4"/></svg></span></div>
+      <div class="ws-card" onclick="go(3)" style="border-style:dashed"><div class="wl" style="background:var(--bg-brand-subtle); color:var(--text-link)">+</div><div><div class="wn">Create a new workspace</div><div class="wm">Start fresh with your own data</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ADVENTURE -->
+<section class="stage" data-step="3">
+  <div class="col" style="max-width:760px">
+    <div class="center"><span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> Pick a starting point</span>
+      <h1 class="h2" style="margin:14px 0 4px">Choose your aiRA adventure</h1>
+      <p class="muted" style="font-size:14px">Both lead to the same workspace — pick how you'd like to begin.</p></div>
+    <div class="opt-grid">
+      <div class="opt" onclick="go(4)">
+        <div class="oic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="3"/><path d="M11 1v3M11 18v3M1 11h3M18 11h3M4 4l2 2M16 16l2 2M16 4l-2 2M6 16l-2 2"/></svg></div>
+        <h3>Set up autonomous growth</h3>
+        <p>aiRA reads your data, finds segments, and stands up agents to hit your goals — hands-off.</p>
+      </div>
+      <div class="opt" onclick="go(4)">
+        <div class="oic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h16v10H7l-4 4z"/></svg></div>
+        <h3>Chat with your data</h3>
+        <p>Ask about customers, revenue, and churn in plain language — then turn answers into agents.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SESSION / CONNECT DATA -->
+<section class="stage" data-step="4">
+  <div class="col sess">
+    <span class="muted" style="font-size:13px; cursor:pointer" onclick="go(3)">← Back</span>
+    <h1 class="h2" style="margin:10px 0 4px">Start your first growth session</h1>
+    <p class="muted" style="font-size:14px">Try a prompt to kick things off, or connect your data below.</p>
+    <div class="chips-row">
+      <span class="pchip" onclick="fillPrompt(this)">Reactivate lapsed customers</span>
+      <span class="pchip" onclick="fillPrompt(this)">Reduce churn in Gold tier</span>
+      <span class="pchip" onclick="fillPrompt(this)">Lift repeat purchases</span>
+      <span class="pchip" onclick="fillPrompt(this)">Grow loyalty tier progression</span>
+    </div>
+    <div class="composer">
+      <textarea id="goalInput" placeholder="Tell aiRA a growth goal…"></textarea>
+      <div class="crow"><span class="meta">Sample data</span><span class="meta">·</span><span class="meta">Auto ▾</span>
+        <button class="btn btn-primary send" onclick="startBuild('sample')">Start →</button></div>
+    </div>
+    <div class="connect-h">Or connect your data</div>
+    <div class="connect-tiles">
+      <div class="ctile" id="uploadTile" onclick="uploadFile()">
+        <div class="ti"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 14V4M6 8l4-4 4 4M3 16h14"/></svg></div>
+        <div class="tt">Upload a file</div><div class="ts">CSV of customers, orders, or loyalty</div>
+      </div>
+      <div class="ctile" onclick="openModal()">
+        <div class="ti"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="10" cy="5" rx="7" ry="2.5"/><path d="M3 5v10c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"/></svg></div>
+        <div class="tt">Connect a data source</div><div class="ts">Snowflake, BigQuery, Segment &amp; more</div>
+      </div>
+    </div>
+  </div>
+  <div class="skip" onclick="startBuild('sample')">Skip with sample data →</div>
+</section>
+
+<!-- WORKING / BUILD -->
+<section class="stage" data-step="5">
+  <div class="col work">
+    <div class="work-top">
+      <div class="wl">S</div>
+      <div class="wt"><b>Growth workspace · Star Airlines</b><span id="srcLabel">Sample customer data</span></div>
+      <div class="status" id="buildStatus"><i></i><span id="statusText">Building…</span></div>
+    </div>
+    <div class="work-grid">
+      <div class="work-pane">
+        <div id="problemPick">
+          <div class="pp-h">Which business problem should aiRA tackle first?</div>
+          <button class="pp-opt" onclick="chooseProblem('Reactivate lapsed customers and lift repeat purchases','Reactivate lapsed customers')">
+            <b>Reactivate lapsed customers</b><span>Win back dormant buyers and lift repeat purchases.</span></button>
+          <button class="pp-opt" onclick="chooseProblem('Reduce churn among your most valuable members','Reduce churn in top tiers')">
+            <b>Reduce churn in top tiers</b><span>Keep high-value customers active and spending.</span></button>
+        </div>
+        <div class="goal-bubble" id="goalBubble" style="display:none">Reactivate lapsed customers and lift repeat purchases.</div>
+        <div id="buildSteps"></div>
+      </div>
+      <div class="work-pane canvas">
+        <div class="build-count"><div class="bn" id="agentCount">0</div><div class="bl" id="agentLbl">agents created</div></div>
+        <svg class="canvas-svg" id="wcanvas" viewBox="0 0 600 380" role="img" aria-label="aiRA spawning growth agents from your data."></svg>
+      </div>
+    </div>
+    <div class="done-bar" id="doneBar">
+      <svg width="30" height="30"><use href="#aira-mark"/></svg>
+      <div class="dt"><b>Your growth workspace is live</b><span id="doneSub">Always-on agents working across 5 lifecycle stages.</span></div>
+      <div class="da">
+        <a class="btn btn-secondary" href="ask.html">Open aiRA</a>
+        <a class="btn btn-primary" id="seeAgents" href="app.html?spawn=1#agents">See your agents →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTOR MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalConn">
+    <div class="modal-h"><div><h3>Add a data connection</h3><div class="sub">Pick a source — this is a demo, nothing is actually connected.</div></div><span class="close" onclick="closeModal()"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l10 10M14 4L4 14"/></svg></span></div>
+    <div class="conn-grid" id="connGrid"></div>
+    <div class="modal-f">Have questions? Email us — or read the security &amp; docs pages.</div>
+  </div>
+  <div class="modal" id="modalCfg" style="display:none">
+    <div class="modal-h"><div><h3 id="cfgTitle">Connect Snowflake</h3><div class="sub">Connection settings</div></div><span class="close" onclick="closeModal()"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l10 10M14 4L4 14"/></svg></span></div>
+    <div class="cfg">
+      <div class="grid2">
+        <div class="field"><label>Connection name</label><input value="Star Airlines warehouse"></div>
+        <div class="field"><label>Account / host</label><input value="starairlines.eu-west-1"></div>
+        <div class="field"><label>Database</label><input value="GROWTH_PROD"></div>
+        <div class="field"><label>Warehouse</label><input value="ANALYTICS_WH"></div>
+      </div>
+      <div class="field"><label>Authentication</label><input value="••••••••  access token" type="password"></div>
+    </div>
+    <div class="cfg-actions">
+      <button class="btn btn-secondary" onclick="backToGrid()">Back</button>
+      <button class="btn btn-primary" id="cfgConnect">Connect &amp; build →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var STEPS=6, cur=0;
+  var dots=document.getElementById('dots');
+  for(var i=0;i<STEPS;i++){var d=document.createElement('span');d.className='sd';dots.appendChild(d);}
+  function paintDots(){[].forEach.call(dots.children,function(c,i){c.classList.toggle('on',i<=cur);});}
+  window.go=function(step){
+    cur=step;
+    [].forEach.call(document.querySelectorAll('.stage'),function(s){s.classList.toggle('active',+s.dataset.step===step);});
+    paintDots(); window.scrollTo(0,0);
+  };
+  paintDots();
+
+  window.fillPrompt=function(el){document.getElementById('goalInput').value=el.textContent;};
+
+  window.openModal=function(){document.getElementById('overlay').classList.add('open');document.getElementById('modalConn').style.display='';document.getElementById('modalCfg').style.display='none';};
+  window.closeModal=function(){document.getElementById('overlay').classList.remove('open');};
+  window.backToGrid=function(){document.getElementById('modalConn').style.display='';document.getElementById('modalCfg').style.display='none';};
+
+  var connectors=[
+    ['Snowflake','#5EA8FF'],['BigQuery','#E89B1A'],['Databricks','#D4537E'],
+    ['Redshift','#6268FF'],['Postgres','#5EA8FF'],['MySQL','#E89B1A'],
+    ['Segment','#2A9D55'],['Shopify','#2A9D55'],['Salesforce','#5EA8FF'],
+    ['Braze','#8E61F2'],['Klaviyo','#2A9D55'],['Amplitude','#6268FF']
+  ];
+  var cg=document.getElementById('connGrid');
+  connectors.forEach(function(c){
+    var t=document.createElement('div');t.className='conn-tile';
+    t.innerHTML='<span class="cdot" style="background:'+c[1]+'">'+c[0][0]+'</span>'+c[0];
+    t.onclick=function(){
+      document.getElementById('cfgTitle').textContent='Connect '+c[0];
+      document.getElementById('modalConn').style.display='none';
+      document.getElementById('modalCfg').style.display='';
+      document.getElementById('cfgConnect').onclick=function(){closeModal();startBuild('connector',c[0]);};
+    };
+    cg.appendChild(t);
+  });
+
+  window.uploadFile=function(){
+    var t=document.getElementById('uploadTile');
+    t.querySelector('.tt').textContent='customers.csv';
+    t.querySelector('.ts').textContent='84,210 rows · uploaded';
+    t.style.borderStyle='solid'; t.style.borderColor='var(--green-300)';
+    setTimeout(function(){startBuild('file');},650);
+  };
+
+  /* ---- the working build sequence ---- */
+  var BUILD_STEPS=[
+    ['Read customer + order data','84,210 rows'],
+    ['Found 6 segments','by value · recency'],
+    ['Mapped 2 problems → 4 goals','—'],
+    ['Creating agents','one per cohort'],
+    ['Building workflows','channel · offer · timing'],
+    ['Launching across 5 stages','always-on']
+  ];
+
+  window.startBuild=function(source, name){
+    document.getElementById('srcLabel').textContent =
+      source==='file' ? 'customers.csv · 84,210 rows' :
+      source==='connector' ? (name+' · connected') : 'Sample customer data';
+    // reset to the problem-pick state
+    built=false;
+    document.getElementById('problemPick').style.display='';
+    document.getElementById('goalBubble').style.display='none';
+    document.getElementById('buildSteps').innerHTML='';
+    document.getElementById('agentCount').textContent='0';
+    document.getElementById('agentLbl').textContent='agents created';
+    var st=document.getElementById('buildStatus'), tx=document.getElementById('statusText');
+    st.classList.remove('live'); tx.textContent='Pick a problem';
+    document.getElementById('doneBar').classList.remove('show');
+    go(5);
+  };
+  window.chooseProblem=function(goalText, shortLabel){
+    chosenLabel = shortLabel || goalText;
+    var gb=document.getElementById('goalBubble');
+    gb.textContent=goalText+'.'; gb.style.display='';
+    document.getElementById('problemPick').style.display='none';
+    document.getElementById('statusText').textContent='Spawning agents…';
+    document.getElementById('agentLbl').textContent='agents spawning';
+    runBuild();
+  };
+
+  var built=false;
+  var chosenLabel='';
+  function runBuild(){
+    if(built) return; built=true;
+    var box=document.getElementById('buildSteps');
+    BUILD_STEPS.forEach(function(s,i){
+      var el=document.createElement('div');el.className='bstep';
+      el.innerHTML='<span class="tick"><svg width="9" height="9" fill="none" stroke-width="2.5"><path d="M1 4.5L3.5 7L8 1.5"/></svg></span><span>'+s[0]+'</span><span class="sp">'+s[1]+'</span>';
+      box.appendChild(el);
+    });
+    var steps=box.querySelectorAll('.bstep');
+    buildCanvas();
+    if(reduce){
+      steps.forEach(function(s){s.classList.add('show','done');});
+      revealAll(); document.getElementById('agentCount').textContent='24'; finish(); return;
+    }
+    steps.forEach(function(s,i){
+      setTimeout(function(){s.classList.add('show');},250+i*150);
+      setTimeout(function(){s.classList.add('done');},250+i*150+700);
+    });
+    // reveal canvas nodes in sync
+    var order=['n-data','e1','n-seg1','n-seg2','n-seg3','e2','n-agents'];
+    order.forEach(function(id,i){ setTimeout(function(){var n=document.getElementById(id); if(n)n.classList.add('show');}, 700+i*260); });
+    // count agents while "creating agents" runs
+    setTimeout(function(){
+      var c=0,T=24,iv=setInterval(function(){c+=5; if(c>=T){c=T;clearInterval(iv);} document.getElementById('agentCount').textContent=c;},26);
+    }, 1500);
+    setTimeout(finish, 700+order.length*260+500);
+  }
+  function revealAll(){['n-data','e1','n-seg1','n-seg2','n-seg3','e2','n-agents'].forEach(function(id){var n=document.getElementById(id);if(n)n.classList.add('show');});}
+  function finish(){
+    var st=document.getElementById('buildStatus'), tx=document.getElementById('statusText');
+    st.classList.add('live'); tx.textContent='Live';
+    document.getElementById('agentLbl').textContent='agents created';
+    document.getElementById('doneSub').textContent='Agents spawned and always on. Open your workspace to watch them set up.';
+    var url='app.html?spawn=1&goal='+encodeURIComponent(chosenLabel)+'#agents';
+    var btn=document.getElementById('seeAgents'); if(btn) btn.href=url;
+    document.getElementById('doneBar').classList.add('show');
+    // no auto-redirect — the user moves on by clicking the CTA
+  }
+
+  function buildCanvas(){
+    var svg=document.getElementById('wcanvas'); svg.innerHTML=''; svg.setAttribute('viewBox','0 0 600 360');
+    var ns='http://www.w3.org/2000/svg';
+    function edgeGroup(id,paths){
+      var g=document.createElementNS(ns,'g'); g.setAttribute('id',id); g.setAttribute('class','wedge');
+      paths.forEach(function(d){var p=document.createElementNS(ns,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#6268FF');p.setAttribute('stroke-width','1.1');g.appendChild(p);});
+      svg.appendChild(g);
+    }
+    function node(id,x,y,w,h,fill,title,sub,dark){
+      var g=document.createElementNS(ns,'g'); g.setAttribute('id',id); g.setAttribute('class','wnode');
+      var r=document.createElementNS(ns,'rect'); r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',w);r.setAttribute('height',h);r.setAttribute('rx',9);
+      r.setAttribute('fill',fill);r.setAttribute('stroke',dark?'#8E97FF':'#2A3654');r.setAttribute('stroke-width','0.5');g.appendChild(r);
+      var t=document.createElementNS(ns,'text');t.setAttribute('x',x+13);t.setAttribute('y',y+(sub?21:h/2+5));t.setAttribute('fill',dark?'#0A0F1A':'#F4F6FA');t.setAttribute('style','font-family:var(--sans);font-size:13px;font-weight:500');t.textContent=title;g.appendChild(t);
+      if(sub){var s=document.createElementNS(ns,'text');s.setAttribute('x',x+13);s.setAttribute('y',y+38);s.setAttribute('fill',dark?'rgba(10,15,26,.65)':'#94A0B4');s.setAttribute('style','font-family:var(--mono);font-size:10px');s.textContent=sub;g.appendChild(s);}
+      svg.appendChild(g);
+    }
+    /* edges behind nodes */
+    edgeGroup('e1',[
+      'M134 180 C172 180,172 74,202 74',
+      'M134 180 C172 180,172 180,202 180',
+      'M134 180 C172 180,172 286,202 286']);
+    edgeGroup('e2',[
+      'M360 74 C400 74,400 180,430 180',
+      'M360 180 C400 180,400 180,430 180',
+      'M360 286 C400 286,400 180,430 180']);
+    /* nodes */
+    node('n-data',14,156,120,48,'#182135','customers.csv','84,210 rows');
+    node('n-seg1',202,54,158,40,'#1F2A55','New · VIP','high-value');
+    node('n-seg2',202,160,158,40,'#1F2A55','Active · Near-tier','convert / retain');
+    node('n-seg3',202,266,158,40,'#1F2A55','Lapsed · At-risk','reengage / win back');
+    node('n-agents',430,150,156,60,'#6268FF','24 agents','always-on · per cohort',true);
+  }
+})();
+</script>
+</body>
+</html>

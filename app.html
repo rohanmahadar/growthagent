@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aiRA · AI Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- TOP BAR -->
+  <header class="app-top">
+    <div class="brand">
+      <span class="clogo">C</span><span class="cw">capillary</span>
+    </div>
+    <span class="aira-badge">AIRA</span>
+    <div class="ctx">
+      <span class="ws"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-5-3 5 3 5-10-5z"/></svg> Airlines</span>
+      <span>AI Workspace</span>
+    </div>
+    <span class="grow"></span>
+    <div class="search">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="7.5" r="5"/><path d="M11 11l4 4"/></svg>
+      <input placeholder="Search playbooks, agents, workflows…">
+    </div>
+    <button class="iconbtn" aria-label="Ask aiRA" title="Ask aiRA" onclick="location.href='ask.html'"><svg width="20" height="20" fill="currentColor"><path d="M4 3h12a1 1 0 011 1v8a1 1 0 01-1 1H7l-4 3V4a1 1 0 011-1z"/></svg></button>
+    <button class="iconbtn" aria-label="Notifications"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2.5a5 5 0 015 5v3l1.5 2.5h-13L5 10.5v-3a5 5 0 015-5zM8 16a2 2 0 004 0"/></svg></button>
+    <button class="iconbtn" aria-label="Help"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M8 8a2 2 0 113 1.7c-.6.4-1 .8-1 1.8M10 14.2v.1"/></svg></button>
+    <span class="avatar">MA</span>
+  </header>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <aside class="app-side">
+      <div class="nav-item" onclick="location.href='ask.html'"><span class="ni-ic"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3h12a1 1 0 011 1v8a1 1 0 01-1 1H7l-4 3V4a1 1 0 011-1z"/></svg></span> Ask aiRA</div>
+      <div class="side-div"></div>
+      <div class="side-sec">Build</div>
+      <div class="nav-item" data-view="playbooks"><span class="ni-ic" id="ic-playbooks"></span> Playbooks <span class="ct">10</span></div>
+      <div class="nav-item" data-view="agents"><span class="ni-ic" id="ic-agents"></span> Agents <span class="ct">4</span></div>
+      <div class="nav-item" data-view="workflows"><span class="ni-ic" id="ic-workflows"></span> Workflows <span class="ct">2</span></div>
+      <div class="side-div"></div>
+      <div class="side-sec">Workspace</div>
+      <div class="nav-item" data-view="insights"><span class="ni-ic" id="ic-insights"></span> Insights</div>
+      <div class="nav-item" data-view="settings"><span class="ni-ic" id="ic-settings"></span> Settings</div>
+      <div class="tip">
+        <div class="th"><svg width="15" height="15" fill="#5660F0"><path d="M7.5 0l1.6 4.4L13.5 6 9.1 7.6 7.5 12 5.9 7.6 1.5 6l4.4-1.6z"/></svg> AIRA tip</div>
+        <p>Stack playbooks into an agent, then chain agents into a workflow.</p>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="app-main"><div id="page"></div></main>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var spawnPending=/[?&]spawn=1/.test(location.search);
+  var spawnGoal=(function(){var m=/[?&]goal=([^&#]+)/.exec(location.search);return m?decodeURIComponent(m[1]):'';})();
+  /* ---------------- icon library ---------------- */
+  var I={
+    layers:'<path d="M10 2l8 4-8 4-8-4 8-4z"/><path d="M2 10l8 4 8-4M2 14l8 4 8-4"/>',
+    robot:'<rect x="4" y="6" width="12" height="9" rx="2"/><path d="M10 3v3M7 10v1M13 10v1M2 9v3M18 9v3"/>',
+    branch:'<circle cx="5" cy="5" r="2"/><circle cx="5" cy="15" r="2"/><circle cx="15" cy="10" r="2"/><path d="M5 7v6M7 5h4a2 2 0 012 2v1"/>',
+    chartline:'<path d="M3 14l4-5 3 3 5-7"/><path d="M2 17h16"/>',
+    gear:'<circle cx="10" cy="10" r="2.6"/><path d="M10 1.6v2.2M10 16.2v2.2M2.8 10H.6M19.4 10h-2.2M4.6 4.6l1.6 1.6M13.8 13.8l1.6 1.6M15.4 4.6l-1.6 1.6M6.2 13.8l-1.6 1.6"/>',
+    users:'<circle cx="7" cy="6" r="2.6"/><path d="M2.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/><circle cx="14" cy="6.5" r="2.1"/><path d="M13 12.2c2.2 0 4 1.3 4 3.8"/>',
+    chat:'<path d="M3 4h14a1 1 0 011 1v8a1 1 0 01-1 1H8l-4 3V5a1 1 0 011-1z"/>',
+    activity:'<path d="M2 10h3l2 6 4-13 2 7h5"/>',
+    gift:'<rect x="2.5" y="8" width="15" height="9" rx="1"/><path d="M2.5 11h15M10 8v9M10 8S8 3.5 6 5s2 3 4 3 6 0 4-3-4 3-4 3"/>',
+    star:'<path d="M10 2l2.4 5 5.6.8-4 4 1 5.5L10 14.8 4.9 17.3l1-5.5-4-4 5.6-.8z"/>',
+    send:'<path d="M18 2L9 11M18 2l-6 16-3-7-7-3 16-6z"/>',
+    shield:'<path d="M10 2l7 3v5c0 5-3.5 7.5-7 8.5C6.5 17.5 3 15 3 10V5l7-3z"/>',
+    play:'<path d="M5 3l11 7-11 7V3z"/>',
+    plus:'<path d="M10 3v14M3 10h14"/>'
+  };
+  function svg(name,size){return '<svg width="'+(size||20)+'" height="'+(size||20)+'" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 20 20">'+(I[name]||'')+'</svg>';}
+  function svgf(name,size){return '<svg width="'+(size||16)+'" height="'+(size||16)+'" fill="currentColor" viewBox="0 0 20 20">'+(I[name]||'')+'</svg>';}
+  document.getElementById('ic-playbooks').innerHTML=svg('layers');
+  document.getElementById('ic-agents').innerHTML=svg('robot');
+  document.getElementById('ic-workflows').innerHTML=svg('branch');
+  document.getElementById('ic-insights').innerHTML=svg('chartline');
+  document.getElementById('ic-settings').innerHTML=svg('gear');
+
+  /* ---------------- data ---------------- */
+  var playbooks=[
+    {id:'pb1',name:'Flyer segmentation',cat:'Analyze',icon:'users',desc:'Group members by tier, route mix, and flight frequency.',used:'Used in 3 agents',steps:['Pull member + flight history','Cluster by tier & route mix','Score flight frequency','Output named segments']},
+    {id:'pb2',name:'Analyze flyer sentiment',cat:'Analyze',icon:'chat',desc:'Read NPS, complaints, and post-trip feedback.',used:'Used in 1 agent',steps:['Ingest NPS & feedback','Classify sentiment & themes','Flag at-risk members','Summarize drivers']},
+    {id:'pb3',name:'Predict lapse risk',cat:'Predict',icon:'activity',desc:'Score each member\u2019s likelihood to stop flying in 90 days.',used:'Used in 2 agents',steps:['Assemble recency & frequency features','Run lapse model','Assign risk tier','Write scores back']},
+    {id:'pb4',name:'Predict flyer value',cat:'Predict',icon:'chartline',desc:'Forecast forward miles and ticket spend per member.',used:'Used in 1 agent',steps:['Build spend history','Forecast forward value','Bucket by value tier']},
+    {id:'pb5',name:'Generate mileage offer',cat:'Decide',icon:'gift',desc:'Pick bonus miles, lounge, or upgrade within cost guardrails.',used:'Used in 3 agents',steps:['Read budget guardrails','Match offer to member','Check cost ceiling','Queue for delivery']},
+    {id:'pb6',name:'Recommend next best action',cat:'Decide',icon:'star',desc:'Choose the highest-impact action per flyer.',used:'Used in 2 agents',steps:['Score candidate actions','Rank by expected lift','Select within guardrails']},
+    {id:'pb7',name:'Launch campaign',cat:'Act',icon:'send',desc:'Deliver across email, app push, and SMS.',used:'Used in 4 agents',steps:['Assemble audience','Render channel creative','Schedule send','Throttle by frequency rules']},
+    {id:'pb8',name:'Trigger journey',cat:'Act',icon:'branch',desc:'Enrol members into a multi-step journey.',used:'Used in 1 agent',steps:['Define entry criteria','Map journey steps','Enrol members']},
+    {id:'pb9',name:'Measure performance',cat:'Observe',icon:'chartline',desc:'Track miles redemption, bookings, and retention.',used:'Used in 4 agents',steps:['Collect outcomes','Attribute to agents','Update dashboards']},
+    {id:'pb10',name:'Detect mileage fraud',cat:'Observe',icon:'shield',desc:'Flag unusual mileage accrual or redemption patterns.',used:'Not yet used',steps:['Baseline normal patterns','Flag anomalies','Open review case']}
+  ];
+  var P={}; playbooks.forEach(function(p){P[p.id]=p;});
+  var agents=[
+    {id:'ag1',name:'Frequent Flyer Retention Agent',status:'live',desc:'Reduce lapse among Gold and Platinum members.',tags:['Flyer segment','Lapse risk','Mileage offer','Campaign','Measure'],runs:'1,284',metric:'+9.6%',metricLbl:'retained',workflow:'Frequent Flyer Retention Workflow',pbIds:['pb1','pb3','pb5','pb7','pb9']},
+    {id:'ag2',name:'Tier Upgrade Agent',status:'live',desc:'Nudge members toward the next status tier.',tags:['Tier analysis','Bonus miles','Milestone nudge'],runs:'842',metric:'+11.3%',metricLbl:'tier-ups',workflow:'\u2014',pbIds:['pb1','pb5','pb6']},
+    {id:'ag3',name:'Win-back Agent',status:'draft',desc:'Reactivate lapsed flyers with targeted fares.',tags:['Lapsed segment','Fare offer','Campaign'],runs:'\u2014',metric:'Not deployed',metricLbl:'status',workflow:'\u2014',pbIds:['pb1','pb5','pb7']},
+    {id:'ag4',name:'Member Onboarding Agent',status:'paused',desc:'Guide new members to their first reward flight.',tags:['Welcome','Recommend','Nudge'],runs:'410',metric:'Paused',metricLbl:'status',workflow:'\u2014',pbIds:['pb6','pb7','pb8']}
+  ];
+  var A={}; agents.forEach(function(a){A[a.id]=a;});
+  var workflows=[
+    {id:'wf1',name:'Frequent Flyer Retention Workflow',status:'live',desc:'Detect, engage, monitor, and optimize lapse risk \u2014 end to end.',stages:['Flyer Retention','Campaign Execution','Performance Monitoring','Optimization'],agents:'4',runs:'320',updated:'4h ago',agentIds:['ag1','ag2','ag4','ag3']},
+    {id:'wf2',name:'Route Launch Workflow',status:'draft',desc:'Coordinate new-route launch comms across member tiers.',stages:['Segment Builder','Campaign Execution','Performance Monitoring'],agents:'3',runs:'\u2014',updated:'2d ago',agentIds:['ag2','ag1','ag4']}
+  ];
+  var W={}; workflows.forEach(function(w){W[w.id]=w;});
+
+  function stPill(s){var lbl=s.charAt(0).toUpperCase()+s.slice(1); if(s==='live')lbl='Live'; if(s==='draft')lbl='Draft'; if(s==='paused')lbl='Paused'; return '<span class="st '+s+'"><i></i>'+lbl+'</span>';}
+
+  /* ---------------- views ---------------- */
+  var page=document.getElementById('page');
+  var agentFilter='all';
+
+  function viewPlaybooks(){
+    var cards=playbooks.map(function(p){
+      return '<div class="card" onclick="AIRA.openPlaybook(\''+p.id+'\')">'+
+        '<div class="card-top"><span class="ic-box">'+svg(p.icon)+'</span><span class="cat">'+p.cat+'</span></div>'+
+        '<h3>'+p.name+'</h3><p class="desc">'+p.desc+'</p>'+
+        '<div class="foot">'+p.used+'</div></div>';
+    }).join('');
+    page.innerHTML='<div class="pg-h"><div><h1>Playbooks</h1><p>The skills your agents draw on — each one does a single job well.</p></div>'+
+      '<button class="gbtn">'+svg('plus',15)+' New playbook</button></div>'+
+      '<div class="grid3">'+cards+'</div>';
+  }
+
+  function viewAgents(){
+    var pills=['all','live','draft','paused'].map(function(f){
+      return '<span class="pill'+(agentFilter===f?' active':'')+'" onclick="AIRA.filterAgents(\''+f+'\')">'+(f==='all'?'All':f.charAt(0).toUpperCase()+f.slice(1))+'</span>';
+    }).join('');
+    var list=agents.filter(function(a){return agentFilter==='all'||a.status===agentFilter;});
+    var cards=list.map(function(a){
+      var tags=a.tags.map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
+      var metricColor = (a.metric.charAt(0)==='+') ? 'delta' : 'lbl';
+      return '<div class="card" onclick="AIRA.openAgent(\''+a.id+'\')">'+
+        '<div class="ag-head"><span class="ag-ic">'+svg('robot',22)+'</span>'+
+        '<div><h3>'+a.name+' '+stPill(a.status)+'</h3><p class="desc">'+a.desc+'</p></div></div>'+
+        '<div class="tags">'+tags+'</div>'+
+        '<div class="statrow"><div><div class="big">'+a.runs+'</div><div class="lbl">runs</div></div>'+
+        '<div><div class="'+metricColor+'" style="font-size:'+(metricColor==='delta'?'20px':'15px')+';font-weight:600">'+a.metric+'</div><div class="lbl">'+a.metricLbl+'</div></div>'+
+        '<div class="spacer"></div><button class="obtn" onclick="event.stopPropagation();AIRA.openAgent(\''+a.id+'\')">'+svgf('play',12)+' View runs</button></div></div>';
+    }).join('');
+    page.innerHTML='<div class="pg-h"><div><h1>Agents</h1><p>AI workers that combine playbooks to pursue a single business goal.</p></div>'+
+      '<button class="gbtn">'+svg('plus',15)+' Create agent</button></div>'+
+      '<div id="spawnBanner"></div>'+
+      '<div class="pills">'+pills+'</div><div class="grid2">'+cards+'</div>';
+    if(spawnPending) runSpawn();
+  }
+
+  function runSpawn(){
+    spawnPending=false;
+    try{ history.replaceState(null,'',location.pathname+'#agents'); }catch(e){}
+    var banner=document.getElementById('spawnBanner'); if(!banner) return;
+    var cards=page.querySelectorAll('.grid2 .card'); var n=cards.length;
+    var goalTxt=spawnGoal? (' for \u201C'+spawnGoal+'\u201D') : '';
+    banner.innerHTML='<div class="spawn-banner"><span class="spawn-spinner"></span><span>Setting up your agents'+goalTxt+'\u2026</span></div>';
+    var bn=banner.querySelector('.spawn-banner');
+    function done(){
+      bn.className='spawn-banner done';
+      bn.innerHTML='<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 16 16"><path d="M2 8.5L6 12l8-9"/></svg><span>'+n+' agents set up and running.</span>';
+      setTimeout(function(){bn.style.opacity='0';setTimeout(function(){if(banner)banner.innerHTML='';},520);},2000);
+    }
+    if(reduceMotion){ cards.forEach(function(c){c.classList.add('spawned');}); done(); return; }
+    cards.forEach(function(c){c.classList.add('spawning');});
+    cards.forEach(function(c,i){ setTimeout(function(){c.classList.add('spawned');}, 200+i*200); });
+    setTimeout(done, 200+n*200+450);
+  }
+
+  function viewWorkflows(){
+    var cards=workflows.map(function(w){
+      var tags=w.stages.map(function(s){return '<span class="tag">'+svgf('robot',13)+s+'</span>';}).join('');
+      return '<div class="card" onclick="AIRA.openWorkflow(\''+w.id+'\')">'+
+        '<div class="ag-head"><span class="ag-ic">'+svg('branch',22)+'</span>'+
+        '<div><h3>'+w.name+' '+stPill(w.status)+'</h3><p class="desc">'+w.desc+'</p></div></div>'+
+        '<div class="tags">'+tags+'</div>'+
+        '<div class="statrow"><div><div class="big">'+w.agents+'</div><div class="lbl">agents</div></div>'+
+        '<div><div class="big">'+w.runs+'</div><div class="lbl">runs</div></div>'+
+        '<div><div class="big" style="font-size:15px">'+w.updated+'</div><div class="lbl">updated</div></div></div></div>';
+    }).join('');
+    page.innerHTML='<div class="pg-h"><div><h1>Workflows</h1><p>Coordinate multiple agents into one end-to-end business process.</p></div>'+
+      '<button class="gbtn">'+svg('plus',15)+' Create workflow</button></div>'+
+      '<div class="grid2">'+cards+'</div>';
+  }
+
+  function viewPlaceholder(title,sub){
+    page.innerHTML='<div class="pg-h"><div><h1>'+title+'</h1><p>'+sub+'</p></div></div>'+
+      '<div class="card" style="cursor:default;text-align:center;padding:60px 20px;color:var(--ink-3)">Coming soon in this demo.</div>';
+  }
+
+  var views={playbooks:viewPlaybooks,agents:viewAgents,workflows:viewWorkflows,
+    insights:function(){viewPlaceholder('Insights','Program performance across every agent and workflow.');},
+    settings:function(){viewPlaceholder('Settings','Workspace, data sources, and guardrails.');}};
+
+  function setView(v){
+    if(location.hash.slice(1)!==v){ history.replaceState(null,'','#'+v); }
+    [].forEach.call(document.querySelectorAll('.nav-item'),function(n){n.classList.toggle('active',n.dataset.view===v);});
+    (views[v]||viewAgents)();
+  }
+  [].forEach.call(document.querySelectorAll('.nav-item'),function(n){n.addEventListener('click',function(){setView(n.dataset.view);});});
+
+  /* ---------------- drawer ---------------- */
+  var drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
+  function openDrawer(html){drawer.innerHTML=html;drawer.classList.add('open');scrim.classList.add('open');}
+  function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('open');}
+  window.closeDrawer=closeDrawer;
+
+  function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},1900);}
+
+  function openPlaybook(id){
+    var p=P[id]; if(!p)return;
+    var opts=['Analyze','Predict','Decide','Act','Observe'].map(function(c){return '<option'+(c===p.cat?' selected':'')+'>'+c+'</option>';}).join('');
+    var steps=p.steps.map(function(s,i){return '<div class="step-row"><span class="num">'+(i+1)+'</span><span>'+s+'</span><span class="gr">'+svg('layers',15)+'</span></div>';}).join('');
+    openDrawer(
+      '<div class="dr-h"><span class="ic-box">'+svg(p.icon)+'</span><div><h2>'+p.name+'</h2><div class="desc">Playbook · '+p.cat+' · '+p.used+'</div></div><span class="x" onclick="closeDrawer()">'+svg('plus',20).replace('viewBox="0 0 20 20"','viewBox="0 0 20 20" style="transform:rotate(45deg)"')+'</span></div>'+
+      '<div class="dr-body">'+
+        '<div class="fld"><label>Playbook name</label><input value="'+p.name.replace(/"/g,'&quot;')+'"></div>'+
+        '<div class="fld"><label>Category</label><select>'+opts+'</select></div>'+
+        '<div class="fld"><label>What it does</label><textarea>'+p.desc+'</textarea></div>'+
+        '<div class="section-title">Steps</div><div class="steplist">'+steps+'</div>'+
+        '<div style="margin-top:12px"><button class="obtn" onclick="AIRA.toast(\'Step added\')">'+svg('plus',14)+' Add step</button></div>'+
+      '</div>'+
+      '<div class="dr-foot"><button class="obtn" onclick="closeDrawer()">Cancel</button><button class="gbtn" onclick="AIRA.savePlaybook()">Save playbook</button></div>'
+    );
+  }
+  function savePlaybook(){closeDrawer();toast('Playbook saved');}
+
+  function openAgent(id){
+    var a=A[id]; if(!a)return;
+    var pbRows=a.pbIds.map(function(pid){var p=P[pid];return '<div class="step-row" style="cursor:pointer" onclick="AIRA.openPlaybook(\''+pid+'\')"><span class="num" style="background:var(--surface-2);color:var(--ink-2)">'+svg(p.icon,13)+'</span><span>'+p.name+'</span><span class="gr" style="font-size:11px;color:var(--ink-3)">'+p.cat+' ›</span></div>';}).join('');
+    var wfRow = a.workflow==='\u2014' ? '<div class="kv"><span class="k">In workflow</span><span class="v" style="color:var(--ink-3)">Not in a workflow</span></div>'
+      : '<div class="kv"><span class="k">In workflow</span><span class="v" style="color:var(--indigo-d);cursor:pointer" onclick="AIRA.openWorkflowByName(\''+a.workflow.replace(/'/g,"")+'\')">'+a.workflow+' ›</span></div>';
+    openDrawer(
+      '<div class="dr-h"><span class="ic-box">'+svg('robot',22)+'</span><div><h2>'+a.name+'</h2><div class="desc" style="margin-top:6px">'+stPill(a.status)+'</div></div><span class="x" onclick="closeDrawer()">'+xicon()+'</span></div>'+
+      '<div class="dr-body">'+
+        '<p style="margin:0 0 18px;color:var(--ink-2)">'+a.desc+'</p>'+
+        '<div class="kv"><span class="k">Runs</span><span class="v">'+a.runs+'</span></div>'+
+        '<div class="kv"><span class="k">'+a.metricLbl.charAt(0).toUpperCase()+a.metricLbl.slice(1)+'</span><span class="v" style="color:'+(a.metric.charAt(0)==='+'?'var(--green-d)':'var(--ink)')+'">'+a.metric+'</span></div>'+
+        wfRow+
+        '<div class="section-title" style="margin-top:22px">Playbooks this agent uses</div><div class="steplist">'+pbRows+'</div>'+
+        '<div style="margin-top:10px;font-size:12px;color:var(--ink-3)">Open any playbook to amend its steps — changes apply everywhere the agent runs it.</div>'+
+      '</div>'+
+      '<div class="dr-foot"><button class="obtn" onclick="closeDrawer()">Close</button><button class="gbtn" onclick="AIRA.toast(\'Opening run history…\')">'+svgf('play',12)+' View runs</button></div>'
+    );
+  }
+
+  function openWorkflow(id){
+    var w=W[id]; if(!w)return;
+    var chain=w.agentIds.map(function(aid,i){var a=A[aid];
+      return (i?'<div class="cdn"></div>':'')+'<div class="cn" style="cursor:pointer" onclick="AIRA.openAgent(\''+aid+'\')"><span class="cic">'+svg('robot',16)+'</span><div><b>'+a.name+'</b><span>'+stPillText(a.status)+' · '+a.desc+'</span></div></div>';
+    }).join('');
+    openDrawer(
+      '<div class="dr-h"><span class="ic-box">'+svg('branch',22)+'</span><div><h2>'+w.name+'</h2><div class="desc" style="margin-top:6px">'+stPill(w.status)+'</div></div><span class="x" onclick="closeDrawer()">'+xicon()+'</span></div>'+
+      '<div class="dr-body">'+
+        '<p style="margin:0 0 18px;color:var(--ink-2)">'+w.desc+'</p>'+
+        '<div class="kv"><span class="k">Agents</span><span class="v">'+w.agents+'</span></div>'+
+        '<div class="kv"><span class="k">Runs</span><span class="v">'+w.runs+'</span></div>'+
+        '<div class="kv"><span class="k">Updated</span><span class="v">'+w.updated+'</span></div>'+
+        '<div class="section-title" style="margin-top:22px">Agent chain</div><div class="chain">'+chain+'</div>'+
+        '<div style="margin-top:10px;font-size:12px;color:var(--ink-3)">Open any agent to see — and amend — the playbooks it runs.</div>'+
+      '</div>'+
+      '<div class="dr-foot"><button class="obtn" onclick="closeDrawer()">Close</button><button class="gbtn" onclick="AIRA.toast(\'Workflow saved\')">Save workflow</button></div>'
+    );
+  }
+  function openWorkflowByName(n){var w=workflows.filter(function(x){return x.name.indexOf(n.split(' ')[0])===0;})[0]||workflows[0];openWorkflow(w.id);}
+  function stPillText(s){return s==='live'?'Live':s==='draft'?'Draft':'Paused';}
+  function xicon(){return '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5l10 10M15 5L5 15"/></svg>';}
+
+  function filterAgents(f){agentFilter=f;viewAgents();}
+
+  window.AIRA={openPlaybook:openPlaybook,savePlaybook:savePlaybook,openAgent:openAgent,openWorkflow:openWorkflow,openWorkflowByName:openWorkflowByName,filterAgents:filterAgents,toast:toast};
+
+  /* default view from hash, else Agents (the agent dashboard) */
+  var valid={playbooks:1,agents:1,workflows:1,insights:1,settings:1};
+  var initial=(location.hash||'').slice(1);
+  setView(valid[initial]?initial:'agents');
+  window.addEventListener('hashchange',function(){var h=location.hash.slice(1); if(valid[h])setView(h);});
+})();
+</script>
+</body>
+</html>

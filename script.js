@@ -33,7 +33,7 @@
     });
   }
 
-  /* ---- hero: journey count-up (bloom is CSS-only) ---- */
+  /* ---- hero: agent count-up (bloom is CSS-only) ---- */
   var counterEl = document.getElementById('jcount');
   if (counterEl) {
     var TARGET = 247;
