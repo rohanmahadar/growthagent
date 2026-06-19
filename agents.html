@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agents — Deploy hundreds of always-on growth agents with aiRA</title><meta name="description" content="aiRA breaks one goal into hundreds of always-on agents, each with its own audience, offer, channel, and timing — then optimizes every one autonomously.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E97FF"/><stop offset="1" stop-color="#5EA8FF"/></linearGradient>
+<symbol id="aira-mark" viewBox="0 0 24 24"><g fill="url(#aira-grad)">
+<path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+<path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+<path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+</g></symbol></defs></svg><div class="aura"></div><nav class="nav"><div class="wrap row">
+<a class="lockup" href="index.html" aria-label="aiRA home"><svg class="mark"><use href="#aira-mark"/></svg><span class="word">aiRA</span></a>
+<div class="links">
+<a href="platform.html">Platform</a>
+<a href="agents.html" style="color:var(--text-primary)">Agents</a>
+<a href="acquire.html">Acquire</a>
+<a href="convert.html">Convert</a>
+<a href="retain.html">Retain</a>
+</div>
+<div class="spacer"></div>
+<div class="nav-cta">
+<a class="btn btn-secondary" href="#demo">Book a demo</a>
+<a class="btn btn-primary" href="#start">Get started</a>
+<button class="btn btn-ghost menu-btn" aria-label="Menu"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+</div></div></nav>
+<header class="hero"><div class="wrap phero">
+<span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> The signature move</span>
+<h1>One goal in.<br><span class="grad-text">Hundreds of agents out.</span></h1>
+<p class="lede">A campaign treats a whole segment the same. An agent treats one slice perfectly — always on. aiRA spawns hundreds at once, each with its own audience, offer, channel, and timing, and tunes them while they run.</p>
+<div class="hero-cta" style="margin-top:24px"><a class="btn btn-primary lg" href="#start">Get started</a><a class="btn btn-secondary lg" href="#how">How it works ↓</a></div>
+</div></header>
+
+<section class="sec-tight"><div class="wrap">
+<div class="sec-head left reveal" style="max-width:640px; margin-bottom:24px">
+<span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> The workforce</span>
+<h2 class="h3" style="margin-top:12px; font-size:20px">248 agents on shift right now</h2>
+<p class="muted" style="font-size:14px; margin-top:6px">Each agent owns a segment, works a channel, and reports its own lift. Here's a live slice of the fleet.</p>
+</div>
+<div class="ab-board reveal" id="abBoard"></div>
+<div class="ab-foot muted">+ 236 more agents on shift</div>
+</div></section>
+
+<section class="sec-tight" style="padding-top:8px"><div class="wrap">
+<div class="sec-head left reveal" style="max-width:640px; margin-bottom:20px">
+<span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Coverage</span>
+<h2 class="h3" style="margin-top:12px; font-size:20px">One cohort per segment, per stage</h2>
+<p class="muted" style="font-size:14px; margin-top:6px">Every segment crossed with every lifecycle stage gets its own agents — color shows how hard each cohort is lifting.</p>
+</div>
+<div class="feature-panel reveal"><div class="inner" style="padding:24px">
+<div class="cm-grid" id="cm-grid"></div>
+<div class="cm-legend" style="margin-top:14px"><span>lift per cohort</span><span class="cm-ramp"><i></i><i></i><i></i><i></i><i></i></span><span class="muted">low → high</span></div>
+</div></div>
+</div></section>
+
+<section class="sec-tight" style="padding-top:0"><div class="wrap">
+<div class="sec-head left reveal" style="margin-bottom:24px; max-width:640px">
+<span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Every dot is an agent</span>
+<h2 class="h3" style="margin-top:12px; font-size:20px">A sample of the workforce</h2>
+<p class="muted" style="font-size:14px; margin-top:6px">A handful of the agents aiRA deployed from one goal: reactivate lapsed Gold — each its own segment, channel, and offer.</p>
+</div>
+<div class="swarm reveal">
+<div class="jrny"><div class="id">AG-1042</div><div class="nm">Win-back · high value</div><span class="ch" style="background:var(--ch-whatsapp)"></span></div>
+<div class="jrny"><div class="id">AG-1043</div><div class="nm">Win-back · price-sensitive</div><span class="ch" style="background:var(--ch-email)"></span></div>
+<div class="jrny"><div class="id">AG-1044</div><div class="nm">Reorder · consumables</div><span class="ch" style="background:var(--ch-push)"></span></div>
+<div class="jrny"><div class="id">AG-1045</div><div class="nm">Tier nudge · near gold</div><span class="ch" style="background:var(--ch-inapp)"></span></div>
+<div class="jrny"><div class="id">AG-1046</div><div class="nm">VIP concierge · top 1%</div><span class="ch" style="background:var(--ch-whatsapp)"></span></div>
+<div class="jrny"><div class="id">AG-1047</div><div class="nm">Wishlist price-drop</div><span class="ch" style="background:var(--ch-email)"></span></div>
+<div class="jrny"><div class="id">AG-1048</div><div class="nm">Dormant 60d · app-active</div><span class="ch" style="background:var(--ch-push)"></span></div>
+<div class="jrny"><div class="id">AG-1049</div><div class="nm">Cross-sell · accessories</div><span class="ch" style="background:var(--ch-sms)"></span></div>
+<div class="jrny" style="border-style:dashed; color:var(--text-tertiary)"><div class="id">+239</div><div class="nm">more spawned</div><span class="ch" style="background:var(--text-tertiary)"></span></div>
+</div>
+</div></section>
+
+<section class="sec" id="how"><div class="wrap">
+<div class="sec-head center reveal"><span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> How an agent is born</span><h2 class="h2" style="margin-top:14px">From prompt to hundreds of live agents</h2></div>
+<div class="loop reveal">
+<div class="loop-stage"><div class="num">01</div><h3>Slice</h3><p>aiRA splits the goal's audience into narrow micro-segments by value, recency, and behavior.</p><svg class="arrow" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 10h10M11 6l4 4-4 4"/></svg></div>
+<div class="loop-stage"><div class="num">02</div><h3>Match</h3><p>Each slice gets the offer, channel, and message most likely to move it.</p><svg class="arrow" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 10h10M11 6l4 4-4 4"/></svg></div>
+<div class="loop-stage"><div class="num">03</div><h3>Spawn</h3><p>Hundreds of agents launch and schedule themselves at once, within your rules.</p><svg class="arrow" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 10h10M11 6l4 4-4 4"/></svg></div>
+<div class="loop-stage"><div class="num">04</div><h3>Tune</h3><p>Live results feed back; aiRA reallocates and rewrites weak agents.</p><svg class="arrow" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 10h10M11 6l4 4-4 4"/></svg></div>
+<div class="loop-stage"><div class="num">05</div><h3>Retire</h3><p>Spent or underperforming agents auto-pause so budget follows what works.</p></div>
+</div>
+</div></section>
+
+<section class="sec" style="background:var(--bg-sunken); border-block:1px solid var(--border-subtle)"><div class="wrap split">
+<div class="copy reveal">
+<span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Autonomous campaigns</span>
+<h2 class="h2" style="margin:14px 0 16px">Campaigns that brief,<br>build, and tune themselves</h2>
+<p class="lede">You don't write a brief per agent. You set the outcome and the guardrails; aiRA handles the hundreds of decisions underneath — and shows its work for every one.</p>
+<div class="chips">
+<span class="chip"><span class="cdot" style="background:var(--ch-whatsapp)"></span>WhatsApp</span>
+<span class="chip"><span class="cdot" style="background:var(--ch-push)"></span>Push</span>
+<span class="chip"><span class="cdot" style="background:var(--ch-email)"></span>Email</span>
+<span class="chip"><span class="cdot" style="background:var(--ch-inapp)"></span>In-app</span>
+<span class="chip"><span class="cdot" style="background:var(--ch-sms)"></span>SMS</span>
+<span class="chip"><span class="cdot" style="background:var(--ch-web)"></span>Web</span></div>
+<div class="feat-list" style="margin-top:24px">
+<div class="feat"><div class="fic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 17V8M10 8L5 3M10 8l5-5"/><circle cx="10" cy="18" r="1.4"/></svg></div><div><h3>A/B by default</h3><p>Every agent carries its own variants and learns from them.</p></div></div>
+<div class="feat"><div class="fic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="10" r="8"/><path d="M10 5v5l3 2"/></svg></div><div><h3>Send-time per person</h3><p>Timing is chosen for each member, not a global send hour.</p></div></div>
+</div>
+</div>
+<div class="feature-panel reveal"><div class="inner">
+<div style="font-family:var(--mono); font-size:11px; color:var(--text-tertiary); letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px">optimization · live</div>
+<div class="path">
+<div class="node"><span class="pin" style="background:var(--ch-whatsapp)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l4-5 3 3 4-7 4 6"/><path d="M2 19h17"/></svg></span><div class="t"><b>AG-1042 · win-back high value</b><span>conv. 8.4% → reallocating budget up</span></div><span class="pill" style="color:var(--delta-pos); border-color:var(--delta-pos)">▲ 8.4%</span></div>
+<div class="connector"></div>
+<div class="node"><span class="pin" style="background:var(--ch-email)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l4-5 3 3 4-7 4 6"/><path d="M2 19h17"/></svg></span><div class="t"><b>AG-1057 · generic email blast</b><span>conv. 0.9% → auto-paused</span></div><span class="pill" style="color:var(--delta-neg); border-color:var(--delta-neg)">▼ 0.9%</span></div>
+<div class="connector"></div>
+<div class="node"><span class="pin" style="background:var(--ch-push)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="10" r="8"/><path d="M10 5v5l3 2"/></svg></span><div class="t"><b>AG-1061 · reorder reminder</b><span>send-time shifted to 7:40pm local</span></div><span class="pill">tuned</span></div>
+</div>
+</div></div>
+</div></section>
+
+<section class="sec-tight"><div class="wrap">
+<div class="metrics reveal">
+<div class="metric"><div><span class="v">247</span><span class="d up">●</span></div><div class="k">Agents from one prompt</div></div>
+<div class="metric"><div><span class="v">31%</span><span class="d up">▲</span></div><div class="k">Reactivation lift</div></div>
+<div class="metric"><div><span class="v">9.1%</span><span class="d down">▼</span></div><div class="k">Underperformers auto-paused</div></div>
+<div class="metric"><div><span class="v">4.2×</span><span class="d up">▲</span></div><div class="k">Faster than manual</div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap quote reveal">
+<svg width="32" height="32" style="margin:0 auto 20px"><use href="#aira-mark"/></svg>
+<q>The unlock wasn't a better campaign — it was two hundred of them, each tiny and exactly right, running without us touching them.</q>
+<div class="who"><b>Marcus Sol</b> · Head of CRM, Crescent</div>
+</div></section>
+<section class="sec" id="start"><div class="wrap"><div class="cta-band reveal">
+<span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> Put growth on autopilot</span>
+<h2 class="h2" style="margin:16px 0 10px">Give aiRA a goal.<br>Watch the agents spawn.</h2>
+<p class="lede center" style="margin:0 auto">Start free, or get a guided demo on your own data.</p>
+<div class="btns"><a class="btn btn-primary lg" href="#">Get started free</a><a class="btn btn-secondary lg" href="#" id="demo">Book a demo</a></div>
+</div></div></section>
+<footer class="footer"><div class="wrap"><div class="foot-grid">
+<div class="foot-brand"><a class="lockup" href="index.html"><svg class="mark"><use href="#aira-mark"/></svg><span class="word">aiRA</span></a>
+<p>The Customer Growth Agent. One agent for acquisition, conversion, retention, and win-back.</p></div>
+<div><h4>Platform</h4><a href="platform.html">Overview</a><a href="agents.html">Agents</a><a href="platform.html">Context engine</a><a href="platform.html">Optimization</a></div>
+<div><h4>Solutions</h4><a href="acquire.html">Acquire</a><a href="convert.html">Convert</a><a href="retain.html">Retain &amp; win back</a></div>
+<div><h4>Company</h4><a href="#">Customers</a><a href="#">Pricing</a><a href="#">Careers</a><a href="#">Newsroom</a></div>
+<div><h4>Resources</h4><a href="#">Docs</a><a href="#">Blog</a><a href="#">Trust center</a><a href="#">Status</a></div>
+</div><div class="foot-bottom"><span>© 2026 aiRA · Customer Growth Agent</span><span>Privacy · Terms · Security</span></div>
+</div></footer>
+<script src="script.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* #1 ops board */
+  var board=document.getElementById('abBoard');
+  if(board){
+    var rows=[
+      ['AG-1042','Lapsed Gold','Win back','WhatsApp','#2A9D55','run','+8.4%','retain.html'],
+      ['AG-1043','High-intent cart','Convert','Push','#6268FF','opt','+5.1%','convert.html'],
+      ['AG-1044','New signups','Acquire','Email','#5EA8FF','run','+3.9%','acquire.html'],
+      ['AG-1045','Near-tier','Retain','In-app','#8E61F2','run','+6.7%','retain.html'],
+      ['AG-1046','VIP top 1%','Retain','WhatsApp','#2A9D55','opt','+11.2%','retain.html'],
+      ['AG-1047','Dormant 60d','Reengage','Push','#6268FF','run','+4.4%','retain.html'],
+      ['AG-1048','At-risk churn','Win back','WhatsApp','#2A9D55','run','+9.0%','retain.html'],
+      ['AG-1049','Browse abandon','Convert','Web','#94A0B4','pause','0.0%','convert.html'],
+      ['AG-1050','Reorder due','Retain','SMS','#E89B1A','run','+7.3%','retain.html'],
+      ['AG-1051','Wishlist drop','Reengage','Email','#5EA8FF','opt','+2.8%','retain.html'],
+      ['AG-1052','Trial day-3','Acquire','In-app','#8E61F2','run','+5.5%','acquire.html'],
+      ['AG-1053','Refer advocate','Acquire','WhatsApp','#2A9D55','run','+4.0%','acquire.html']
+    ];
+    var stcol={run:'var(--green-300)',opt:'var(--text-link)',pause:'var(--text-tertiary)'};
+    rows.forEach(function(r){
+      var pos=r[6]!=='0.0%';
+      var t=document.createElement('div'); t.className='ab-tile';
+      t.onclick=function(){location.href=r[7];};
+      t.innerHTML='<div class="top"><span class="aid">'+r[0]+'</span><span class="stt '+(r[5]==='run'?'run':'')+'" style="background:'+stcol[r[5]]+'"></span></div>'+
+        '<div class="seg">'+r[1]+'</div><div class="stg">'+r[2]+'</div>'+
+        '<div class="bot"><span class="chp" style="background:'+r[4]+'22;color:'+r[4]+'">'+r[3]+'</span>'+
+        '<span class="lift" style="color:'+(pos?'var(--green-300)':'var(--text-tertiary)')+'">'+r[6]+'</span></div>';
+      board.appendChild(t);
+    });
+  }
+
+  /* #2 coverage matrix */
+  var grid=document.getElementById('cm-grid');
+  if(grid){
+    var stagesM=[['Acquire','acquire.html'],['Convert','convert.html'],['Retain','retain.html'],['Reengage','retain.html'],['Win back','retain.html']];
+    var segs=['New','Active','VIP','Near-tier','At-risk','Lapsed'];
+    var data=[
+      [12, 9, 4, 3, 2, 4],
+      [ 7,14, 9, 6, 4, 6],
+      [ 4, 9,18,12, 8, 5],
+      [ 3, 6,10, 8,12, 9],
+      [ 4, 5, 7, 9,14,24]
+    ];
+    var max=24;
+    grid.appendChild(Object.assign(document.createElement('div'),{className:'cm-corner'}));
+    stagesM.forEach(function(s){var h=document.createElement('div');h.className='cm-colh';h.textContent=s[0];h.onclick=function(){location.href=s[1];};grid.appendChild(h);});
+    segs.forEach(function(seg,r){
+      var rh=document.createElement('div');rh.className='cm-rowh';rh.textContent=seg;grid.appendChild(rh);
+      stagesM.forEach(function(st,c){
+        var v=data[c][r],a=(0.16+(v/max)*0.84),hot=v>=12,marquee=v>=14;
+        var cell=document.createElement('div');cell.className='cm-cell';
+        cell.style.background='rgba(98,104,255,'+a.toFixed(2)+')';
+        cell.style.color=hot?'#0A0F1A':'var(--text-primary)';
+        cell.innerHTML='<div class="cv">'+v+'</div><div class="ck">agents</div>'+(marquee?'<span class="live"></span>':'');
+        cell.title=v+' '+seg+' agents · '+st[0];
+        cell.onclick=function(){location.href=st[1];};
+        grid.appendChild(cell);
+      });
+    });
+  }
+})();
+</script>
+</body></html>

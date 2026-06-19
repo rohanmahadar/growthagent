@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aiRA — The Customer Growth Agent</title>
+<meta name="description" content="aiRA is the Customer Growth Agent. It acquires, converts, retains, and wins back customers by spawning hundreds of autonomous agents — grounded in your data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- brand mark sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8E97FF"/><stop offset="1" stop-color="#5EA8FF"/>
+    </linearGradient>
+    <symbol id="aira-mark" viewBox="0 0 24 24">
+      <g fill="url(#aira-grad)">
+        <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="aura"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap row">
+    <a class="lockup" href="index.html" aria-label="aiRA home">
+      <svg class="mark"><use href="#aira-mark"/></svg>
+      <span class="word">aiRA</span>
+    </a>
+    <div class="links">
+      <a href="platform.html">Platform</a>
+      <a href="agents.html">Agents</a>
+      <a href="acquire.html">Acquire</a>
+      <a href="convert.html">Convert</a>
+      <a href="retain.html">Retain</a>
+    </div>
+    <div class="spacer"></div>
+    <div class="nav-cta">
+      <a class="btn btn-secondary" href="#demo">Book a demo</a>
+      <a class="btn btn-primary" href="#start">Get started</a>
+      <button class="btn btn-ghost menu-btn" aria-label="Menu">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap center" style="max-width:860px; margin:0 auto">
+    <span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> The Customer Growth Agent</span>
+    <h1 class="display" style="margin:18px 0">Growth that<br><span class="grad-text">runs itself.</span></h1>
+    <p class="lede center" style="margin:0 auto 28px">Tell aiRA the business problem. It stands up hundreds of always-on agents — mapped to your goals, working every segment and stage — and optimizes each one against your real data.</p>
+    <div class="hero-cta" style="justify-content:center">
+      <a class="btn btn-primary lg" href="#start">Get started free</a>
+      <a class="btn btn-secondary lg" href="#demo">See how it works →</a>
+    </div>
+  </div>
+
+  <!-- #2b problem → goals → agents board -->
+  <div class="wrap" style="margin-top:52px">
+    <div class="pb reveal" id="demo">
+      <div class="pb-head">
+        <span class="n" id="heroCount">0</span>
+        <span class="lbl">agents — set up against 2 problems, 4 goals</span>
+      </div>
+      <div class="pb-cols"><span>Business problem</span><span>Goals</span><span>Agents set up</span></div>
+
+      <div class="lane">
+        <div><div class="pname">Repeat purchases are flat</div><div class="psub">Active &amp; near-tier buyers stalling</div></div>
+        <div class="goals">
+          <div class="goalc"><div class="gname">Lift repeat rate</div><div class="gcount">54 agents</div></div>
+          <div class="goalc"><div class="gname">Push tier progression</div><div class="gcount">46 agents</div></div>
+        </div>
+        <div class="agentsbox"><span class="sep"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h10M10 5l4 4-4 4"/></svg></span><div class="kpill"><div class="kn">100</div><div class="kl">live</div></div></div>
+      </div>
+
+      <div class="lane">
+        <div><div class="pname">Revenue is leaking to churn</div><div class="psub">Gold members lapsing, at-risk rising</div></div>
+        <div class="goals">
+          <div class="goalc"><div class="gname">Reactivate lapsed</div><div class="gcount">84 agents</div></div>
+          <div class="goalc"><div class="gname">Prevent at-risk churn</div><div class="gcount">63 agents</div></div>
+        </div>
+        <div class="agentsbox"><span class="sep"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h10M10 5l4 4-4 4"/></svg></span><div class="kpill"><div class="kn">147</div><div class="kl">live</div></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- LOGOS -->
+<section class="logos">
+  <div class="wrap">
+    <p>Built for growth, retention &amp; loyalty teams</p>
+    <div class="logo-row">
+      <span>Northwind</span><span>Crescent</span><span>Lumen Retail</span><span>Vanta Foods</span>
+      <span>Orbit Bank</span><span>Maven&nbsp;&amp;&nbsp;Co</span><span>Pulse Mobility</span>
+    </div>
+  </div>
+</section>
+
+<!-- LIVING PIPELINE (#3) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> One platform · the whole lifecycle</span>
+      <h2 class="h2" style="margin-top:14px">Always on, across the funnel</h2>
+      <p class="lede">Customers flow in nonstop. A crew of agents works every lifecycle stage — acquire, convert, retain, reengage, win back — and hands each customer to the next. Nothing waits for a campaign.</p>
+    </div>
+    <div class="pl reveal">
+      <div class="pl-track" id="plTrack"></div>
+      <div class="pl-line"></div>
+      <div class="pl-stages" id="plStages"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE: #4 problem → goal → agent tree -->
+<section class="sec" style="background:var(--bg-sunken); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> The signature move</span>
+      <h2 class="h2" style="margin-top:14px">One problem in.<br>Hundreds of agents out.</h2>
+      <p class="lede">aiRA takes a business problem, splits it into the goals that move it, and fans each goal into a cohort of always-on agents — one per micro-segment, each with its own offer, channel, and timing.</p>
+    </div>
+    <div class="feature-panel reveal" style="max-width:760px; margin:0 auto">
+      <div class="inner" style="padding:24px 16px">
+        <svg width="100%" viewBox="0 0 680 352" role="img" aria-labelledby="tree-t tree-d">
+          <title id="tree-t">aiRA branches two business problems into four goals, each fanning into a cohort of agents.</title>
+          <desc id="tree-d">A left-to-right tree: aiRA root branches to two business problems, each splits into two goals, and each goal fans into agent dots with a count.</desc>
+          <defs><linearGradient id="tree-rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8E97FF"/><stop offset="1" stop-color="#5EA8FF"/></linearGradient></defs>
+          <text x="6" y="16" fill="#94A0B4" style="font-family:var(--mono);font-size:11px;letter-spacing:.06em">247 AGENTS · 2 PROBLEMS → 4 GOALS</text>
+          <rect x="6" y="152" width="92" height="48" rx="12" fill="url(#tree-rg)"/>
+          <text x="52" y="172" text-anchor="middle" dominant-baseline="central" fill="#0A0F1A" style="font-family:var(--sans);font-size:13px;font-weight:500">aiRA</text>
+          <text x="52" y="187" text-anchor="middle" dominant-baseline="central" fill="#0A0F1A" style="font-family:var(--mono);font-size:10px">agent</text>
+          <g fill="none" stroke="#6268FF" stroke-width="1.2" opacity="0.6">
+            <path d="M98 176 C140 176,140 78,170 78"/><path d="M98 176 C140 176,140 274,170 274"/>
+            <path d="M320 78 C346 78,346 44,364 44"/><path d="M320 78 C346 78,346 112,364 112"/>
+            <path d="M320 274 C346 274,346 240,364 240"/><path d="M320 274 C346 274,346 308,364 308"/>
+          </g>
+          <g fill="#182135" stroke="#3A4870" stroke-width="0.5">
+            <rect x="170" y="56" width="150" height="44" rx="9"/><rect x="170" y="252" width="150" height="44" rx="9"/></g>
+          <g fill="#F4F6FA" style="font-family:var(--sans);font-size:13px;font-weight:500">
+            <text x="186" y="74" dominant-baseline="central">Flat repeat rate</text>
+            <text x="186" y="270" dominant-baseline="central">Churning revenue</text></g>
+          <g fill="#94A0B4" style="font-family:var(--mono);font-size:10px">
+            <text x="186" y="90" dominant-baseline="central">100 agents</text>
+            <text x="186" y="286" dominant-baseline="central">147 agents</text></g>
+          <g fill="#182135" stroke="#2A3654" stroke-width="0.5">
+            <rect x="364" y="24" width="150" height="40" rx="8"/><rect x="364" y="92" width="150" height="40" rx="8"/>
+            <rect x="364" y="220" width="150" height="40" rx="8"/><rect x="364" y="288" width="150" height="40" rx="8"/></g>
+          <g fill="#F4F6FA" style="font-family:var(--sans);font-size:13px">
+            <text x="378" y="44" dominant-baseline="central">Lift repeat rate</text>
+            <text x="378" y="112" dominant-baseline="central">Tier progression</text>
+            <text x="378" y="240" dominant-baseline="central">Reactivate</text>
+            <text x="378" y="308" dominant-baseline="central">Prevent churn</text></g>
+          <g fill="#8E97FF" style="font-family:var(--mono);font-size:12px">
+            <text x="502" y="44" text-anchor="end" dominant-baseline="central">54</text>
+            <text x="502" y="112" text-anchor="end" dominant-baseline="central">46</text>
+            <text x="502" y="240" text-anchor="end" dominant-baseline="central">84</text>
+            <text x="502" y="308" text-anchor="end" dominant-baseline="central">63</text></g>
+          <g fill="none" stroke="#6268FF" stroke-width="0.5" opacity="0.35">
+            <path d="M514 44 C527 44,532 40,540 40"/><path d="M514 44 C527 44,532 48,540 48"/>
+            <path d="M514 112 C527 112,532 108,540 108"/><path d="M514 112 C527 112,532 116,540 116"/>
+            <path d="M514 240 C527 240,532 236,540 236"/><path d="M514 240 C527 240,532 244,540 244"/>
+            <path d="M514 308 C527 308,532 304,540 304"/><path d="M514 308 C527 308,532 312,540 312"/></g>
+          <g fill="#8E97FF">
+            <circle cx="552" cy="36" r="4"/><circle cx="574" cy="44" r="3.5"/><circle cx="564" cy="54" r="3"/><circle cx="590" cy="36" r="3"/><circle cx="602" cy="50" r="2.5"/><circle cx="544" cy="50" r="2.5"/>
+            <circle cx="552" cy="104" r="4"/><circle cx="574" cy="112" r="3.5"/><circle cx="564" cy="122" r="3"/><circle cx="590" cy="104" r="3"/><circle cx="602" cy="118" r="2.5"/><circle cx="544" cy="118" r="2.5"/>
+            <circle cx="552" cy="232" r="4.5"/><circle cx="576" cy="240" r="4"/><circle cx="564" cy="252" r="3.5"/><circle cx="592" cy="232" r="3.5"/><circle cx="608" cy="248" r="3"/><circle cx="544" cy="248" r="3"/><circle cx="620" cy="238" r="2.5"/>
+            <circle cx="552" cy="300" r="4.5"/><circle cx="576" cy="308" r="4"/><circle cx="564" cy="320" r="3.5"/><circle cx="592" cy="300" r="3.5"/><circle cx="608" cy="316" r="3"/><circle cx="544" cy="316" r="3"/></g>
+        </svg>
+      </div>
+    </div>
+    <div class="center" style="margin-top:28px"><a class="btn btn-primary" href="agents.html">How agents work →</a></div>
+  </div>
+</section>
+
+<!-- TOTAL COVERAGE: #6 treemap -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Total coverage</span>
+      <h2 class="h2" style="margin-top:14px">No customer goes unmanaged</h2>
+      <p class="lede">aiRA divides your entire base into territories — every rectangle is one agent's book of customers, sized by how many it owns and colored by lifecycle stage. You can see exactly where the work is concentrated.</p>
+    </div>
+    <div class="tm-wrap reveal">
+      <svg class="tm-svg" id="tmSvg" viewBox="0 0 1160 360" role="img" aria-label="Treemap of the customer base divided into agent territories, colored by lifecycle stage."></svg>
+      <div class="tm-legend">
+        <span><i style="background:#5EA8FF"></i>Acquire</span>
+        <span><i style="background:#6268FF"></i>Convert</span>
+        <span><i style="background:#2A9D55"></i>Retain</span>
+        <span><i style="background:#8E61F2"></i>Reengage</span>
+        <span><i style="background:#D4537E"></i>Win back</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Why it works</span>
+      <h2 class="h2" style="margin-top:14px">Autonomous, but accountable</h2>
+      <p class="lede">aiRA acts on its own — and shows its work. Every agent is grounded in your data, optimized continuously, and reviewable before it ships.</p>
+    </div>
+    <div class="cards3 reveal">
+      <div class="card">
+        <div class="ic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="3"/><path d="M11 1v3M11 18v3M1 11h3M18 11h3M4 4l2 2M16 16l2 2M16 4l-2 2M6 16l-2 2"/></svg></div>
+        <h3>Autonomous campaigns</h3>
+        <p>Set the outcome and the guardrails. aiRA builds, launches, and adjusts campaigns without waiting for a brief.</p>
+        <ul>
+          <li>Goal to agents in one prompt</li>
+          <li>Auto audience &amp; offer selection</li>
+          <li>Approval gates for high-risk moves</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l4-5 3 3 4-7 4 6"/><path d="M2 20h18"/></svg></div>
+        <h3>Self-optimizing agents</h3>
+        <p>Every agent runs as a live experiment. aiRA shifts budget, timing, and creative toward what converts.</p>
+        <ul>
+          <li>Real-time send-time tuning</li>
+          <li>Offer &amp; channel reallocation</li>
+          <li>Auto-pause on underperformers</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="11" cy="5" rx="8" ry="3"/><path d="M3 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M3 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+        <h3>Grounded in your data</h3>
+        <p>aiRA reads your customer, order, and loyalty data through a governed context layer — so answers reflect your real numbers.</p>
+        <ul>
+          <li>Connects to your warehouse</li>
+          <li>Respects segments &amp; consent</li>
+          <li>Every decision is traceable</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WATCH IT WORK: #5 activity tape -->
+<section class="sec" style="background:var(--bg-sunken); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle)">
+  <div class="wrap">
+    <div class="sec-head left reveal" style="margin-bottom:28px; max-width:680px">
+      <span class="eyebrow"><svg class="spark"><use href="#aira-mark"/></svg> Watch it work</span>
+      <h2 class="h2" style="margin-top:14px">Agents don't clock out</h2>
+      <p class="lede">Every few seconds, somewhere in your base, an agent is winning a customer back, recovering a cart, or tuning a send. This is a live slice of the workforce.</p>
+    </div>
+    <div class="tp reveal">
+      <div class="tp-head">
+        <span class="n">248</span>
+        <span class="lbl">agents live · <span style="font-family:var(--mono)">1,204</span> actions today</span>
+        <span class="stream"><i></i>streaming</span>
+      </div>
+      <div class="tp-wrap"><div class="tp-track" id="tpTrack"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head center reveal" style="margin-bottom:32px">
+      <h2 class="h3 muted" style="font-weight:500">What teams see in the first 90 days</h2>
+    </div>
+    <div class="metrics reveal">
+      <div class="metric"><div><span class="v">247</span><span class="d up">live</span></div><div class="k">Agents from one goal</div></div>
+      <div class="metric"><div><span class="v">31%</span><span class="d up">▲</span></div><div class="k">Lapsed-customer reactivation</div></div>
+      <div class="metric"><div><span class="v">4.2×</span><span class="d up">▲</span></div><div class="k">Faster agent launch</div></div>
+      <div class="metric"><div><span class="v">18%</span><span class="d down">▼</span></div><div class="k">Quarterly churn rate</div></div>
+    </div>
+    <p class="center muted" style="font-size:12px; margin-top:14px; font-family:var(--mono)">Directional figures from blended pilot deployments. Green = improvement.</p>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="sec">
+  <div class="wrap quote reveal">
+    <svg width="32" height="32" style="margin:0 auto 20px"><use href="#aira-mark"/></svg>
+    <q>We used to ship one win-back campaign a quarter. aiRA spun up two hundred always-on agents in an afternoon and kept tuning them while we slept. Reactivation is the highest it's ever been.</q>
+    <div class="who"><b>Mr. Ritesh Arora</b> · Chief Digital Officer, Polycab</div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="sec-tight">
+  <div class="wrap center reveal">
+    <span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> Works with your stack</span>
+    <h2 class="h3" style="margin:14px 0 24px; font-size:18px; color:var(--text-secondary); font-weight:500">Connect data and channels in minutes</h2>
+    <div class="chips" style="justify-content:center; max-width:760px; margin:0 auto">
+      <span class="chip">Snowflake</span><span class="chip">BigQuery</span><span class="chip">Databricks</span>
+      <span class="chip">Segment</span><span class="chip">Shopify</span><span class="chip">Salesforce</span>
+      <span class="chip">Braze</span><span class="chip">Twilio</span><span class="chip">Meta Ads</span>
+      <span class="chip">Google Ads</span><span class="chip">Klaviyo</span><span class="chip">Webhooks &amp; API</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal"><h2 class="h2">Questions, answered</h2></div>
+    <div class="faq reveal">
+      <details open><summary>What is a Customer Growth Agent? <span class="x"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg></span></summary>
+        <p>It's a single AI agent that owns the whole customer lifecycle instead of one stage. You give aiRA an outcome — more signups, higher repeat rate, less churn — and it plans, launches, and optimizes the agents to get there, grounded in your data and your guardrails.</p></details>
+      <details><summary>How is this different from a campaign tool or CDP? <span class="x"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg></span></summary>
+        <p>Campaign tools wait for a human to define each campaign. A CDP organizes data but doesn't act. aiRA decides what to run: it segments, drafts, launches, and tunes hundreds of always-on agents autonomously, then reports back on each one.</p></details>
+      <details><summary>What is an agent? <span class="x"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg></span></summary>
+        <p>An agent is an always-on growth journey aiRA runs for one narrow segment — with its own audience, offer, channel, and timing. Instead of one campaign for "lapsed customers," aiRA deploys hundreds of agents, each working a specific slice around the clock.</p></details>
+      <details><summary>Do I stay in control? <span class="x"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg></span></summary>
+        <p>Yes. You set budget caps, channel rules, and approval gates. High-risk moves wait for sign-off, every agent is reviewable, and you can pause or edit anything aiRA proposes before it ships.</p></details>
+      <details><summary>How long does setup take? <span class="x"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg></span></summary>
+        <p>Connect your customer data and channels — most teams are live in a day. aiRA reads your existing segments and history, so it has useful context from the first prompt.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" id="start">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <span class="eyebrow" style="justify-content:center"><svg class="spark"><use href="#aira-mark"/></svg> Put growth on autopilot</span>
+      <h2 class="h2" style="margin:16px 0 10px">Give aiRA a goal.<br>Watch the agents spawn.</h2>
+      <p class="lede center" style="margin:0 auto">Start free, or get a guided demo on your own data.</p>
+      <div class="btns">
+        <a class="btn btn-primary lg" href="#">Get started free</a>
+        <a class="btn btn-secondary lg" href="#">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="lockup" href="index.html"><svg class="mark"><use href="#aira-mark"/></svg><span class="word">aiRA</span></a>
+        <p>The Customer Growth Agent. One agent for acquisition, conversion, retention, and win-back.</p>
+      </div>
+      <div><h4>Platform</h4>
+        <a href="platform.html">Overview</a><a href="agents.html">Agents</a>
+        <a href="platform.html">Context engine</a><a href="platform.html">Optimization</a></div>
+      <div><h4>Solutions</h4>
+        <a href="acquire.html">Acquire</a><a href="convert.html">Convert</a>
+        <a href="retain.html">Retain &amp; win back</a></div>
+      <div><h4>Company</h4>
+        <a href="#">Customers</a><a href="#">Pricing</a><a href="#">Careers</a><a href="#">Newsroom</a></div>
+      <div><h4>Resources</h4>
+        <a href="#">Docs</a><a href="#">Blog</a><a href="#">Trust center</a><a href="#">Status</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 aiRA · Customer Growth Agent</span>
+      <span>Privacy · Terms · Security</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var STAGES=[['Acquire','#5EA8FF','acquire.html'],['Convert','#6268FF','convert.html'],['Retain','#2A9D55','retain.html'],['Reengage','#8E61F2','retain.html'],['Win back','#D4537E','retain.html']];
+
+  /* hero counter */
+  var hc=document.getElementById('heroCount');
+  if(hc){ var T=247; if(reduce){hc.textContent=T;} else {var n=0,s=Math.ceil(T/55);
+    var iv=setInterval(function(){n+=s; if(n>=T){n=T;clearInterval(iv);} hc.textContent=n;},26);} }
+
+  /* #3 pipeline */
+  var track=document.getElementById('plTrack'), stagesEl=document.getElementById('plStages');
+  if(track&&stagesEl){
+    if(!reduce){for(var i=0;i<16;i++){var d=document.createElement('div');d.className='pdotp';
+      d.style.background=STAGES[i%5][1];d.style.animationDuration=(4.5+Math.random()*3).toFixed(1)+'s';
+      d.style.animationDelay=(-Math.random()*7).toFixed(1)+'s';track.appendChild(d);}}
+    var counts=[34,46,56,48,63];
+    STAGES.forEach(function(s,idx){
+      var col=document.createElement('div');col.className='pl-col';
+      col.onclick=function(){location.href=s[2];};
+      var bars='';for(var k=0;k<9;k++){bars+='<span class="wb" style="background:'+s[1]+';'+(reduce?'':'animation-duration:'+(1+Math.random()).toFixed(2)+'s;animation-delay:'+(Math.random()*1.3).toFixed(2)+'s')+'"></span>';}
+      col.innerHTML='<div class="st">'+s[0]+'</div><div class="cnt">'+counts[idx]+'</div><div class="cl">agents</div><div class="pl-bars">'+bars+'</div>';
+      stagesEl.appendChild(col);
+    });
+  }
+
+  /* #6 treemap (mosaic: columns by stage width, rows by segment height) */
+  var tm=document.getElementById('tmSvg');
+  if(tm){
+    var W=1160,H=360,gap=4;
+    var stageData=[
+      ['Acquire','#5EA8FF',[['New',12],['Active',9],['Near-tier',7],['VIP',6]]],
+      ['Convert','#6268FF',[['Active',14],['New',11],['Near-tier',9],['At-risk',7],['VIP',5]]],
+      ['Retain','#2A9D55',[['VIP',18],['Active',12],['Near-tier',11],['Loyal',9],['New',6]]],
+      ['Reengage','#8E61F2',[['At-risk',14],['Dormant',12],['Near-tier',10],['Lapsed',7],['VIP',5]]],
+      ['Win back','#D4537E',[['Lapsed',24],['At-risk',16],['Dormant',11],['VIP',7],['Cold',5]]]
+    ];
+    var grand=0; stageData.forEach(function(s){s[2].forEach(function(c){grand+=c[1];});});
+    var ns='http://www.w3.org/2000/svg', x=0;
+    stageData.forEach(function(s){
+      var stotal=0; s[2].forEach(function(c){stotal+=c[1];});
+      var cw=(stotal/grand)*(W-gap*4) ; // column width by stage share
+      var y=0;
+      s[2].forEach(function(c){
+        var ch=(c[1]/stotal)*H;
+        var r=document.createElementNS(ns,'rect');
+        r.setAttribute('x',x.toFixed(1));r.setAttribute('y',(y+1).toFixed(1));
+        r.setAttribute('width',Math.max(0,cw-2).toFixed(1));r.setAttribute('height',Math.max(0,ch-2).toFixed(1));
+        r.setAttribute('rx',5);r.setAttribute('fill',s[1]);r.setAttribute('stroke','#0E1424');r.setAttribute('stroke-width','1');
+        r.style.cursor='pointer';
+        r.addEventListener('click',function(){location.href=(s[0]==='Acquire'?'acquire.html':s[0]==='Convert'?'convert.html':'retain.html');});
+        tm.appendChild(r);
+        if(cw>70&&ch>34){
+          var t1=document.createElementNS(ns,'text');t1.setAttribute('x',(x+10).toFixed(1));t1.setAttribute('y',(y+22).toFixed(1));
+          t1.setAttribute('fill','#fff');t1.setAttribute('style','font-family:var(--sans);font-size:13px;font-weight:500');t1.textContent=c[0];tm.appendChild(t1);
+          var t2=document.createElementNS(ns,'text');t2.setAttribute('x',(x+10).toFixed(1));t2.setAttribute('y',(y+38).toFixed(1));
+          t2.setAttribute('fill','rgba(255,255,255,0.8)');t2.setAttribute('style','font-family:var(--mono);font-size:11px');t2.textContent=c[1]+' agents';tm.appendChild(t2);
+        } else if(cw>26&&ch>16){
+          var t3=document.createElementNS(ns,'text');t3.setAttribute('x',(x+7).toFixed(1));t3.setAttribute('y',(y+16).toFixed(1));
+          t3.setAttribute('fill','#fff');t3.setAttribute('style','font-family:var(--mono);font-size:11px');t3.textContent=c[1];tm.appendChild(t3);
+        }
+        y+=ch;
+      });
+      x+=cw+gap;
+    });
+  }
+
+  /* #5 activity tape */
+  var tp=document.getElementById('tpTrack');
+  if(tp){
+    var ev=[
+      ['#2A9D55','AG-1042','won back 12 lapsed Gold members','+₹84k','2s'],
+      ['#6268FF','AG-1051','optimized send-time for at-risk cohort','+5.1%','4s'],
+      ['#5EA8FF','AG-1044','welcomed 38 new signups','+3.9%','6s'],
+      ['#E89B1A','AG-1050','triggered reorder for consumables','+7.3%','11s'],
+      ['#2A9D55','AG-1048','saved 9 churn-risk accounts','+₹61k','14s'],
+      ['#8E61F2','AG-1045','nudged 21 members toward next tier','+6.7%','19s'],
+      ['#6268FF','AG-1057','paused — underperforming variant','auto','23s'],
+      ['#5EA8FF','AG-1061','recovered 17 abandoned carts','+₹39k','27s'],
+      ['#2A9D55','AG-1046','upgraded VIP concierge offer','+11.2%','31s'],
+      ['#E89B1A','AG-1052','re-activated 24 dormant trials','+5.5%','36s']
+    ];
+    function row(e){return '<div class="tp-row"><span style="width:8px;height:8px;border-radius:50%;background:'+e[0]+';justify-self:center"></span>'+
+      '<span class="id">'+e[1]+'</span><span>'+e[2]+'</span>'+
+      '<span style="display:flex;gap:10px;align-items:baseline"><b class="m" style="color:'+(e[3]==='auto'?'var(--text-tertiary)':'var(--green-300)')+'">'+e[3]+'</b><span class="ago">'+e[4]+'</span></span></div>';}
+    var html=ev.map(row).join('');
+    tp.innerHTML = reduce ? html : html+html;
+  }
+})();
+</script>
+</body>
+</html>
