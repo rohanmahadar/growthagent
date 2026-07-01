@@ -210,8 +210,8 @@
         <button class="auth-btn" onclick="go(1)"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-7.8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.5-2.7c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.7 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.1-3.1A11 11 0 0 0 2 7.1l3.7 2.8C6.6 7.3 9.1 5.4 12 5.4z"/></svg> Continue with Google</button>
         <button class="auth-btn" onclick="go(2)"><svg width="15" height="15" viewBox="0 0 23 23"><path fill="#f25022" d="M1 1h10v10H1z"/><path fill="#7fba00" d="M12 1h10v10H12z"/><path fill="#00a4ef" d="M1 12h10v10H1z"/><path fill="#ffb900" d="M12 12h10v10H12z"/></svg> Continue with Microsoft</button>
         <div class="divider">or</div>
-        <div class="field"><label>Work email</label><input type="email" value="elena.voss@starairlines.com"></div>
-        <div class="field"><label>Password</label><input type="password" value="••••••••••"></div>
+        <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com"></div>
+        <div class="field"><label>Password</label><input type="password" placeholder="Create a password"></div>
         <button class="btn btn-primary" style="width:100%; justify-content:center" onclick="go(2)">Create workspace</button>
         <p class="fineprint">By signing up you agree to aiRA's Terms and Privacy Policy. Already have an account? <span style="color:var(--text-link)">Log in</span></p>
       </div>
@@ -357,12 +357,12 @@
     <div class="modal-h"><div><h3 id="cfgTitle">Connect Snowflake</h3><div class="sub">Connection settings</div></div><span class="close" onclick="closeModal()"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l10 10M14 4L4 14"/></svg></span></div>
     <div class="cfg">
       <div class="grid2">
-        <div class="field"><label>Connection name</label><input value="Star Airlines warehouse"></div>
-        <div class="field"><label>Account / host</label><input value="starairlines.eu-west-1"></div>
-        <div class="field"><label>Database</label><input value="GROWTH_PROD"></div>
-        <div class="field"><label>Warehouse</label><input value="ANALYTICS_WH"></div>
+        <div class="field"><label>Connection name</label><input placeholder="e.g. Production warehouse"></div>
+        <div class="field"><label>Account / host</label><input placeholder="e.g. acme.eu-west-1"></div>
+        <div class="field"><label>Database</label><input placeholder="e.g. GROWTH_PROD"></div>
+        <div class="field"><label>Warehouse</label><input placeholder="e.g. ANALYTICS_WH"></div>
       </div>
-      <div class="field"><label>Authentication</label><input value="••••••••  access token" type="password"></div>
+      <div class="field"><label>Authentication</label><input placeholder="Paste your access token" type="password"></div>
     </div>
     <div class="cfg-actions">
       <button class="btn btn-secondary" onclick="backToGrid()">Back</button>
