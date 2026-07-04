@@ -197,6 +197,276 @@
     });
   });
 
+  /* ---------- Capability demo loops (index §1.6) ----------
+     Six looping storyboard panels inside the capabilities tabs.
+     Reuses the site's motion vocabulary: staggered row fades
+     (hero chat), drawn connector lines (architecture diagram)
+     and count-ups (metrics band). Panels are "armed" only when
+     the loop can actually run; otherwise the CSS renders each
+     storyboard's final resting frame (no-JS / reduced motion).
+     Only the visible panel plays: an IntersectionObserver
+     starts/stops each loop when its panel is shown/hidden or
+     scrolled out of view, and page visibility pauses them. */
+  var capDemos = Array.prototype.slice.call(document.querySelectorAll('.cap-demo[data-cap-demo]'));
+  if (capDemos.length && !reduceMotion && 'IntersectionObserver' in window) {
+    var cdQ = function (root, name) { return root.querySelector('[data-cd="' + name + '"]'); };
+    var cdOn = function (el) { if (el) el.classList.add('is-on'); };
+    var cdOff = function (el) { if (el) el.classList.remove('is-on'); };
+    var cdPulse = function (el) {
+      if (!el) return;
+      el.classList.remove('is-pulse');
+      el.getBoundingClientRect(); // restart the one-shot pulse animation
+      el.classList.add('is-pulse');
+    };
+    var cdClear = function (root) {
+      Array.prototype.slice.call(root.querySelectorAll('.is-on, .is-pulse, .is-drawn, .is-glow')).forEach(function (el) {
+        el.classList.remove('is-on');
+        el.classList.remove('is-pulse');
+        el.classList.remove('is-drawn');
+        el.classList.remove('is-glow');
+      });
+    };
+    var cdCount = function (el, target, suffix, dur) {
+      if (!el) return;
+      if (el._cdRaf) cancelAnimationFrame(el._cdRaf);
+      var start = null;
+      var frame = function (ts) {
+        if (start === null) start = ts;
+        var t = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - t, 3); // same ease-out cubic as the metrics band
+        el.textContent = (target * eased).toFixed(1) + suffix;
+        el._cdRaf = t < 1 ? requestAnimationFrame(frame) : null;
+      };
+      el._cdRaf = requestAnimationFrame(frame);
+    };
+    var cdStopCount = function (el) {
+      if (el && el._cdRaf) { cancelAnimationFrame(el._cdRaf); el._cdRaf = null; }
+    };
+
+    /* Each builder returns { steps:[[ms, fn]…], total, reset }.
+       total = start of the soft reset (≥2s after the last beat). */
+    var cdBuilders = {
+
+      /* 1 · brief typed → plan rows → approval pill (hero chat miniature) */
+      chat: function (root) {
+        var input = cdQ(root, 'input');
+        var typed = cdQ(root, 'typed');
+        var brief = 'Win back customers we lost this year';
+        var steps = [[0, function () { cdOn(input); }]];
+        for (var i = 0; i < brief.length; i++) {
+          (function (n) {
+            steps.push([500 + Math.round(n * (1600 / brief.length)), function () {
+              input.classList.add('is-typing');
+              typed.textContent = brief.slice(0, n + 1);
+            }]);
+          })(i);
+        }
+        steps.push([2400, function () { cdOff(input); cdOn(cdQ(root, 'sent')); }]);
+        steps.push([2700, function () { cdOn(cdQ(root, 'think')); }]);
+        steps.push([4100, function () { cdOff(cdQ(root, 'think')); cdOn(cdQ(root, 'planhead')); }]);
+        steps.push([4500, function () { cdOn(cdQ(root, 'row1')); }]);
+        steps.push([4900, function () { cdOn(cdQ(root, 'row2')); }]);
+        steps.push([5300, function () { cdOn(cdQ(root, 'row3')); }]);
+        steps.push([5900, function () { cdOn(cdQ(root, 'approve')); }]);
+        return {
+          steps: steps,
+          total: 8900,
+          reset: function () {
+            cdClear(root);
+            typed.textContent = '';
+            input.classList.remove('is-typing');
+          }
+        };
+      },
+
+      /* 2 · goal fans out to three agents; the clock runs into the night */
+      agents: function (root) {
+        var clock = cdQ(root, 'clock');
+        var t1 = clock.getAttribute('data-t1');
+        var t2 = clock.getAttribute('data-t2');
+        var t3 = clock.getAttribute('data-t3');
+        return {
+          steps: [
+            [0, function () { cdOn(cdQ(root, 'goal')); cdOn(clock); }],
+            [800, function () { cdQ(root, 'fan').classList.add('is-drawn'); cdOn(cdQ(root, 'a1')); }],
+            [1100, function () { cdOn(cdQ(root, 'a2')); }],
+            [1400, function () { cdOn(cdQ(root, 'a3')); }],
+            [2500, function () { clock.textContent = t2; root.classList.add('is-dusk'); }],
+            [4000, function () { clock.textContent = t3; root.classList.remove('is-dusk'); root.classList.add('is-night'); }],
+            [5200, function () { cdOn(cdQ(root, 'act')); }],
+            [6200, function () { cdOn(cdQ(root, 'cap')); }]
+          ],
+          total: 9900,
+          reset: function () {
+            cdClear(root);
+            root.classList.remove('is-dusk');
+            root.classList.remove('is-night');
+            clock.textContent = t1;
+          }
+        };
+      },
+
+      /* 3 · four sources feed one live picture that cites its sources */
+      context: function (root) {
+        var lines = cdQ(root, 'lines');
+        return {
+          steps: [
+            [0, function () { cdOn(cdQ(root, 's1')); }],
+            [200, function () { cdOn(cdQ(root, 's2')); }],
+            [400, function () { cdOn(cdQ(root, 's3')); }],
+            [600, function () { cdOn(cdQ(root, 's4')); }],
+            [1200, function () { cdOn(cdQ(root, 'card')); lines.classList.add('is-drawn'); }],
+            [2200, function () { cdOn(cdQ(root, 'f1')); cdPulse(cdQ(root, 's1')); cdPulse(cdQ(root, 'l1')); }],
+            [2600, function () { cdOn(cdQ(root, 'f2')); cdPulse(cdQ(root, 's2')); cdPulse(cdQ(root, 'l2')); }],
+            [3000, function () { cdOn(cdQ(root, 'f3')); cdPulse(cdQ(root, 's3')); cdPulse(cdQ(root, 'l3')); }],
+            [5000, function () { cdOn(cdQ(root, 'f4')); cdPulse(cdQ(root, 's4')); cdPulse(cdQ(root, 'l4')); }],
+            [6000, function () { cdOn(cdQ(root, 'suggest')); lines.classList.add('is-glow'); }]
+          ],
+          total: 10400,
+          reset: function () { cdClear(root); }
+        };
+      },
+
+      /* 4 · approved plan writes work into three tools + one human handoff */
+      actions: function (root) {
+        return {
+          steps: [
+            [0, function () { cdOn(cdQ(root, 'pill')); }],
+            [800, function () { cdOn(cdQ(root, 'r1')); }],
+            [1600, function () { cdOn(cdQ(root, 'r2')); }],
+            [2400, function () { cdOn(cdQ(root, 'r3')); }],
+            [3200, function () { cdOn(cdQ(root, 'r4')); }],
+            [4400, function () { cdOn(cdQ(root, 'cap')); }]
+          ],
+          total: 8900,
+          reset: function () { cdClear(root); }
+        };
+      },
+
+      /* 5 · two actions run inside the rules; one stops at the gate */
+      gov: function (root) {
+        var btn = cdQ(root, 'btn');
+        return {
+          steps: [
+            [0, function () { cdOn(cdQ(root, 'rule')); }],
+            [800, function () { cdOn(cdQ(root, 'g1')); }],
+            [1800, function () { cdOn(cdQ(root, 'g2')); }],
+            [2800, function () { cdOn(cdQ(root, 'g3')); cdOn(cdQ(root, 'wait')); cdQ(root, 'govline').classList.add('is-drawn'); }],
+            [4600, function () { cdOn(btn); }],
+            [5400, function () { btn.classList.add('is-pressed'); }],
+            [5800, function () { cdOff(cdQ(root, 'wait')); cdOn(cdQ(root, 'ok3')); cdOff(btn); }],
+            [6600, function () { cdOn(cdQ(root, 'st1')); }],
+            [6800, function () { cdOn(cdQ(root, 'st2')); }],
+            [7000, function () { cdOn(cdQ(root, 'st3')); }]
+          ],
+          total: 10900,
+          reset: function () {
+            cdClear(root);
+            btn.classList.remove('is-pressed');
+          }
+        };
+      },
+
+      /* 6 · two offers race; budget moves to the winner (count-up bars) */
+      optimize: function (root) {
+        var barA = cdQ(root, 'barA');
+        var barB = cdQ(root, 'barB');
+        var valA = cdQ(root, 'valA');
+        var valB = cdQ(root, 'valB');
+        return {
+          steps: [
+            [0, function () { cdOn(cdQ(root, 'head')); cdOn(barA); cdOn(barB); }],
+            [800, function () {
+              barA.classList.add('is-grow');
+              barB.classList.add('is-grow');
+              cdCount(valA, 14.9, '% won back', 1600);
+              cdCount(valB, 6.4, '% won back', 1600);
+            }],
+            [3600, function () { cdOn(cdQ(root, 'r1')); barA.classList.add('is-scaled'); }],
+            [5000, function () { cdOn(cdQ(root, 'r2')); barB.classList.add('is-dim'); }],
+            [6400, function () { cdOn(cdQ(root, 'cap')); }]
+          ],
+          total: 10400,
+          reset: function () {
+            cdClear(root);
+            barA.classList.remove('is-grow');
+            barA.classList.remove('is-scaled');
+            barB.classList.remove('is-grow');
+            barB.classList.remove('is-dim');
+            cdStopCount(valA);
+            cdStopCount(valB);
+            valA.textContent = '';
+            valB.textContent = '';
+          }
+        };
+      }
+    };
+
+    var cdRunners = [];
+    capDemos.forEach(function (root) {
+      var build = cdBuilders[root.getAttribute('data-cap-demo')];
+      if (!build) return;
+      var api = build(root);
+      root.classList.add('is-armed');
+      api.reset();
+      var timers = [];
+      var playing = false;
+      var inView = false;
+      function clearTimers() {
+        timers.forEach(clearTimeout);
+        timers = [];
+      }
+      function cycle() {
+        api.steps.forEach(function (step) {
+          timers.push(setTimeout(step[1], step[0]));
+        });
+        // hold done → 0.6s soft cross-fade back to beat 1
+        timers.push(setTimeout(function () {
+          root.classList.add('is-fading');
+          timers.push(setTimeout(function () {
+            api.reset();
+            timers.push(setTimeout(function () {
+              root.classList.remove('is-fading');
+              cycle();
+            }, 280));
+          }, 320));
+        }, api.total));
+      }
+      var runner = {
+        root: root,
+        sync: function () {
+          var shouldPlay = inView && !document.hidden;
+          if (shouldPlay && !playing) {
+            playing = true;
+            api.reset();
+            cycle();
+          } else if (!shouldPlay && playing) {
+            playing = false;
+            clearTimers();
+            root.classList.remove('is-fading');
+            api.reset();
+          }
+        },
+        setInView: function (v) { inView = v; runner.sync(); }
+      };
+      cdRunners.push(runner);
+    });
+
+    if (cdRunners.length) {
+      var cdIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          cdRunners.forEach(function (r) {
+            if (r.root === entry.target) r.setInView(entry.isIntersecting);
+          });
+        });
+      }, { threshold: 0.25 });
+      cdRunners.forEach(function (r) { cdIO.observe(r.root); });
+      document.addEventListener('visibilitychange', function () {
+        cdRunners.forEach(function (r) { r.sync(); });
+      });
+    }
+  }
+
   /* ---------- Sticky scroll tour (how-it-works) ---------- */
   var tour = document.querySelector('.tour');
   if (tour && !reduceMotion && 'IntersectionObserver' in window) {
