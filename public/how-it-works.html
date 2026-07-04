@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Works — A Guided Tour of aiRA, from Goal to Result</title>
+<meta name="description" content="Walk through aiRA step by step: state a goal, see what it finds in your systems, review the agents it proposes, approve, and watch results improve.">
+<link rel="canonical" href="https://www.ask-aira.com/how-it-works">
+<meta property="og:title" content="How It Works — A Guided Tour of aiRA, from Goal to Result">
+<meta property="og:description" content="Walk through aiRA step by step: state a goal, see what it finds in your systems, review the agents it proposes, approve, and watch results improve.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ask-aira.com/how-it-works">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- brand mark sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
+    </linearGradient>
+    <symbol id="aira-mark" viewBox="0 0 24 24">
+      <g fill="url(#aira-grad)">
+        <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="container container--wide nav__inner">
+    <a class="lockup" href="/" aria-label="aiRA home">
+      <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
+      <span class="lockup__word">aiRA</span>
+      <span class="lockup__by">by capillary</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/platform">Platform</a>
+      <a href="/agents">Agents</a>
+      <div class="nav__dd">
+        <button type="button" class="nav__dd-btn" aria-expanded="false" aria-haspopup="true" aria-controls="solutions-menu">Solutions
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <ul class="nav__dd-panel" id="solutions-menu">
+          <li><a href="/acquire">
+            <span class="dd-ic dd-ic--acquire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M19 6v6m-3-3h6"/></svg></span>
+            <span><span class="dd-t">Acquire</span><span class="dd-d">Turn strangers into customers</span></span>
+          </a></li>
+          <li><a href="/convert">
+            <span class="dd-ic dd-ic--convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+            <span><span class="dd-t">Convert</span><span class="dd-d">Meet every visitor at their moment</span></span>
+          </a></li>
+          <li><a href="/retain">
+            <span class="dd-ic dd-ic--retain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-9-9c-1.3-3 1-7 4.5-7C9.5 4 11 5 12 6.7 13 5 14.5 4 16.5 4 20 4 22.3 8 21 11c-2 4.5-9 9-9 9z"/></svg></span>
+            <span><span class="dd-t">Retain</span><span class="dd-d">Keep and recover your best customers</span></span>
+          </a></li>
+        </ul>
+      </div>
+      <a href="/how-it-works" aria-current="page">How it works</a>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--s" href="/book-a-demo">Book a demo</a>
+      <button type="button" class="nav__burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="nav__mobile" id="mobile-menu" aria-label="Primary mobile">
+    <ul>
+      <li><a href="/platform">Platform</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li>
+        <span class="group-label">Solutions</span>
+        <ul class="indent">
+          <li><a href="/acquire">Acquire</a></li>
+          <li><a href="/convert">Convert</a></li>
+          <li><a href="/retain">Retain</a></li>
+        </ul>
+      </li>
+      <li><a href="/how-it-works" aria-current="page">How it works</a></li>
+      <li><a href="/book-a-demo">Book a demo</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section id="hero" class="hero hero--inner hero--center" aria-labelledby="hero-title">
+    <div class="container hero__inner" style="position:relative">
+      <div class="hero__copy">
+        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>How it works</p>
+        <h1 id="hero-title">From one sentence to a system that never stops working</h1>
+        <p class="lede">This is the full tour — every step between a goal typed in plain language and approved actions running inside the systems your business already uses. What you see below is what your team sees in the product.</p>
+        <div class="hero__btns">
+          <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
+          <a class="btn btn--secondary" href="#tour">Start the tour <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
+        </div>
+        <div class="badge-rail" aria-hidden="true">
+          <span class="step-badge step-badge--s">1</span><i></i>
+          <span class="step-badge step-badge--s">2</span><i></i>
+          <span class="step-badge step-badge--s">3</span><i></i>
+          <span class="step-badge step-badge--s">4</span><i></i>
+          <span class="step-badge step-badge--s">5</span>
+        </div>
+      </div>
+      <div class="mascot-box">
+        <img class="mascot mascot--guide hiw-hero-mascot" src="/assets/aira-mascot.png" alt="" aria-hidden="true" width="557" height="900" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+  <!-- TOUR -->
+  <section id="tour" class="section" aria-label="Guided tour of aiRA, step by step">
+    <div class="tour container">
+      <div class="tour__steps">
+        <div class="tour__step">
+          <span class="step-badge" aria-hidden="true">1</span>
+          <p class="step-label">Step 1</p>
+          <h2>State the goal in plain language</h2>
+          <p>There is no query builder and no request form. You describe the business outcome you want, the way you'd brief a trusted lead. aiRA asks clarifying questions only when they change the plan — which customers, what timeframe, what limits — and confirms the brief back to you before doing anything.</p>
+        </div>
+        <div class="tour__step">
+          <span class="step-badge" aria-hidden="true">2</span>
+          <p class="step-label">Step 2</p>
+          <h2>aiRA gathers the facts from your systems</h2>
+          <p>Before proposing anything, aiRA does the homework. It looks across your connected systems — customer records, loyalty accounts, order history, email engagement — and shows you exactly what it found: the customer groups, the warning signs, and the size of the opportunity. Every number can be traced back to the system it came from.</p>
+        </div>
+        <div class="tour__step">
+          <span class="step-badge" aria-hidden="true">3</span>
+          <p class="step-label">Step 3</p>
+          <h2>aiRA proposes the agent team</h2>
+          <p>aiRA breaks the goal into distinct pieces of work and proposes a specialized agent for each — with its job, approach, and limits spelled out. Nothing runs yet. This is your review screen: adjust an agent's limits, remove one, or approve the team as proposed.</p>
+        </div>
+        <div class="tour__step">
+          <span class="step-badge" aria-hidden="true">4</span>
+          <p class="step-label">Step 4</p>
+          <h2>Approved agents act — in your systems</h2>
+          <p>On approval, agents do the work inside the tools your teams already run: campaigns go live in your marketing platform, offers are issued in your loyalty program, customer lists are updated in your customer database. When a step needs a person, aiRA points them to the right system with the background attached. Everything lands where your team can see it, run it, and check it.</p>
+        </div>
+        <div class="tour__step">
+          <span class="step-badge" aria-hidden="true">5</span>
+          <p class="step-label">Step 5</p>
+          <h2>Agents improve, report, and retire</h2>
+          <p>Agents measure results where they happen — in the same systems the actions ran in — then adjust, reallocate, and retire on their own, inside your rules. You get a running report of what changed, what worked, and what each agent decided to do about it. The system keeps getting better; your team stays in charge.</p>
+        </div>
+      </div>
+
+      <div class="tour__stage">
+        <!-- Panel 1: goal chat -->
+        <div class="tour-panel" role="img" aria-label="Product mockup of a user typing a reactivation goal with budget and discount limits, and aiRA confirming the brief.">
+          <div class="mock-chat__bar"><span class="mock-chat__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mock-chat__title">aiRA · Growth workspace</span></div>
+          <div class="tour-panel__body">
+            <div class="mock-chat__body" style="padding:0">
+              <div class="msg msg--user is-in">Reactivate customers who lapsed in the last 6 months, prioritizing our top two loyalty tiers. Budget cap $150K this quarter. Nothing discounts more than 20%.</div>
+              <div class="msg msg--aira is-in">
+                <span class="msg__avatar" aria-hidden="true"><svg width="14" height="14" style="color:#fff"><use href="#aira-mark"/></svg></span>
+                <div class="msg__bubble">
+                  <p style="font-size:13px; color:var(--body)">Confirmed. Goal: reactivate 6-month lapsed customers, Gold and Platinum tiers first. Limits: $150K quarterly budget, 20% maximum discount. I'll review your systems and return a plan for your approval.</p>
+                </div>
+              </div>
+            </div>
+            <p class="mock-note">Illustrative product view</p>
+          </div>
+        </div>
+
+        <!-- Panel 2: findings -->
+        <div class="tour-panel" role="img" aria-label="Product mockup of aiRA's findings panel showing lapsed customer counts by loyalty tier, warning signs, an opportunity estimate, and the source systems.">
+          <div class="mock-chat__bar"><span class="mock-chat__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mock-chat__title">aiRA · Findings</span></div>
+          <div class="tour-panel__body">
+            <p class="mock-label">What <span class="brand-case">aiRA</span> found — <span class="brand-case">4 systems reviewed</span></p>
+            <p class="mock-line"><b>Lapsed 6-month customers:</b> 68,400 · Gold: 9,200 · Platinum: 3,100</p>
+            <p class="mock-line"><b>Top warning signs in this group:</b> ordering far less often (−61%), $1.2M in rewards sitting unused, 44% still opening emails in the last 30 days</p>
+            <p class="mock-line"><b>Opportunity estimate:</b> $4.8M in recoverable revenue at historical win-back rates</p>
+            <p class="mock-line"><b>Sources:</b> Customer records · Loyalty program · Order history · Email engagement</p>
+            <p class="mock-note">Every figure links to the records behind it.</p>
+            <p class="mock-note">Illustrative product view</p>
+          </div>
+        </div>
+
+        <!-- Panel 3: proposed agents -->
+        <div class="tour-panel" role="img" aria-label="Product mockup of four proposed aiRA agents with their jobs, approaches, and limits, awaiting user approval.">
+          <div class="mock-chat__bar"><span class="mock-chat__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mock-chat__title">aiRA · Agent review</span></div>
+          <div class="tour-panel__body">
+            <p class="mock-label">Proposed agents — 4 · <span class="brand-case">Awaiting your approval</span></p>
+            <p class="mock-line">☐ <b>Platinum Win-back</b> — 3,100 customers · personalized reward-based offers · max 15% discount · each offer batch needs approval</p>
+            <p class="mock-line">☐ <b>Gold Reward Nudge</b> — 9,200 customers · reminders about unused points · no discounting · runs on its own, within limits</p>
+            <p class="mock-line">☐ <b>Silent Lapsed Re-permission</b> — 31,700 customers · gentle re-engagement, only customers who allow contact · email + app only</p>
+            <p class="mock-line">☐ <b>Channel Timing Optimizer</b> — all groups · finds the best time and channel for each person · runs on its own, within limits</p>
+            <div class="mock-btns" aria-hidden="true"><span class="primary">Approve all</span><span class="ghosty">Edit limits</span><span class="ghosty">Remove</span></div>
+            <p class="mock-note">Illustrative product view</p>
+          </div>
+        </div>
+
+        <!-- Panel 4: actions log -->
+        <div class="tour-panel" role="img" aria-label="Product mockup of an actions log showing campaigns published, offers issued, customer lists updated, and a subset sent to a human review queue.">
+          <div class="mock-chat__bar"><span class="mock-chat__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mock-chat__title">aiRA · Actions</span></div>
+          <div class="tour-panel__body">
+            <p class="mock-label">Actions log — <span class="brand-case">Today</span></p>
+            <p class="mock-line"><span class="ok">✓</span> 14:02 — Campaign "Platinum Win-back v1" published to marketing platform · approved by A. Mehta</p>
+            <p class="mock-line"><span class="ok">✓</span> 14:02 — 3,100 reward offers issued in loyalty program · within the 15% discount limit</p>
+            <p class="mock-line"><span class="ok">✓</span> 14:05 — Customer list "Lapsed-Gold-ReEngage" updated in customer database · 9,200 profiles</p>
+            <p class="mock-line"><span class="flag">⚑</span> 14:11 — 214 customers have past service complaints → sent to the CRM queue for a person to review</p>
+            <p class="mock-note">Every entry links to the decision and approval behind it.</p>
+            <p class="mock-note">Illustrative product view</p>
+          </div>
+        </div>
+
+        <!-- Panel 5: progress report -->
+        <div class="tour-panel" role="img" aria-label="Product mockup of a weekly progress report showing per-agent results, an expansion waiting for approval, a wind-down recommendation, and budget status.">
+          <div class="mock-chat__bar"><span class="mock-chat__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mock-chat__title">aiRA · Progress</span></div>
+          <div class="tour-panel__body">
+            <p class="mock-label">Progress report — <span class="brand-case">Week 3</span></p>
+            <p class="mock-line"><b>Platinum Win-back:</b> reactivation 11.4% → 14.9% · moved budget to the reward-based offer (beating the discount offer 2.3×)</p>
+            <p class="mock-line"><b>Gold Reward Nudge:</b> reward use up 28% · wants to expand to the nearby lapsed-Silver group — waiting for your approval</p>
+            <p class="mock-line"><b>Silent Lapsed Re-permission:</b> low response from customers lapsed 18–24 months · agent recommends winding this group down and shifting effort to the 6–12 month group</p>
+            <p class="mock-line"><b>Budget used:</b> $61,300 of $150,000 · all actions within your limits · full activity record →</p>
+            <p class="mock-note">Illustrative product view</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="band cta-band on-navy" aria-labelledby="cta-title">
+    <div class="container container--text cta-band__inner" data-reveal>
+      <svg class="spark-lg" aria-hidden="true"><use href="#aira-mark"/></svg>
+      <h2 id="cta-title">Ready to see it on your data?</h2>
+      <p class="lede">The tour above runs on an illustrative scenario. The demo runs on your use cases, your systems, and your questions.</p>
+      <div class="cta-band__btns">
+        <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
+        <a class="btn btn--secondary" href="/platform">Explore the platform <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer on-navy">
+  <div class="container container--wide">
+    <div class="footer__grid">
+      <div>
+        <a class="lockup lockup--navy" href="/" aria-label="aiRA home">
+          <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
+          <span class="lockup__word">aiRA</span>
+          <span class="lockup__by">by capillary</span>
+        </a>
+        <p class="footer__tag">aiRA — the System of Intelligence for your Systems of Record.</p>
+        <p class="footer__attr">aiRA is built by <a href="https://www.capillarytech.com/aira/">Capillary Technologies</a>.</p>
+      </div>
+      <nav aria-labelledby="foot-product">
+        <h2 id="foot-product">Product</h2>
+        <ul>
+          <li><a href="/platform">Platform</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/how-it-works">How it works</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-solutions">
+        <h2 id="foot-solutions">Solutions</h2>
+        <ul>
+          <li><a href="/acquire">Acquire</a></li>
+          <li><a href="/convert">Convert</a></li>
+          <li><a href="/retain">Retain</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-company">
+        <h2 id="foot-company">Company</h2>
+        <ul>
+          <li><a href="/book-a-demo">Book a demo</a></li>
+          <li><a href="https://www.capillarytech.com/aira/">aiRA by Capillary</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Capillary Technologies · aiRA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/site.js" defer></script>
+</body>
+</html>

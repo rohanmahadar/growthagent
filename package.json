@@ -1,0 +1,16 @@
+{
+  "name": "ask-aira-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "aiRA marketing site + demo-request lead API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

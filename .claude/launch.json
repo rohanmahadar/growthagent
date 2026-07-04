@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ask-aira-site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 8090,
+      "env": { "PORT": "8090" }
+    }
+  ]
+}

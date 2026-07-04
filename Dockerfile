@@ -1,7 +1,14 @@
-FROM caddy:2-alpine
+FROM node:22-alpine
 
-COPY Caddyfile /etc/caddy/Caddyfile
-COPY . /usr/share/caddy
+WORKDIR /app
 
-# Caddy listens on $PORT (Railway injects it); fall back to 80 locally.
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
+
+COPY server.js ./
+COPY public ./public
+
+ENV NODE_ENV=production
+EXPOSE 8080
+
+CMD ["node", "server.js"]

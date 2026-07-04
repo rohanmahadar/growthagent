@@ -1,6 +1,8 @@
 .git
 .gitignore
-Dockerfile
-.dockerignore
+.claude
 node_modules
+leads-fallback.jsonl
 *.md
+.dockerignore
+Dockerfile
