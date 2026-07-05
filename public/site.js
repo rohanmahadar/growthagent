@@ -251,7 +251,7 @@
       chat: function (root) {
         var input = cdQ(root, 'input');
         var typed = cdQ(root, 'typed');
-        var brief = 'Win back customers we lost this year';
+        var brief = 'Win back customers we\'re losing this year';
         var steps = [[0, function () { cdOn(input); }]];
         for (var i = 0; i < brief.length; i++) {
           (function (n) {

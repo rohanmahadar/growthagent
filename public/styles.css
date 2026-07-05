@@ -170,6 +170,8 @@ button{ font:inherit; border:0; background:none; padding:0; }
 .on-navy .eyebrow{ color: var(--teal-soft); }
 .sec-head h1, .sec-head h2{ margin-top: var(--s-3); }
 .sec-head h2{ font-size: var(--fs-h2); }
+/* Balanced wrapping for display headings and metric labels (F3) */
+.sec-head h1, .sec-head h2, .metrics__head h2, .cta-band h2, .hero--center h1, .metric__label{ text-wrap:balance; }
 .sec-head .lede{ font-size: var(--fs-lede); color: var(--body); margin-top: var(--s-4); max-width:62ch; margin-inline:auto; }
 .sec-head--left .lede{ margin-inline:0; }
 .on-navy h2, .on-navy h3{ color:#fff; }
@@ -326,6 +328,11 @@ body.menu-open{ overflow:hidden; }
 }
 .hero h1{ font-size: var(--fs-display); font-weight:800; margin-top: var(--s-4); }
 .hero--inner h1{ font-size: var(--fs-h1); font-weight:800; }
+/* Split-hero headline: cap the display size so the 13-word h1 wraps cleanly (F2) */
+.hero__split .hero__copy h1{
+  font-size:clamp(2.25rem, 1.4rem + 2.4vw, 3.25rem);
+  text-wrap:balance;
+}
 .hero .lede{ font-size: var(--fs-lede); margin-top: var(--s-5); max-width:52ch; }
 .hero__btns{ display:flex; flex-wrap:wrap; gap: var(--s-4); margin-top: var(--s-7); }
 .hero__reassure{ display:flex; flex-wrap:wrap; gap:6px 18px; margin-top: var(--s-5); font-size:13px; color: var(--muted); }
@@ -494,7 +501,7 @@ body.menu-open{ overflow:hidden; }
 }
 .logos__track{
   display:flex; width:max-content; align-items:center;
-  animation:logos-scroll 36s linear infinite;
+  animation:logos-scroll 48s linear infinite;
 }
 .logos__mask:hover .logos__track,
 .logos__mask:focus-within .logos__track,
@@ -507,7 +514,7 @@ body.menu-open{ overflow:hidden; }
 .logos__pause:hover{ color: var(--ink); border-color: var(--line-strong); }
 .logos__track span{
   font-family: var(--font-head); font-weight:700; font-size:17px; color: var(--muted);
-  white-space:nowrap; filter:grayscale(1); opacity:.75; margin:0 clamp(1.25rem,3vw,2.25rem); transition:opacity var(--dur-fast);
+  white-space:nowrap; filter:grayscale(1); opacity:.75; margin:0 clamp(2.25rem, 5vw, 4rem); transition:opacity var(--dur-fast);
 }
 .logos__track span:hover{ opacity:1; }
 @keyframes logos-scroll{ to{ transform:translateX(-50%); } }
@@ -542,6 +549,8 @@ body.menu-open{ overflow:hidden; }
 .compare--with.is-in li:nth-child(4) svg{ transition-delay:180ms; }
 .compare--with.is-in li:nth-child(5) svg{ transition-delay:240ms; }
 @media (min-width:981px){ .compare--with{ margin-block:-12px; } }
+/* Keep Without/With rows on shared baselines (F7) */
+@media (min-width:681px){ .compare li{ min-height:70px; } }
 @media (max-width:680px){ .compare{ grid-template-columns:1fr; } }
 
 /* ============ SoI diagram ============ */
@@ -615,15 +624,21 @@ body.menu-open{ overflow:hidden; }
 }
 .tabs__rail [role="tab"]:hover{ color: var(--ink); }
 .tabs__rail [role="tab"][aria-selected="true"]{ background:#fff; color: var(--ink); box-shadow: var(--sh-xs); }
+/* Desktop: fit all six pills on one row (F4) */
+@media (min-width:981px){
+  .tabs__rail [role="tab"]{ font-size:13px; padding:10px 14px; }
+}
 @media (max-width:980px){
-  .tabs__rail-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-  .tabs__rail{ flex-wrap:nowrap; border-radius: var(--r-md); scroll-snap-type:x mandatory; }
+  .tabs__rail-wrap{ display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-snap-type:x mandatory; }
+  .tabs__rail{ margin-inline:auto; flex-wrap:nowrap; border-radius: var(--r-md); max-width:none; flex:none; }
   .tabs__rail [role="tab"]{ scroll-snap-align:start; }
 }
 .tabs__panel{
   background:#fff; border:1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-8);
   display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(2rem,4vw,3.5rem); align-items:center;
 }
+/* Stable panel height so switching tabs doesn't shift the page (F5) */
+@media (min-width:981px){ .tabs__panel{ min-height:420px; } }
 .tabs__panel[hidden]{ display:none; }
 .tabs__panel.is-entering{ animation:panelIn var(--dur-med) var(--ease-out); }
 @keyframes panelIn{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none;} }
@@ -926,6 +941,10 @@ a.card:hover, .card--hover:hover{ transform:translateY(-4px); box-shadow: var(--
 .card .icon-chip{ background: var(--chip-tint, rgba(35,149,154,.1)); color: var(--chip-ink, var(--teal-deep)); }
 .card__link{ display:inline-flex; align-items:center; gap:6px; margin-top: var(--s-4); font-weight:700; font-size:15px; color: var(--link); }
 a.card:hover .card__link{ text-decoration:underline; }
+/* Solutions cards: pin the Explore links to one shared baseline (F9) */
+#solutions a.card{ display:flex; flex-direction:column; }
+#solutions a.card .pill-tag{ align-self:flex-start; }
+#solutions .card__link{ margin-top:auto; padding-top: var(--s-4); }
 .card__keyline{ position:absolute; left:0; top:16px; bottom:16px; width:3px; border-radius:3px; background: var(--page-accent, var(--teal)); transform:scaleY(0); transform-origin:top; transition:transform var(--dur-med) var(--ease-out); }
 a.card:hover .card__keyline{ transform:scaleY(1); }
 
@@ -946,11 +965,18 @@ a.card:hover .card__keyline{ transform:scaleY(1); }
 }
 .persona:nth-child(even) .avatar{ background: var(--bg-warm); }
 .persona .avatar svg{ width:24px; height:24px; }
-.persona .role{ font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color: var(--teal-deep); font-family: var(--font-head); }
+.persona .role{ font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color: var(--teal-deep); font-family: var(--font-head); text-wrap:balance; }
 .persona h3{ font-size:18px; margin:0 0 8px; }
-.persona .pain{ font-size:14px; font-style:italic; color: var(--muted); margin-bottom:10px; }
+.persona .pain{ font-size:14px; color: var(--muted); margin-bottom:10px; }
 .persona .gives{ font-size:14px; color: var(--body); }
 .persona .gives b{ display:block; font-size:13px; font-weight:600; color: var(--ink); margin-bottom:3px; }
+/* Row-align persona internals across cards (F1) */
+@supports (grid-template-rows: subgrid){
+  #personas .grid--4 > .persona{
+    display:grid; grid-row:span 3; grid-template-rows:subgrid; row-gap:0;
+    align-content:start;
+  }
+}
 
 /* ============ Metrics ============ */
 .metrics{ background: var(--bg-cool); }
