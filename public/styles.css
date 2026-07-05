@@ -629,11 +629,12 @@ body.menu-open{ overflow:hidden; }
   .tabs__rail [role="tab"]{ font-size:13px; padding:10px 14px; }
 }
 @media (max-width:980px){
-  .tabs__rail-wrap{ display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-snap-type:x mandatory;
-    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 52px),transparent);
-    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 52px),transparent); }
-  .tabs__rail-wrap::after{ content:""; flex:0 0 52px; }
-  .tabs__rail{ margin-inline:auto; flex-wrap:nowrap; border-radius: var(--r-md); max-width:none; flex:none; }
+  /* All six tabs visible: wrapped pill grid — no hidden tabs, no scrolling */
+  .tabs__rail-wrap{ display:block; }
+  /* Uniform grid: 2x3 on tablet, single column on phones — every cell identical */
+  .tabs__rail{ display:grid; grid-template-columns:1fr 1fr; gap:6px; width:100%; max-width:560px;
+    margin-inline:auto; border-radius: var(--r-lg); padding:6px; }
+  .tabs__rail [role="tab"]{ font-size:13px; padding:11px 10px; text-align:center; width:100%; }
   .tabs__rail [role="tab"]{ scroll-snap-align:start; }
 }
 .tabs__panel{
@@ -1400,4 +1401,8 @@ html{ overflow-x:hidden; }
   .tabs__panel .icon-chip,
   .tabs__panel h3{ display:none; }
   .tabs__panel > div > .t-body{ margin-top: var(--s-2); }
+}
+
+@media (max-width:680px){
+  .tabs__rail{ grid-template-columns:1fr; max-width:340px; }
 }
