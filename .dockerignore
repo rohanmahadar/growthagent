@@ -4,5 +4,3 @@
 node_modules
 leads-fallback.jsonl
 *.md
-.dockerignore
-Dockerfile
