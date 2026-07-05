@@ -629,7 +629,10 @@ body.menu-open{ overflow:hidden; }
   .tabs__rail [role="tab"]{ font-size:13px; padding:10px 14px; }
 }
 @media (max-width:980px){
-  .tabs__rail-wrap{ display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-snap-type:x mandatory; }
+  .tabs__rail-wrap{ display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-snap-type:x mandatory;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 52px),transparent);
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 52px),transparent); }
+  .tabs__rail-wrap::after{ content:""; flex:0 0 52px; }
   .tabs__rail{ margin-inline:auto; flex-wrap:nowrap; border-radius: var(--r-md); max-width:none; flex:none; }
   .tabs__rail [role="tab"]{ scroll-snap-align:start; }
 }
@@ -1391,3 +1394,10 @@ body.convert .loop-card .step-badge{ color: var(--ink); }
 /* No-horizontal-scroll guard (on html only — a clip/hidden pair on both
    html and body can suppress viewport scrolling entirely) */
 html{ overflow-x:hidden; }
+
+/* Mobile: tab pill already names the capability — drop the duplicate card header (panel stays labelled via aria-labelledby) */
+@media (max-width:680px){
+  .tabs__panel .icon-chip,
+  .tabs__panel h3{ display:none; }
+  .tabs__panel > div > .t-body{ margin-top: var(--s-2); }
+}
