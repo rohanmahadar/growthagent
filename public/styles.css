@@ -1404,5 +1404,31 @@ html{ overflow-x:hidden; }
 }
 
 @media (max-width:680px){
-  .tabs__rail{ grid-template-columns:1fr; max-width:340px; }
+  /* Accordion: tap a capability, its content opens right below it; others follow after */
+  [data-tabs]{ display:flex; flex-direction:column; }
+  .tabs__rail-wrap, .tabs__rail{ display:contents; }
+  .tabs__rail [role="tab"]{
+    width:100%; text-align:left; font-size:15px; font-weight:600; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-top:none; border-radius:0;
+    padding:15px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  .tabs__rail [role="tab"]::after{
+    content:""; flex:none; width:9px; height:9px;
+    border-right:2px solid var(--teal-deep); border-bottom:2px solid var(--teal-deep);
+    transform:rotate(45deg); margin-top:-4px; transition:transform var(--dur-fast) var(--ease-out);
+  }
+  .tabs__rail [role="tab"][aria-selected="true"]{ background:var(--bg-soft); color:var(--teal-deep); }
+  .tabs__rail [role="tab"][aria-selected="true"]::after{ transform:rotate(225deg); margin-top:4px; }
+  #cap-tab-1{ order:1; border-top:1px solid var(--line); border-radius:var(--r-md) var(--r-md) 0 0; }
+  #cap-panel-1{ order:2; }
+  #cap-tab-2{ order:3; }  #cap-panel-2{ order:4; }
+  #cap-tab-3{ order:5; }  #cap-panel-3{ order:6; }
+  #cap-tab-4{ order:7; }  #cap-panel-4{ order:8; }
+  #cap-tab-5{ order:9; }  #cap-panel-5{ order:10; }
+  #cap-tab-6{ order:11; } #cap-panel-6{ order:12; }
+  #cap-tab-6:not([aria-selected="true"]){ border-radius:0 0 var(--r-md) var(--r-md); }
+  .tabs__panel:not([hidden]){
+    border:1px solid var(--line); border-top:none; background:#fff;
+    padding:16px; margin:0;
+  }
 }
