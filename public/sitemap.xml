@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.ask-aira.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://www.ask-aira.com/platform</loc><priority>0.9</priority></url>
-  <url><loc>https://www.ask-aira.com/agents</loc><priority>0.9</priority></url>
-  <url><loc>https://www.ask-aira.com/acquire</loc><priority>0.8</priority></url>
-  <url><loc>https://www.ask-aira.com/convert</loc><priority>0.8</priority></url>
-  <url><loc>https://www.ask-aira.com/retain</loc><priority>0.8</priority></url>
-  <url><loc>https://www.ask-aira.com/how-it-works</loc><priority>0.9</priority></url>
-  <url><loc>https://www.ask-aira.com/book-a-demo</loc><priority>1.0</priority></url>
+  <url><loc>https://www.ask-aira.com/</loc><lastmod>2026-07-11</lastmod><priority>1.0</priority></url>
+  <url><loc>https://www.ask-aira.com/platform</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/agents</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/acquire</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/convert</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/retain</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/how-it-works</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/security</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/customers</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.ask-aira.com/book-a-demo</loc><lastmod>2026-07-11</lastmod><priority>0.8</priority></url>
 </urlset>

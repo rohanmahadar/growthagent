@@ -3,296 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Convert — Meet Every Visitor at Their Moment | aiRA</title>
-<meta name="description" content="aiRA notices what each visitor is doing right now and responds in the moment — the right offer or nudge, through the tools you already run.">
-<link rel="canonical" href="https://www.ask-aira.com/convert">
-<meta property="og:title" content="Convert — Meet Every Visitor at Their Moment | aiRA">
-<meta property="og:description" content="aiRA notices what each visitor is doing right now and responds in the moment — the right offer or nudge, through the tools you already run.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.ask-aira.com/convert">
+<title>Convert — aiRA</title>
+<meta name="description" content="Your team describes the offer in plain language. aiRA drafts the configuration, shows it to you first, and — on your approval — pushes it to your offer engine. Any offer engine.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300;400;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/aira.css?v=redo5">
+<script src="/assets/boot.js"></script>
+<style>
+  /* Page-specific — convert.html only, on aira.css tokens */
+  .hero--lite { padding: clamp(72px, 9vh, 112px) 0 var(--sp-12); }
+
+  /* //01–//03 capability steps (left column of the split) */
+  .steps { list-style: none; margin: var(--sp-8) 0 0; padding: 0; }
+  .steps li { display: flex; gap: var(--sp-4); align-items: baseline;
+    padding: var(--sp-5) 0; border-bottom: 1px solid var(--line-soft); }
+  .steps__num { font-family: var(--font-mono); font-size: var(--fs-mono);
+    color: var(--accent); flex: 0 0 auto; }
+  .steps strong { display: block; font-family: var(--font-display); font-weight: 700;
+    font-size: 17px; letter-spacing: -0.01em; color: var(--ink); margin-bottom: var(--sp-1); }
+  .steps p { margin: 0; font-size: var(--fs-small); color: var(--ink-body); }
+
+  /* Offer-push vignette — checklist rows play in sequence on reveal */
+  .flow { padding: var(--sp-5); }
+  .flow-req { border: 1px solid var(--line-soft); border-radius: var(--r-card);
+    background: var(--bg-tint); padding: var(--sp-4); margin-bottom: var(--sp-4); }
+  .flow-req__label { display: block; font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+    margin-bottom: var(--sp-2); }
+  .flow-req__text { margin: 0; font-size: 13px; color: var(--ink-body); }
+  .flow-row { display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) 0; border-bottom: 1px solid var(--line-soft);
+    font-size: 13px; color: var(--ink-body);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    transition-delay: calc(var(--i) * 0.5s + 0.2s); }
+  .flow-row:last-child { border-bottom: 0; }
+  .flow-row__label { flex: 1; min-width: 0; }
+  .flow-row__meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted); }
+  .flow-dot { flex: 0 0 auto; width: 18px; height: 18px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; line-height: 1;
+    background: var(--agent-accent); border: 1px solid var(--agent-accent);
+    color: var(--bg-raised);
+    transition: background-color 0.3s var(--ease-house), border-color 0.3s var(--ease-house),
+                color 0.3s var(--ease-house);
+    transition-delay: calc(var(--i) * 0.5s + 0.4s); }
+  .flow-row .pill-status { transition: opacity 0.3s var(--ease-out);
+    transition-delay: calc(var(--i) * 0.5s + 0.4s); }
+  /* Progressive reveal: nothing reads as done before its step plays */
+  .js [data-reveal]:not(.is-in) .flow-row { opacity: 0; transform: translateY(6px); }
+  .js [data-reveal]:not(.is-in) .flow-dot { background: transparent;
+    border-color: var(--line-strong); color: transparent; }
+  .js [data-reveal]:not(.is-in) .flow-row .pill-status { opacity: 0; }
+
+  /* Proof feature — CS2 full-width */
+  .story-head { max-width: 860px; margin-bottom: var(--sp-10); }
+  .story-head .eyebrow { white-space: normal; }
+
+  /* Light-surface stat cards — ink numerals, accent underline; yellow never on light */
+  .stat-light-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5);
+    margin-bottom: var(--sp-12); }
+  .stat-light { background: var(--bg-raised); border: 1px solid var(--line-soft);
+    border-radius: var(--r-card); padding: var(--sp-6); }
+  .stat-light__num { display: block; font-family: var(--font-display); font-weight: 600;
+    font-variation-settings: 'wdth' 105; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.375rem);
+    line-height: 1.1; letter-spacing: -0.03em; color: var(--ink); }
+  .stat-light__num::after { content: ""; display: block; width: 28px; height: 2px;
+    background: var(--accent); margin: var(--sp-3) 0 0; }
+  .stat-light__label { display: block; font-size: var(--fs-small); font-weight: 600;
+    color: var(--ink); margin: var(--sp-4) 0 var(--sp-2); }
+  .stat-light__mech { display: block; font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  @media (max-width: 980px) { .stat-light-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .stat-light-grid { grid-template-columns: 1fr; } }
+
+  .proof-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-8);
+    max-width: 1080px; }
+  .proof-cols p { margin: 0; color: var(--ink-body); }
+  .proof-link { margin-top: var(--sp-8); }
+  @media (max-width: 860px) { .proof-cols { grid-template-columns: 1fr; gap: var(--sp-5); } }
+
+  /* Dark CTA band, then dark footer — hairline keeps the two surfaces deliberate */
+  .cta-inner { max-width: 740px; margin: 0 auto; text-align: center; }
+  .cta-inner .lede { margin-bottom: var(--sp-8); }
+  .band + .footer-band { border-top: 1px solid var(--band-line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-row, .flow-dot, .flow-row .pill-status { transition-delay: 0s; }
+  }
+</style>
 </head>
-<body class="convert">
+<body>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- brand mark sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
     </linearGradient>
-    <symbol id="aira-mark" viewBox="0 0 24 24">
-      <g fill="url(#aira-grad)">
-        <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <symbol id="aira-spark" viewBox="0 0 28 28">
+      <g fill="url(#spark-grad)">
+        <path transform="translate(13 17) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(22.5 10) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(23 22) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
       </g>
     </symbol>
   </defs>
 </svg>
 
-<!-- NAV -->
 <header class="nav">
-  <div class="container container--wide nav__inner">
-    <a class="lockup" href="/" aria-label="aiRA home">
-      <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-      <span class="lockup__word">aiRA</span>
-      <span class="lockup__by">by capillary</span>
+  <div class="nav__inner">
+    <a class="nav__logo" href="/" aria-label="aiRA home">
+      <svg width="28" height="28" aria-hidden="true"><use href="#aira-spark"/></svg>
+      <span class="nav__wordmark">aiRA</span>
     </a>
-    <nav class="nav__links" aria-label="Primary">
-      <a href="/platform">Platform</a>
-      <a href="/agents">Agents</a>
-      <div class="nav__dd">
-        <button type="button" class="nav__dd-btn" aria-expanded="false" aria-haspopup="true" aria-controls="solutions-menu">Solutions
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <ul class="nav__dd-panel" id="solutions-menu">
-          <li><a href="/acquire">
-            <span class="dd-ic dd-ic--acquire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M19 6v6m-3-3h6"/></svg></span>
-            <span><span class="dd-t">Acquire</span><span class="dd-d">Turn strangers into customers</span></span>
-          </a></li>
-          <li><a href="/convert" aria-current="page">
-            <span class="dd-ic dd-ic--convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
-            <span><span class="dd-t">Convert</span><span class="dd-d">Meet every visitor at their moment</span></span>
-          </a></li>
-          <li><a href="/retain">
-            <span class="dd-ic dd-ic--retain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-9-9c-1.3-3 1-7 4.5-7C9.5 4 11 5 12 6.7 13 5 14.5 4 16.5 4 20 4 22.3 8 21 11c-2 4.5-9 9-9 9z"/></svg></span>
-            <span><span class="dd-t">Retain</span><span class="dd-d">Keep and recover your best customers</span></span>
-          </a></li>
-        </ul>
-      </div>
-      <a href="/how-it-works">How it works</a>
-    </nav>
-    <div class="nav__actions">
-      <a class="btn btn--primary btn--s" href="/book-a-demo">Book a demo</a>
-      <button type="button" class="nav__burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <nav class="nav__mobile" id="mobile-menu" aria-label="Primary mobile">
-    <ul>
+    <ul class="nav__links">
       <li><a href="/platform">Platform</a></li>
       <li><a href="/agents">Agents</a></li>
-      <li>
-        <span class="group-label">Solutions</span>
-        <ul class="indent">
-          <li><a href="/acquire">Acquire</a></li>
-          <li><a href="/convert" aria-current="page">Convert</a></li>
-          <li><a href="/retain">Retain</a></li>
-        </ul>
-      </li>
+      <li><a href="/customers">Customers</a></li>
+      <li><a href="/security">Security</a></li>
       <li><a href="/how-it-works">How it works</a></li>
-      <li><a href="/book-a-demo">Book a demo</a></li>
     </ul>
+    <a class="btn btn-primary btn--compact nav__cta" href="/book-a-demo?source=v3-convert-nav">Get a demo</a>
+    <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav__sheet" aria-label="Mobile">
+    <a href="/platform">Platform</a>
+    <a href="/agents">Agents</a>
+    <a href="/customers">Customers</a>
+    <a href="/security">Security</a>
+    <a href="/how-it-works">How it works</a>
+    <a class="btn btn-primary" href="/book-a-demo?source=v3-convert-nav">Get a demo</a>
   </nav>
 </header>
 
-<main id="main">
+<main>
 
-  <!-- HERO -->
-  <section id="hero" class="hero hero--inner" aria-labelledby="hero-title">
-    <div class="container hero__inner">
-      <div class="hero__split">
-        <div class="hero__copy">
-          <p class="stage-pill">Solutions · Convert</p>
-          <h1 id="hero-title">Meet every visitor at their moment</h1>
-          <p class="lede">A visitor's interest fades in minutes; batch campaigns respond in weeks. aiRA notices what each visitor is doing right now — on your website, in your app, against their full history — and responds before the moment passes.</p>
-          <div class="hero__btns">
-            <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
-            <a class="btn btn--secondary" href="/how-it-works">See how it works <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+<!-- 1 · Hero-lite -->
+<section class="hero hero--lite">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow eyebrow--center" data-spring="1">Convert</p>
+    <h1 class="grad-text" data-spring="2">From idea to live, <em class="accent-serif">without tickets</em></h1>
+    <p class="lede hero__sub" data-spring="3">Your team describes the offer in plain language. <span class="brand-case">aiRA</span> drafts the configuration, shows it to you first, and — on your approval — pushes it to your offer engine. No engineering queue.</p>
+  </div>
+</section>
+
+<!-- 2 · The queue -->
+<section class="rule-dashed">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">The queue</p>
+      <h2 class="grad-text">Offers move at <em class="accent-serif">the speed of the backlog</em></h2>
+      <p class="lede">Every offer that waits on engineering is revenue on a shelf. One multi-category consumer app knows the shape of it: 20+ offer templates a month across 15+ categories, every change routed through engineering, and a manual, error-prone path to production. The campaign calendar kept moving. The queue didn't.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · What aiRA does -->
+<section class="section-rule" id="what">
+  <div class="container gov">
+    <div>
+      <p class="eyebrow eyebrow--left">What <span class="brand-case">aiRA</span> does</p>
+      <h2 class="grad-text">Describe the offer. <em class="accent-serif">aiRA configures it.</em></h2>
+      <p class="lede">Convert is the <span class="brand-case">aiRA</span> agent between a written request and a live offer. It works with the offer engine you already run — not instead of it.</p>
+      <ol class="steps">
+        <li>
+          <span class="steps__num">//01</span>
+          <div>
+            <strong>Parses the offer from plain English.</strong>
+            <p>Auto-start campaigns, cyclical offers, milestone rewards — written the way your team already briefs them.</p>
           </div>
-        </div>
-        <div class="hero__visual">
-          <div class="frame-dashed frame-dashed--loop" data-reveal data-draw>
-            <svg class="stage-loop" viewBox="0 0 640 480" role="img" aria-label="Circular diagram of the conversion loop — Sense, Decide, Act, Learn — run in real time by aiRA.">
-              <defs>
-                <marker id="mAcc" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#F4A114"/></marker>
-              </defs>
-              <g fill="none" stroke="#F4A114" stroke-width="2">
-                <path class="draw" pathLength="1" d="M412 78 C490 105 520 140 528 205" marker-end="url(#mAcc)"/>
-                <path class="draw d2" pathLength="1" d="M528 275 C520 340 490 375 412 402" marker-end="url(#mAcc)"/>
-                <path class="draw d3" pathLength="1" d="M228 402 C150 375 120 340 112 275" marker-end="url(#mAcc)"/>
-                <path class="draw d4" pathLength="1" d="M112 205 C120 140 150 105 228 78" marker-end="url(#mAcc)"/>
-              </g>
-              <g>
-                <rect x="235" y="45" width="170" height="54" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-                <circle cx="262" cy="72" r="10" fill="#F4A114"/><text x="262" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="#212121">1</text>
-                <text x="282" y="77" font-size="15" font-weight="600" fill="#212121">Sense</text>
-                <rect x="448" y="213" width="170" height="54" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-                <circle cx="475" cy="240" r="10" fill="#F4A114"/><text x="475" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#212121">2</text>
-                <text x="495" y="245" font-size="15" font-weight="600" fill="#212121">Decide</text>
-                <rect x="235" y="381" width="170" height="54" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-                <circle cx="262" cy="408" r="10" fill="#F4A114"/><text x="262" y="412" text-anchor="middle" font-size="11" font-weight="700" fill="#212121">3</text>
-                <text x="282" y="413" font-size="15" font-weight="600" fill="#212121">Act</text>
-                <rect x="22" y="213" width="170" height="54" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-                <circle cx="49" cy="240" r="10" fill="#F4A114"/><text x="49" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#212121">4</text>
-                <text x="69" y="245" font-size="15" font-weight="600" fill="#212121">Learn</text>
-              </g>
-              <circle cx="320" cy="240" r="58" fill="#fff" stroke="#E3E8EE"/>
-              <use href="#aira-mark" x="296" y="216" width="48" height="48"/>
-              <text x="320" y="325" text-anchor="middle" font-size="14" font-weight="600" fill="#212121">aiRA runs the loop</text>
-            </svg>
+        </li>
+        <li>
+          <span class="steps__num">//02</span>
+          <div>
+            <strong>Drafts the exact configuration.</strong>
+            <p>Every rule, cap and schedule laid out for review. You see it before anything moves.</p>
+          </div>
+        </li>
+        <li>
+          <span class="steps__num">//03</span>
+          <div>
+            <strong>On your approval, pushes it to your offer engine.</strong>
+            <p>Any engine — <span class="brand-case">aiRA</span> is engine-agnostic. What goes live is exactly what you approved.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+    <div data-reveal>
+      <div class="frame">
+        <span class="frame__tab">convert · offer push · fictional</span>
+        <div class="frame__bar" aria-hidden="true"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span></div>
+        <div class="frame__body">
+          <div class="flow">
+            <div class="flow-req">
+              <span class="flow-req__label">Request — marketing ops</span>
+              <p class="flow-req__text">&ldquo;Double points on every third visit, cyclical, auto-start Monday. Cap it at one reward per member per month.&rdquo;</p>
+            </div>
+            <div class="flow-row" style="--i:0">
+              <span class="flow-dot" aria-hidden="true">✓</span>
+              <span class="flow-row__label">Parsed — cyclical offer, milestone reward, auto-start</span>
+              <span class="flow-row__meta">14:02</span>
+            </div>
+            <div class="flow-row" style="--i:1">
+              <span class="flow-dot" aria-hidden="true">✓</span>
+              <span class="flow-row__label">Configuration drafted — rules, cap and schedule for review</span>
+              <span class="flow-row__meta">14:03</span>
+            </div>
+            <div class="flow-row" style="--i:2">
+              <span class="flow-dot" aria-hidden="true">✓</span>
+              <span class="flow-row__label">Approved by marketing ops</span>
+              <span class="flow-row__meta">14:11</span>
+            </div>
+            <div class="flow-row" style="--i:3">
+              <span class="flow-dot" aria-hidden="true">✓</span>
+              <span class="flow-row__label">Pushed to the offer engine</span>
+              <span class="pill-status pill-status--ok">Live</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- LOOP -->
-  <section id="loop" class="section" aria-labelledby="loop-title">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>The loop</p>
-        <h2 id="loop-title">The conversion loop, run in real time:</h2>
+<!-- 4 · Proof — CS2 -->
+<section class="rule-dashed" id="proof">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Multi-category consumer app · 500+ stores · 20M+ active customers</p>
+      <h2 class="grad-text">Configuration errors: <em class="accent-serif">zero</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">50%</span>
+        <span class="stat-light__label">Creation time cut</span>
+        <span class="stat-light__mech">End-to-end, from request to live offer.</span>
       </div>
-      <div class="loop-strip" data-reveal-stagger>
-        <div class="loop-card">
-          <span class="step-badge" aria-hidden="true">1</span>
-          <h3>Sense</h3>
-          <p>notice what each visitor is doing: browsing, adding to cart, searching, hesitating</p>
-        </div>
-        <div class="loop-card">
-          <span class="step-badge" aria-hidden="true">2</span>
-          <h3>Decide</h3>
-          <p>choose the best next step for this visitor, based on their full history</p>
-        </div>
-        <div class="loop-card">
-          <span class="step-badge" aria-hidden="true">3</span>
-          <h3>Act</h3>
-          <p>deliver the offer, nudge, or handoff through your existing channels</p>
-        </div>
-        <div class="loop-card">
-          <span class="step-badge" aria-hidden="true">4</span>
-          <h3>Learn</h3>
-          <p>feed every outcome back into the next decision</p>
-        </div>
+      <div class="stat-light">
+        <span class="stat-light__num">15+</span>
+        <span class="stat-light__label">Categories, one flow</span>
+        <span class="stat-light__mech">Every offer authored the same plain-language way.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">20+</span>
+        <span class="stat-light__label">Monthly templates</span>
+        <span class="stat-light__mech">Single-brand and multi-loyalty, without engineering.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">0</span>
+        <span class="stat-light__label">Configuration errors</span>
+        <span class="stat-light__mech">After <span class="brand-case">aiRA</span> adoption, across every live template.</span>
       </div>
     </div>
-  </section>
-
-  <!-- CAPABILITIES -->
-  <section id="capabilities" class="section bg-soft" aria-labelledby="capf-title">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Capabilities</p>
-        <h2 id="capf-title">How aiRA works every visit</h2>
-      </div>
-      <div class="grid grid--2" data-reveal-stagger>
-        <div class="card" style="--chip-tint:var(--page-tint); --chip-ink:var(--page-accent-dark)">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></svg></span>
-          <h3>Reads each visitor's moment</h3>
-          <p>aiRA combines what a visitor is doing right now with everything your systems already know about them — loyalty status, past purchases, service history — into one live picture.</p>
-        </div>
-        <div class="card" style="--chip-tint:var(--page-tint); --chip-ink:var(--page-accent-dark)">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>
-          <h3>The right next step, including none</h3>
-          <p>For each visitor, aiRA chooses among an offer, a message, a nudge — or nothing at all. The wrong discount costs margin. The right silence builds trust.</p>
-        </div>
-        <div class="card" style="--chip-tint:var(--page-tint); --chip-ink:var(--page-accent-dark)">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
-          <h3>Works through your existing channels</h3>
-          <p>Decisions go out through the tools you already run — on-site messages, email, app, or a handoff to your sales team. No new software for customers to see or staff to learn.</p>
-        </div>
-        <div class="card" style="--chip-tint:var(--page-tint); --chip-ink:var(--page-accent-dark)">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
-          <h3>Protects your margins</h3>
-          <p>You set the limits: maximum discounts, how often a customer can receive an offer, and who is excluded. Agents work hard inside those limits — and never outside them.</p>
-        </div>
-      </div>
+    <div class="proof-cols">
+      <p>This team runs offers for 20M+ active customers across 15+ categories — single-brand and multi-loyalty programmes at once. Before <span class="brand-case">aiRA</span>, every one of its 20+ monthly offer templates went through engineering, and getting each one into production was manual and error-prone.</p>
+      <p>Now marketers write the offer in plain English — auto-start campaigns, cyclical offers, one-time milestone rewards — and <span class="brand-case">aiRA</span> drafts the configuration and, once approved, pushes it to the offer engine. End-to-end creation time fell 50%. Configuration errors went to zero.</p>
     </div>
-  </section>
+    <p class="proof-link"><a class="link-more" href="/customers#superapp">Read the story →</a></p>
+  </div>
+</section>
 
-  <!-- METRICS -->
-  <section id="metrics" class="section" aria-labelledby="metrics-title">
-    <div class="container">
-      <div class="metrics__head" data-reveal>
-        <h2 id="metrics-title">What deciding in the moment changes</h2>
-      </div>
-      <div class="frame-dashed" data-reveal>
-        <div class="metrics__grid" data-reveal-stagger>
-          <div class="metric">
-            <div class="metric__num"><span data-count="24">24</span><span class="metric__unit">%</span></div>
-            <div class="metric__label">More visitors becoming buyers in sessions worked by agents</div>
-          </div>
-          <div class="metric">
-            <div class="metric__num"><span data-count="17">17</span><span class="metric__unit">%</span></div>
-            <div class="metric__label">Fewer blanket discounts, replaced by offers chosen per visitor</div>
-          </div>
-          <div class="metric">
-            <div class="metric__num"><span class="metric__unit">&lt;</span><span data-count="1">1</span><span class="metric__unit">s</span></div>
-            <div class="metric__label">From visitor signal to decision</div>
-          </div>
-          <div class="metric">
-            <div class="metric__num"><span data-count="100">100</span><span class="metric__unit">%</span></div>
-            <div class="metric__label">Of offers within the discount and frequency limits you set</div>
-          </div>
-        </div>
-      </div>
+<!-- 5 · Dark band CTA -->
+<section class="band on-dark">
+  <div class="container">
+    <div class="cta-inner">
+      <p class="eyebrow eyebrow--center">Get started</p>
+      <h2 class="grad-text">Ship the next campaign <em class="accent-serif">this week</em></h2>
+      <p class="lede">Bring the offer at the bottom of your queue. We'll show you how <span class="brand-case">aiRA</span> moves it — plain English to configured, approved, live.</p>
+      <a class="btn btn-primary" href="/book-a-demo?source=v3-convert">Get a demo</a>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta" class="band cta-band on-navy" aria-labelledby="cta-title">
-    <div class="container container--text cta-band__inner" data-reveal>
-      <svg class="spark-lg" aria-hidden="true"><use href="#aira-mark"/></svg>
-      <h2 id="cta-title">See a live visit get its own decision</h2>
-      <p class="lede">In the demo, we'll walk through a real visitor journey and show every decision aiRA makes along the way — and why.</p>
-      <div class="cta-band__btns">
-        <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
-        <a class="btn btn--secondary" href="/how-it-works">See how it works <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer on-navy">
-  <div class="container container--wide">
-    <div class="footer__grid">
+<!-- 6 · Footer -->
+<footer class="band on-dark footer-band">
+  <div class="container">
+    <div class="footer-cta">
       <div>
-        <a class="lockup lockup--navy" href="/" aria-label="aiRA home">
-          <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-          <span class="lockup__word">aiRA</span>
-          <span class="lockup__by">by capillary</span>
-        </a>
-        <p class="footer__tag">aiRA — the System of Intelligence for your Systems of Record.</p>
-        <p class="footer__attr">aiRA is built by <a href="https://www.capillarytech.com/aira/">Capillary Technologies</a>.</p>
+        <h2 class="grad-text">Ready to see your growth plan?</h2>
+        <p class="lede">Bring one growth problem. We'll show you how <span class="brand-case">aiRA</span> would run it — signal to sign-off.</p>
+        <div class="footer-cta__actions">
+          <a class="btn btn-primary" href="/book-a-demo?source=v3-convert-footer">Get a demo</a>
+          <a class="link-more" href="/book-a-demo?source=v3-convert-footer-talk">Talk to us →</a>
+        </div>
       </div>
-      <nav aria-labelledby="foot-product">
-        <h2 id="foot-product">Product</h2>
-        <ul>
-          <li><a href="/platform">Platform</a></li>
-          <li><a href="/agents">Agents</a></li>
-          <li><a href="/how-it-works">How it works</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-solutions">
-        <h2 id="foot-solutions">Solutions</h2>
-        <ul>
-          <li><a href="/acquire">Acquire</a></li>
-          <li><a href="/convert">Convert</a></li>
-          <li><a href="/retain">Retain</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-company">
-        <h2 id="foot-company">Company</h2>
-        <ul>
-          <li><a href="/book-a-demo">Book a demo</a></li>
-          <li><a href="https://www.capillarytech.com/aira/">aiRA by Capillary</a></li>
-        </ul>
-      </nav>
+      <div class="footer-cta__mascot">
+        <img src="/assets/aira-mascot.png?v=1" alt="The aiRA mascot" width="140" height="226" loading="lazy">
+      </div>
     </div>
-    <div class="footer__bottom">
-      <span>© 2026 Capillary Technologies · aiRA</span>
+    <hr class="footer-hairline">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="nav__logo" href="/" aria-label="aiRA home">
+          <svg width="24" height="24" aria-hidden="true"><use href="#aira-spark"/></svg>
+          <span class="nav__wordmark" style="color:#fff">aiRA</span>
+        </a>
+        <p>The AI agent that drives growth across your business — and asks before it acts.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="/#demo">Interactive demo</a></li>
+          <li><a href="/#agents">The agents</a></li>
+          <li><a href="/#governance">Governance</a></li>
+          <li><a href="/book-a-demo?source=v3-convert-footer-col">Get a demo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/security">Security</a></li>
+          <li><a href="/customers">Customers</a></li>
+          <li><a href="/#numbers">Results</a></li>
+          <li><a href="/book-a-demo?source=v3-convert-footer-contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><span class="brand-case">aiRA</span> — built by the team at Capillary Technologies</span>
+      <span>© 2026 <span class="brand-case">aiRA</span>. All rights reserved.</span>
     </div>
   </div>
 </footer>
 
-<script src="/site.js" defer></script>
+<script src="/assets/aira.js?v=redo5" defer></script>
 </body>
 </html>

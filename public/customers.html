@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer stories — aiRA</title>
+<meta name="description" content="Five production deployments of aiRA, anonymized until the customers choose to be named. Names withheld. Numbers exact.">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300;400;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/aira.css?v=redo5">
+<script src="/assets/boot.js"></script>
+<style>
+  /* Page-specific — customers.html only, on aira.css tokens */
+  .nav__links a[aria-current="page"] { color: var(--accent); }
+
+  .hero--lite { padding: clamp(72px, 9vh, 112px) 0 var(--sp-12); }
+
+  .story-index { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+    gap: var(--sp-2) 0; list-style: none; margin: var(--sp-8) 0 0; padding: 0; }
+  .story-index li + li::before { content: "·"; margin: 0 var(--sp-4); color: var(--line-strong); }
+  .story-index a { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-muted); transition: color 0.2s; white-space: nowrap; }
+  .story-index a:hover { color: var(--accent); }
+  .story-index a b { font-weight: 400; color: var(--accent); margin-right: 6px; }
+
+  .story { scroll-margin-top: calc(var(--nav-h) + var(--sp-4)); }
+  .story .eyebrow { white-space: normal; }
+  .story-head { max-width: 860px; margin-bottom: var(--sp-10); }
+
+  /* Light-surface stat cards — ink numerals, accent underline; yellow never on light */
+  .stat-light-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5);
+    margin-bottom: var(--sp-12); }
+  .stat-light { background: var(--bg-raised); border: 1px solid var(--line-soft);
+    border-radius: var(--r-card); padding: var(--sp-6); }
+  .stat-light__num { display: block; font-family: var(--font-display); font-weight: 600;
+    font-variation-settings: 'wdth' 105; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.375rem);
+    line-height: 1.1; letter-spacing: -0.03em; color: var(--ink); }
+  .stat-light__num::after { content: ""; display: block; width: 28px; height: 2px;
+    background: var(--accent); margin: var(--sp-3) 0 0; }
+  .stat-light__label { display: block; font-size: var(--fs-small); font-weight: 600;
+    color: var(--ink); margin: var(--sp-4) 0 var(--sp-2); }
+  .stat-light__mech { display: block; font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  @media (max-width: 980px) { .stat-light-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .stat-light-grid { grid-template-columns: 1fr; } }
+
+  /* Challenge / Solution / Impact — three titled columns on a drafting rule */
+  .csi { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-8); }
+  .csi > div { border-top: 1px solid var(--line); padding-top: var(--sp-4); }
+  .csi h3 { font-family: var(--font-mono); font-weight: 600; font-size: var(--fs-mono);
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+    margin: 0 0 var(--sp-3); }
+  .csi p { font-size: var(--fs-small); color: var(--ink-body); margin: 0; }
+  @media (max-width: 860px) { .csi { grid-template-columns: 1fr; gap: var(--sp-6); } }
+
+  .story__link { margin-top: var(--sp-8); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
+    </linearGradient>
+    <symbol id="aira-spark" viewBox="0 0 28 28">
+      <g fill="url(#spark-grad)">
+        <path transform="translate(13 17) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(22.5 10) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(23 22) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="/" aria-label="aiRA home">
+      <svg width="28" height="28" aria-hidden="true"><use href="#aira-spark"/></svg>
+      <span class="nav__wordmark">aiRA</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/platform">Platform</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/customers" aria-current="page">Customers</a></li>
+      <li><a href="/security">Security</a></li>
+      <li><a href="/how-it-works">How it works</a></li>
+    </ul>
+    <a class="btn btn-primary btn--compact nav__cta" href="/book-a-demo?source=v3-customers-nav">Get a demo</a>
+    <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav__sheet" aria-label="Mobile">
+    <a href="/platform">Platform</a>
+    <a href="/agents">Agents</a>
+    <a href="/customers" aria-current="page">Customers</a>
+    <a href="/security">Security</a>
+    <a href="/how-it-works">How it works</a>
+    <a class="btn btn-primary" href="/book-a-demo?source=v3-customers-nav">Get a demo</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- Hero-lite -->
+<section class="hero hero--lite">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow eyebrow--center" data-spring="1">Customer stories</p>
+    <h1 class="grad-text" data-spring="2">Names withheld. <em class="accent-serif">Numbers exact.</em></h1>
+    <p class="lede hero__sub" data-spring="3">Five real deployments, measured in production. Every brand here stays anonymized until it chooses to be named — the descriptors are generic, the numbers are character-for-character.</p>
+    <ul class="story-index" data-spring="4">
+      <li><a href="#fashion-retailer"><b>01</b>Value fashion</a></li>
+      <li><a href="#superapp"><b>02</b>Consumer superapp</a></li>
+      <li><a href="#menswear"><b>03</b>Menswear</a></li>
+      <li><a href="#healthcare"><b>04</b>Healthcare</a></li>
+      <li><a href="#footwear"><b>05</b>Footwear</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CS1 · Fashion retailer -->
+<section class="story rule-dashed" id="fashion-retailer">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Middle East value-fashion retailer · KSA · Ramadan 2026 · 14M+ customer base</p>
+      <h2 class="grad-text">A regional growth gap, <em class="accent-serif">closed in five weeks</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">−2.2pp</span>
+        <span class="stat-light__label">Regional growth gap</span>
+        <span class="stat-light__mech">Narrowed from −9.6pp before Ramadan.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">SAR 230M+</span>
+        <span class="stat-light__label">Net sales, Ramadan window</span>
+        <span class="stat-light__mech">+4.0% year on year across W34–W38.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">8 of 9</span>
+        <span class="stat-light__label">Scorecard KPIs won</span>
+        <span class="stat-light__mech">Head-to-head against a dedicated analytics agency.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">+29.4%</span>
+        <span class="stat-light__label">New-customer growth</span>
+        <span class="stat-light__mech">Year on year, on a 14M+ customer base.</span>
+      </div>
+    </div>
+    <div class="csi">
+      <div>
+        <h3>Challenge</h3>
+        <p>A pre-Ramadan growth gap of −9.6pp separated the Eastern and Central regions from the rest of the network. Mass targeting reached only 29% of the 14M+ base. 715K active customers and 448K hibernators went untouched.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>aiRA built behavioural segments and a transaction-propensity model across five lifecycle cohorts. It then ran the W34–W38 campaign end-to-end — monitoring ATV continuously, recalibrating every cycle.</p>
+      </div>
+      <div>
+        <h3>Impact</h3>
+        <p>A 7.5pp regional swing. New customers up 29.4% year on year. Each delivered message drove 11.6% more revenue, and average spend held far steadier than under the agency's approach. aiRA won 8 of 9 scorecard metrics head-to-head.</p>
+      </div>
+    </div>
+    <p class="story__link"><a class="link-more" href="/book-a-demo?source=v3-customers-fashion">Talk to us about this result →</a></p>
+  </div>
+</section>
+
+<!-- CS2 · Consumer superapp -->
+<section class="story rule-dashed" id="superapp">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Consumer superapp · 500+ stores · 20M+ active customers · 15+ categories</p>
+      <h2 class="grad-text">Offers in plain English, <em class="accent-serif">straight to your engine</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">50%</span>
+        <span class="stat-light__label">Creation time cut</span>
+        <span class="stat-light__mech">End-to-end, from request to live offer.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">15+</span>
+        <span class="stat-light__label">Categories, one flow</span>
+        <span class="stat-light__mech">Every offer authored the same plain-language way.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">20+</span>
+        <span class="stat-light__label">Monthly templates</span>
+        <span class="stat-light__mech">Single-brand and multi-loyalty, without engineering.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">0</span>
+        <span class="stat-light__label">Configuration errors</span>
+        <span class="stat-light__mech">After aiRA adoption, across every live template.</span>
+      </div>
+    </div>
+    <div class="csi">
+      <div>
+        <h3>Challenge</h3>
+        <p>A high volume of offer requests across 15+ categories, each with complex configurations. Getting an offer into production was manual and error-prone. 20+ monthly templates — single-brand and multi-loyalty — required engineering for every change.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>Marketers author offers in plain English — auto-start campaigns, cyclical offers, one-time milestone rewards — and aiRA configures them and pushes them to the offer engine. No engineering dependency.</p>
+      </div>
+      <div>
+        <h3>Impact</h3>
+        <p>End-to-end creation time cut 50%. Configuration errors effectively eliminated across 20+ live templates a month.</p>
+      </div>
+    </div>
+    <p class="story__link"><a class="link-more" href="/book-a-demo?source=v3-customers-superapp">Talk to us about this result →</a></p>
+  </div>
+</section>
+
+<!-- CS3 · Menswear -->
+<section class="story rule-dashed" id="menswear">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Premium menswear retailer · India · loyalty programme redesign · 60-day window</p>
+      <h2 class="grad-text">A loyalty programme, <em class="accent-serif">redesigned end-to-end</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">End-to-end</span>
+        <span class="stat-light__label">Programme redesigned</span>
+        <span class="stat-light__mech">Economics, tiers and milestones in a single window.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">3rd + 5th</span>
+        <span class="stat-light__label">Visit milestones modelled</span>
+        <span class="stat-light__mech">Simulated with revenue projections attached.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">4-part</span>
+        <span class="stat-light__label">Launch playbook drafted</span>
+        <span class="stat-light__mech">Store, backend ops, points engine and coupons.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">≤10%</span>
+        <span class="stat-light__label">Discount cap enforced</span>
+        <span class="stat-light__mech">Discipline held through every iteration.</span>
+      </div>
+    </div>
+    <div class="csi">
+      <div>
+        <h3>Challenge</h3>
+        <p>A Head of Loyalty inherited an ageing programme: uncertain points economics, no milestone reward structure, unclear tier benefits, and no operational SOP across store team, backend ops, points engine and coupon mechanics. Change risk was high.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>aiRA redesigned the brand's loyalty programme end-to-end. Proposed and current designs were compared on health, ATV, frequency and points economics. 3rd- and 5th-visit milestone rewards were simulated with revenue projections; tier benefits, free-tier earning and exclusion rules were iterated to a final design.</p>
+      </div>
+      <div>
+        <h3>Impact</h3>
+        <p>A production-ready redesign in 38 days — economics modelled, milestone mechanics quantified, and a full 4-part launch playbook — store, ops, points engine and coupons — in place before launch. Discount discipline held ≤10% throughout. No margin leakage.</p>
+      </div>
+    </div>
+    <p class="story__link"><a class="link-more" href="/book-a-demo?source=v3-customers-menswear">Talk to us about this result →</a></p>
+  </div>
+</section>
+
+<!-- CS4 · Healthcare -->
+<section class="story rule-dashed" id="healthcare">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Leading US healthcare provider · 100M+ members served · 90+ partner organisations</p>
+      <h2 class="grad-text">One team's work, <em class="accent-serif">scaled to every partner</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">75%</span>
+        <span class="stat-light__label">Configuration effort cut</span>
+        <span class="stat-light__mech">90 days down to 21, per cycle.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">1 → 90+</span>
+        <span class="stat-light__label">Partner organisations</span>
+        <span class="stat-light__mech">Scaled simultaneously from a single team's workload.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">99.9%</span>
+        <span class="stat-light__label">Execution accuracy</span>
+        <span class="stat-light__mech">Manual errors reduced to zero.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">80%</span>
+        <span class="stat-light__label">Labour reduction</span>
+        <span class="stat-light__mech">20 specialists down to 4.</span>
+      </div>
+    </div>
+    <div class="csi">
+      <div>
+        <h3>Challenge</h3>
+        <p>90+ partner organisations, each with unique Customer Requirement Documents, needed manual configuration by 16–20 specialists over three months per cycle — every one demanding full manual review. The programme could not scale.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>aiRA turns each partner’s requirement documents into structured execution plans and carries them through to automated execution — error-free loyalty configuration at scale, with human sign-off before anything runs.</p>
+      </div>
+      <div>
+        <h3>Impact</h3>
+        <p>Configuration effort fell from 90 days to 21. One team's workload scaled from 1 to 90+ partner organisations simultaneously. Manual errors went to zero — 99.9% accuracy — and labour dropped from 20 specialists to 4. 8,000+ offers shipped at year-start, 200+ monthly thereafter.</p>
+      </div>
+    </div>
+    <p class="story__link"><a class="link-more" href="/book-a-demo?source=v3-customers-healthcare">Talk to us about this result →</a></p>
+  </div>
+</section>
+
+<!-- CS5 · Footwear -->
+<section class="story rule-dashed" id="footwear">
+  <div class="container">
+    <div class="story-head">
+      <p class="eyebrow eyebrow--left">Footwear retail group · India · multi-brand · 4M+ customers</p>
+      <h2 class="grad-text">Nine models, <em class="accent-serif">one clear view of the customer</em></h2>
+    </div>
+    <div class="stat-light-grid" data-reveal>
+      <div class="stat-light">
+        <span class="stat-light__num">6</span>
+        <span class="stat-light__label">Customer personas</span>
+        <span class="stat-light__mech">One clear view, converged from nine competing models.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">4 weeks</span>
+        <span class="stat-light__label">From guesswork to done</span>
+        <span class="stat-light__mech">A framework the team could actually reuse.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">85.3%</span>
+        <span class="stat-light__label">Held steady year on year</span>
+        <span class="stat-light__mech">The same customers stayed in the same personas.</span>
+      </div>
+      <div class="stat-light">
+        <span class="stat-light__num">3 brands</span>
+        <span class="stat-light__label">One shared framework</span>
+        <span class="stat-light__mech">Reused across the sister-brand group.</span>
+      </div>
+    </div>
+    <div class="csi">
+      <div>
+        <h3>Challenge</h3>
+        <p>The analytics team rebuilt customer personas by hand for every board review. Cuts by CRM tier or price band never answered the real question — who the customer actually is — so the picture kept shifting across categories, channels and stores.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>aiRA converged nine competing models into a single set of six customer personas — defined once and applied the same way across category, brand, price band, channel and store. The same view every quarter, not a fresh guess each time.</p>
+      </div>
+      <div>
+        <h3>Impact</h3>
+        <p>A reusable framework, built in four weeks. Personas held 85.3% steady year on year — the same customers staying in the same groups — and the same view now runs across three sister brands. One consistent picture of the customer, group-wide.</p>
+      </div>
+    </div>
+    <p class="story__link"><a class="link-more" href="/book-a-demo?source=v3-customers-footwear">Talk to us about this result →</a></p>
+  </div>
+</section>
+
+</main>
+
+<!-- Closer + footer -->
+<footer class="band on-dark footer-band">
+  <div class="container">
+    <div class="footer-cta">
+      <div>
+        <h2 class="grad-text">Your industry is <em class="accent-serif">in here somewhere.</em></h2>
+        <p class="lede">These five started where you are. Bring one growth problem and we'll show you how <span class="brand-case">aiRA</span> would run it — signal to sign-off.</p>
+        <div class="footer-cta__actions">
+          <a class="btn btn-primary" href="/book-a-demo?source=v3-customers">Get a demo</a>
+          <a class="link-more" href="/#demo">See the interactive demo →</a>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-hairline">
+    <div class="footer-bottom" style="border-top:0">
+      <span><span class="brand-case">aiRA</span> — built by the team at Capillary Technologies</span>
+      <span>© 2026 <span class="brand-case">aiRA</span>. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/aira.js?v=redo5" defer></script>
+</body>
+</html>

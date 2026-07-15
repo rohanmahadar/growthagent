@@ -1,0 +1,511 @@
+{
+  "note": "Demo data — fictional. Every brand, number, and event in this file is invented for product demonstration. No real customer data.",
+  "defaultVertical": "retail-fashion",
+  "verticals": [
+    {
+      "id": "retail-fashion",
+      "label": "Retail & Fashion",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Meridian & Thread", "descriptor": "a 220-store fashion retailer" },
+      "systems": ["Loyalty engine", "CDP", "Campaign manager", "Commerce & POS"],
+      "signal": {
+        "timestamp": "TUE 09:41",
+        "headline": "41,200 high-value customers are drifting toward lapse before festive season",
+        "metric": "Repeat-purchase rate, top decile",
+        "delta": "−6.8pp vs last quarter",
+        "detail": "Purchase gaps in the top spend decile stretched from 34 to 51 days. Festive season starts in 6 weeks — the window to re-engage is now."
+      },
+      "plan": {
+        "goal": "Win back our top-decile customers before festive season without giving away margin.",
+        "thoughtSeconds": 17,
+        "steps": [
+          { "who": "Acquire agent", "what": "Split the 41,200 drifting customers into 3 cohorts by lapse risk and category affinity", "expect": "Cohorts sized 18.4K / 14.1K / 8.7K" },
+          { "who": "Convert agent", "what": "Configure early-access festive previews for high-risk cohort; points multipliers for the rest", "expect": "3 campaigns, staged over 4 weeks" },
+          { "who": "Retain agent", "what": "Monitor weekly repeat rate and ATV erosion; recalibrate offers per cycle", "expect": "Purchase gap back under 40 days" }
+        ],
+        "campaigns": [
+          { "name": "Festive First Look", "channel": "App + email", "offer": "48-hour early access" },
+          { "name": "Twice the Thread", "channel": "SMS + WhatsApp", "offer": "2× points, weekends" },
+          { "name": "Back in Season", "channel": "Email", "offer": "Curated picks, no discount" }
+        ],
+        "governanceRule": "Your rule: discounts above 15% need approval — 2 of 3 campaigns use none."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Audience sync to campaign manager — 41,200 profiles", "status": "Recorded" },
+          { "action": "Points multiplier configured in loyalty engine", "status": "Recorded" }
+        ],
+        "gated": { "action": "Early-access preview implies a 20% member price advantage", "reason": "Crosses your 15% discount threshold" }
+      },
+      "outcome": {
+        "period": "4-week festive ramp (fictional)",
+        "winner": { "label": "Festive First Look", "value": "22.4% redemption", "pct": 84 },
+        "runnerUp": { "label": "Twice the Thread", "value": "13.1% redemption", "pct": 49 },
+        "actions": ["Purchase gap: 51 → 39 days in top decile", "ATV held flat while repeat rate recovered"],
+        "lift": "Top-decile repeat rate +5.9pp — with discounts on just one of three campaigns."
+      }
+    },
+    {
+      "id": "grocery-cpg",
+      "label": "Grocery & CPG",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Daily Orchard", "descriptor": "a 340-store grocery chain" },
+      "systems": ["Loyalty engine", "CDP", "Offer engine", "Data warehouse"],
+      "signal": {
+        "timestamp": "MON 07:15",
+        "headline": "Basket size in the North region fell 9.2% while trips held steady",
+        "metric": "Average basket, North region",
+        "delta": "−9.2% in 8 weeks",
+        "detail": "Customers still visit weekly but skip mid-basket categories — household and personal care are down 17% among loyalty members."
+      },
+      "plan": {
+        "goal": "Rebuild basket size in the North without blanket discounting.",
+        "thoughtSeconds": 12,
+        "steps": [
+          { "who": "Acquire agent", "what": "Identify 96K members who dropped household categories but kept fresh", "expect": "Cross-category cohort mapped" },
+          { "who": "Convert agent", "what": "Configure targeted cross-category rewards — buy fresh, earn on household", "expect": "2 offers live in the region" },
+          { "who": "Retain agent", "what": "Track basket recomposition weekly; expand to other regions if lift > 4%", "expect": "Decision point at week 3" }
+        ],
+        "campaigns": [
+          { "name": "Full Basket Bonus", "channel": "App + receipt print", "offer": "3× points on household with fresh purchase" },
+          { "name": "Pantry Restock", "channel": "Email", "offer": "Personalized bundles, no discount" }
+        ],
+        "governanceRule": "Your rule: regional offers above ₹40L projected spend need sign-off."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Cohort of 96,000 synced to offer engine", "status": "Recorded" },
+          { "action": "Points accrual rule staged in loyalty engine", "status": "Recorded" }
+        ],
+        "gated": { "action": "Full Basket Bonus projects ₹52L in points liability", "reason": "Exceeds your ₹40L regional spend threshold" }
+      },
+      "outcome": {
+        "period": "6-week regional pilot (fictional)",
+        "winner": { "label": "Full Basket Bonus", "value": "+7.1% basket size", "pct": 78 },
+        "runnerUp": { "label": "Pantry Restock", "value": "+2.9% basket size", "pct": 36 },
+        "actions": ["Household category recovered 11 of 17 lost points", "Program expanded to 2 more regions at week 4"],
+        "lift": "North-region baskets +7.1% — points cost came in 18% under the approved liability cap."
+      }
+    },
+    {
+      "id": "qsr-food",
+      "label": "QSR & Food Delivery",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Ember Grill Co.", "descriptor": "a 510-outlet quick-service chain" },
+      "systems": ["Loyalty engine", "Campaign manager", "Commerce & POS", "Messaging channels"],
+      "signal": {
+        "timestamp": "WED 14:02",
+        "headline": "Lunch-daypart orders are down 12% among app users in metro outlets",
+        "metric": "App orders, 11:30–14:00",
+        "delta": "−12% vs 6-week baseline",
+        "detail": "Dinner is stable. The drop is concentrated in 88 metro outlets and correlates with two competitor lunch-combo launches."
+      },
+      "plan": {
+        "goal": "Defend the lunch daypart in metro outlets this month.",
+        "thoughtSeconds": 9,
+        "steps": [
+          { "who": "Acquire agent", "what": "Flag 132K app users whose lunch frequency dropped but dinner held", "expect": "Lunch-lapsed cohort isolated" },
+          { "who": "Convert agent", "what": "Configure a time-boxed lunch combo upgrade, 11:30–14:00 only", "expect": "Offer live across 88 outlets" },
+          { "who": "Retain agent", "what": "Watch daypart mix daily; kill the offer if dinner cannibalization > 3%", "expect": "Auto-hold trigger armed" }
+        ],
+        "campaigns": [
+          { "name": "Lunch Rush Combo", "channel": "App push", "offer": "Combo upgrade, lunch hours only" },
+          { "name": "Midday Streak", "channel": "In-app", "offer": "3 lunches = 1 free side" }
+        ],
+        "governanceRule": "Your rule: offers touching more than 100K customers need approval."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Daypart trigger rules configured at POS", "status": "Recorded" },
+          { "action": "Cannibalization guardrail armed at 3%", "status": "Recorded" }
+        ],
+        "gated": { "action": "Lunch Rush Combo will push to 132,000 app users", "reason": "Crosses your 100K audience threshold" }
+      },
+      "outcome": {
+        "period": "4-week daypart defense (fictional)",
+        "winner": { "label": "Lunch Rush Combo", "value": "+9.4% lunch orders", "pct": 81 },
+        "runnerUp": { "label": "Midday Streak", "value": "+4.2% lunch orders", "pct": 41 },
+        "actions": ["Dinner cannibalization stayed at 1.1% — guardrail never fired", "61 of 88 outlets recovered to baseline"],
+        "lift": "Metro lunch daypart recovered 9.4% — dinner untouched."
+      }
+    },
+    {
+      "id": "ecommerce",
+      "label": "E-commerce",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Cartova", "descriptor": "a multi-category online marketplace" },
+      "systems": ["CDP", "Campaign manager", "Messaging channels", "Data warehouse"],
+      "signal": {
+        "timestamp": "THU 08:27",
+        "headline": "Checkout abandonment in electronics jumped 5.4pp after the payment flow update",
+        "metric": "Cart abandonment, electronics",
+        "delta": "+5.4pp in 11 days",
+        "detail": "The spike began the day the new payment flow shipped. High-ticket carts above ₹15K abandon at nearly twice the prior rate."
+      },
+      "plan": {
+        "goal": "Recover abandoning electronics buyers while the payment flow gets fixed.",
+        "thoughtSeconds": 14,
+        "steps": [
+          { "who": "Acquire agent", "what": "Segment 58K abandoners by cart value and payment step reached", "expect": "High-ticket cohort of 11.2K isolated" },
+          { "who": "Convert agent", "what": "Configure recovery journeys — hold-the-price for high-ticket, reminder for the rest", "expect": "2 journeys live within the hour" },
+          { "who": "Retain agent", "what": "Flag the payment-step drop-off to the product team with session evidence", "expect": "Root-cause ticket filed" }
+        ],
+        "campaigns": [
+          { "name": "Price Hold 48", "channel": "Email + push", "offer": "Cart price locked 48 hours" },
+          { "name": "Second Look", "channel": "WhatsApp", "offer": "Reminder, no incentive" }
+        ],
+        "governanceRule": "Your rule: incentives on carts above ₹15K need a human decision."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Recovery journey armed for 46.8K standard carts", "status": "Recorded" },
+          { "action": "Payment drop-off evidence packaged for product team", "status": "Recorded" }
+        ],
+        "gated": { "action": "Price Hold 48 covers 11,200 carts averaging ₹22,400", "reason": "High-ticket carts require human sign-off per your rule" }
+      },
+      "outcome": {
+        "period": "2-week recovery window (fictional)",
+        "winner": { "label": "Price Hold 48", "value": "31.2% carts recovered", "pct": 88 },
+        "runnerUp": { "label": "Second Look", "value": "12.7% carts recovered", "pct": 39 },
+        "actions": ["₹4.1 Cr in abandoned cart value recovered", "Payment flow fix shipped day 9 — abandonment normalized"],
+        "lift": "Nearly a third of high-ticket carts recovered — zero discounts given."
+      }
+    },
+    {
+      "id": "travel-hospitality",
+      "label": "Travel & Hospitality",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Northbound Hotels", "descriptor": "a 74-property hotel group" },
+      "systems": ["Loyalty engine", "CDP", "Campaign manager", "Booking platform"],
+      "signal": {
+        "timestamp": "FRI 10:58",
+        "headline": "Direct-booking share slipped 4.1pp as OTA commissions climbed",
+        "metric": "Direct bookings, group-wide",
+        "delta": "−4.1pp this quarter",
+        "detail": "Members who booked direct last year are drifting to aggregators. Every point of share shift costs roughly the margin of two properties."
+      },
+      "plan": {
+        "goal": "Pull loyalty members back to direct booking before peak season pricing locks.",
+        "thoughtSeconds": 21,
+        "steps": [
+          { "who": "Acquire agent", "what": "Identify 27K members whose last booking moved to an aggregator", "expect": "Drift cohort scored by trip frequency" },
+          { "who": "Convert agent", "what": "Configure member-only direct perks — late checkout, room upgrades over rate cuts", "expect": "Perk bundle live on booking platform" },
+          { "who": "Retain agent", "what": "Compare direct-vs-OTA rebooking weekly through peak season", "expect": "Share trend reversal by week 5" }
+        ],
+        "campaigns": [
+          { "name": "Book Direct, Stay Longer", "channel": "Email + app", "offer": "Guaranteed late checkout" },
+          { "name": "Member Upgrade Window", "channel": "App push", "offer": "Free upgrade, 72-hr window" }
+        ],
+        "governanceRule": "Your rule: perks with per-stay cost above $18 need revenue-management sign-off."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Drift cohort of 27,000 synced to campaign manager", "status": "Recorded" },
+          { "action": "Late-checkout perk configured across 74 properties", "status": "Recorded" }
+        ],
+        "gated": { "action": "Upgrade perk averages $24 per stay in displaced revenue", "reason": "Exceeds your $18 per-stay cost threshold" }
+      },
+      "outcome": {
+        "period": "8-week pre-peak push (fictional)",
+        "winner": { "label": "Book Direct, Stay Longer", "value": "+3.2pp direct share", "pct": 76 },
+        "runnerUp": { "label": "Member Upgrade Window", "value": "+1.4pp direct share", "pct": 38 },
+        "actions": ["Direct share recovered to within 0.9pp of last year", "OTA commission spend down 11% for the cohort"],
+        "lift": "Direct-booking share up 3.2pp — funded by perks, not rate cuts."
+      }
+    },
+    {
+      "id": "banking-finance",
+      "label": "Banking & Finance",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Cobalt Bank", "descriptor": "a retail bank with 6M cardholders" },
+      "systems": ["Card platform", "CDP", "Campaign manager", "Compliance workflow"],
+      "signal": {
+        "timestamp": "MON 09:03",
+        "headline": "212,000 credit cards have gone inactive for 90+ days — annual-fee renewals hit in 8 weeks",
+        "metric": "Dormant cards, 90-day",
+        "delta": "+18% vs last renewal cycle",
+        "detail": "Dormant-at-renewal cards cancel at 4× the base rate. The attrition exposure this cycle is the largest in three years."
+      },
+      "plan": {
+        "goal": "Reactivate dormant cardholders ahead of the renewal cycle, inside compliance rules.",
+        "thoughtSeconds": 26,
+        "steps": [
+          { "who": "Acquire agent", "what": "Score 212K dormant cards by reactivation propensity and prior category spend", "expect": "3 propensity tiers built" },
+          { "who": "Convert agent", "what": "Configure category-matched spend offers; route all creative through compliance workflow", "expect": "Offers cleared and staged" },
+          { "who": "Retain agent", "what": "Track activation and renewal intent weekly through the cycle", "expect": "Cancellation-rate delta by week 6" }
+        ],
+        "campaigns": [
+          { "name": "Spend Where You Did", "channel": "Email + app", "offer": "5% cashback, top prior category" },
+          { "name": "Fee Offset Path", "channel": "App", "offer": "Fee waived at 3 transactions" }
+        ],
+        "governanceRule": "Your rule: every customer-facing offer passes compliance review before send — no exceptions."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Propensity tiers written back to card platform", "status": "Recorded" },
+          { "action": "Creative submitted to compliance workflow", "status": "Recorded" }
+        ],
+        "gated": { "action": "Send approval for 212,000 cardholders across both offers", "reason": "Regulated communication — human release required" }
+      },
+      "outcome": {
+        "period": "8-week renewal cycle (fictional)",
+        "winner": { "label": "Fee Offset Path", "value": "19.6% reactivated", "pct": 82 },
+        "runnerUp": { "label": "Spend Where You Did", "value": "11.3% reactivated", "pct": 47 },
+        "actions": ["Renewal-cycle cancellations down 27% vs projection", "Full audit trail delivered to compliance — every send logged"],
+        "lift": "One in five dormant cards reactivated before renewal — every message compliance-cleared."
+      }
+    },
+    {
+      "id": "telecom",
+      "label": "Telecom",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Lumo Telecom", "descriptor": "a prepaid-heavy mobile operator" },
+      "systems": ["BSS / billing", "CDP", "Campaign manager", "Messaging channels"],
+      "signal": {
+        "timestamp": "SAT 18:44",
+        "headline": "Prepaid churn in the East circle spiked 2.3pp after a rival's price move",
+        "metric": "30-day churn, East circle",
+        "delta": "+2.3pp in 3 weeks",
+        "detail": "Port-out requests cluster in high-ARPU prepaid users. The rival's offer expires in 45 days — the defense window is short."
+      },
+      "plan": {
+        "goal": "Hold high-ARPU prepaid users in the East circle through the rival's offer window.",
+        "thoughtSeconds": 11,
+        "steps": [
+          { "who": "Acquire agent", "what": "Isolate 340K at-risk high-ARPU users by recharge decay and port-out signals", "expect": "Risk-ranked defense list" },
+          { "who": "Convert agent", "what": "Configure tiered data bonuses matched to recharge history — richest offers only to highest risk", "expect": "3-tier defense live" },
+          { "who": "Retain agent", "what": "Track daily recharge and port-out rates against the rival's expiry date", "expect": "Churn curve bends by day 20" }
+        ],
+        "campaigns": [
+          { "name": "Loyalty Data Boost", "channel": "SMS + app", "offer": "2GB/day bonus, 8 weeks" },
+          { "name": "Stay & Stack", "channel": "USSD + SMS", "offer": "Recharge streak rewards" }
+        ],
+        "governanceRule": "Your rule: retention spend above ₹2 Cr per circle needs approval."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Defense list of 340,000 synced to campaign manager", "status": "Recorded" },
+          { "action": "Tier rules configured in billing", "status": "Recorded" }
+        ],
+        "gated": { "action": "Full defense projects ₹2.8 Cr in bonus data cost", "reason": "Exceeds your ₹2 Cr circle spend threshold" }
+      },
+      "outcome": {
+        "period": "45-day defense window (fictional)",
+        "winner": { "label": "Loyalty Data Boost", "value": "71% risk-cohort retained", "pct": 86 },
+        "runnerUp": { "label": "Stay & Stack", "value": "58% risk-cohort retained", "pct": 58 },
+        "actions": ["East-circle churn back to +0.4pp of baseline", "Bonus data cost landed 12% under approved cap"],
+        "lift": "Churn spike contained within the window — high-ARPU base held."
+      }
+    },
+    {
+      "id": "healthcare-pharmacy",
+      "label": "Healthcare & Pharmacy",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Verdant Pharmacy", "descriptor": "a 190-store pharmacy network" },
+      "systems": ["Pharmacy management", "CDP", "Messaging channels", "Compliance workflow"],
+      "signal": {
+        "timestamp": "TUE 11:20",
+        "headline": "Refill adherence for chronic-care members dropped 8.1pp in two months",
+        "metric": "90-day refill adherence",
+        "delta": "−8.1pp in 9 weeks",
+        "detail": "The drop concentrates in members who switched to 90-day scripts. Missed refills predict both health outcomes and lifetime value."
+      },
+      "plan": {
+        "goal": "Restore refill adherence for chronic-care members — carefully, and inside health-data rules.",
+        "thoughtSeconds": 31,
+        "steps": [
+          { "who": "Acquire agent", "what": "Identify 64K members with lapsed refills using pharmacy data only — no diagnosis inference", "expect": "Privacy-safe cohort built" },
+          { "who": "Convert agent", "what": "Configure refill reminders with pickup and delivery options; all templates through compliance", "expect": "Journeys staged, cleared" },
+          { "who": "Retain agent", "what": "Measure adherence recovery monthly; escalate non-responders to pharmacist outreach", "expect": "Adherence trend by day 30" }
+        ],
+        "campaigns": [
+          { "name": "Refill Ready", "channel": "SMS + app", "offer": "One-tap refill + free delivery" },
+          { "name": "Pharmacist Check-in", "channel": "Call queue", "offer": "Scheduled consult, no incentive" }
+        ],
+        "governanceRule": "Your rule: any use of health-adjacent data requires compliance review before activation."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Privacy-safe cohort assembled — zero diagnosis fields touched", "status": "Recorded" },
+          { "action": "Message templates cleared by compliance workflow", "status": "Recorded" }
+        ],
+        "gated": { "action": "Activation of refill journeys for 64,000 members", "reason": "Health-adjacent data — human release required by your policy" }
+      },
+      "outcome": {
+        "period": "90-day adherence program (fictional)",
+        "winner": { "label": "Refill Ready", "value": "+6.3pp adherence", "pct": 79 },
+        "runnerUp": { "label": "Pharmacist Check-in", "value": "+2.4pp adherence", "pct": 34 },
+        "actions": ["Adherence recovered to within 1.8pp of baseline", "Every touchpoint logged for audit — zero compliance exceptions"],
+        "lift": "Six of eight lost adherence points recovered — with a complete audit trail."
+      }
+    },
+    {
+      "id": "fuel-convenience",
+      "label": "Fuel & Convenience",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Swift Fuel & Go", "descriptor": "an 800-station fuel network" },
+      "systems": ["Loyalty engine", "Commerce & POS", "Campaign manager", "Data warehouse"],
+      "signal": {
+        "timestamp": "WED 06:52",
+        "headline": "68% of fuel loyalty members have never bought inside the store",
+        "metric": "Fuel-to-store conversion",
+        "delta": "Flat at 32% for 3 quarters",
+        "detail": "In-store margin is 4× fuel margin. Members already stand 30 meters from the door twice a week — the traffic is paid for."
+      },
+      "plan": {
+        "goal": "Convert fuel-only members into store shoppers without discounting fuel.",
+        "thoughtSeconds": 13,
+        "steps": [
+          { "who": "Acquire agent", "what": "Segment 2.1M fuel-only members by fill-up frequency and daypart", "expect": "Morning-commuter cohort of 640K" },
+          { "who": "Convert agent", "what": "Configure at-pump offers redeemable only in-store within 15 minutes", "expect": "Pump-to-door journey live" },
+          { "who": "Retain agent", "what": "Track attach rate and repeat store visits by cohort", "expect": "Conversion trend at week 4" }
+        ],
+        "campaigns": [
+          { "name": "Pump & Pick Up", "channel": "At-pump screen + app", "offer": "Free coffee with any store purchase" },
+          { "name": "Commuter Combo", "channel": "App push, 06:00–09:00", "offer": "Breakfast bundle points" }
+        ],
+        "governanceRule": "Your rule: sampling giveaways above 200K units need approval."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Cohort of 640,000 synced with daypart triggers", "status": "Recorded" },
+          { "action": "In-store redemption rules configured at POS", "status": "Recorded" }
+        ],
+        "gated": { "action": "Coffee giveaway projects 310,000 redemptions", "reason": "Exceeds your 200K sampling threshold" }
+      },
+      "outcome": {
+        "period": "8-week conversion push (fictional)",
+        "winner": { "label": "Pump & Pick Up", "value": "14.8% converted to store", "pct": 83 },
+        "runnerUp": { "label": "Commuter Combo", "value": "8.9% converted to store", "pct": 50 },
+        "actions": ["94K fuel-only members made a first store purchase", "41% of converters returned within 3 weeks"],
+        "lift": "Fuel-to-store conversion moved 32% → 39% in the pilot cohort."
+      }
+    },
+    {
+      "id": "automotive",
+      "label": "Automotive",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Arrowline Motors", "descriptor": "a national dealer network" },
+      "systems": ["Dealer CRM", "CDP", "Campaign manager", "Service platform"],
+      "signal": {
+        "timestamp": "THU 15:36",
+        "headline": "38,500 owners lapsed from authorized service after their free-service period ended",
+        "metric": "Service retention, year 3+",
+        "delta": "−14pp after warranty window",
+        "detail": "Service-lapsed owners are 3× less likely to repurchase the brand. Year-3 owners are the largest lapse cohort in the network's history."
+      },
+      "plan": {
+        "goal": "Win back service-lapsed owners before their repurchase window opens.",
+        "thoughtSeconds": 19,
+        "steps": [
+          { "who": "Acquire agent", "what": "Rank 38.5K lapsed owners by vehicle age and independent-garage signals", "expect": "High-intent service cohort of 12K" },
+          { "who": "Convert agent", "what": "Configure transparent-price service packages with pickup, matched to vehicle age", "expect": "Offers live across dealer CRM" },
+          { "who": "Retain agent", "what": "Track service bookings and repurchase-intent scores quarterly", "expect": "Retention curve by quarter end" }
+        ],
+        "campaigns": [
+          { "name": "Welcome Back Service", "channel": "Email + dealer call", "offer": "Fixed-price service + free pickup" },
+          { "name": "Health Check Invite", "channel": "SMS", "offer": "Complimentary 20-point check" }
+        ],
+        "governanceRule": "Your rule: dealer-funded offers need per-region dealer-council approval."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Lapse cohort scored and written to dealer CRM", "status": "Recorded" },
+          { "action": "Service capacity checked across 214 workshops", "status": "Recorded" }
+        ],
+        "gated": { "action": "Fixed-price package is dealer-funded in 6 regions", "reason": "Requires dealer-council sign-off per your rule" }
+      },
+      "outcome": {
+        "period": "One quarter (fictional)",
+        "winner": { "label": "Welcome Back Service", "value": "21.7% booked service", "pct": 80 },
+        "runnerUp": { "label": "Health Check Invite", "value": "9.6% booked service", "pct": 37 },
+        "actions": ["8,300 lapsed owners returned to authorized service", "Repurchase-intent score +9pp in the returned cohort"],
+        "lift": "One in five high-intent lapsed owners back in the service network in a quarter."
+      }
+    },
+    {
+      "id": "entertainment-media",
+      "label": "Entertainment & Media",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Marquee+", "descriptor": "a streaming and events platform" },
+      "systems": ["Subscription platform", "CDP", "Campaign manager", "Messaging channels"],
+      "signal": {
+        "timestamp": "FRI 20:11",
+        "headline": "Trial-to-paid conversion dropped 5.7pp since the last price change",
+        "metric": "Trial conversion, 14-day",
+        "delta": "−5.7pp in 5 weeks",
+        "detail": "Trialists who watch 3+ hours convert at 46%; under 1 hour, 6%. Half of new trials never reach a second session."
+      },
+      "plan": {
+        "goal": "Recover trial conversion by fixing activation, not by discounting the price.",
+        "thoughtSeconds": 15,
+        "steps": [
+          { "who": "Acquire agent", "what": "Split 208K active trialists by watch depth and genre signals", "expect": "Low-activation cohort of 97K" },
+          { "who": "Convert agent", "what": "Configure day-2 and day-7 nudges with personalized title rails per genre", "expect": "Activation journeys live" },
+          { "who": "Retain agent", "what": "Watch conversion daily by cohort; escalate price objections to plan-mix review", "expect": "Conversion curve by day 10" }
+        ],
+        "campaigns": [
+          { "name": "Your First Watchlist", "channel": "Push + email", "offer": "3 titles picked from taste signals" },
+          { "name": "Weekend Premiere Pass", "channel": "In-app", "offer": "Early access to one premiere" }
+        ],
+        "governanceRule": "Your rule: pricing or plan changes are never automated — plan-mix review is human-only."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Watch-depth cohorts written to subscription platform", "status": "Recorded" },
+          { "action": "Genre rails generated for 97,000 trialists", "status": "Recorded" }
+        ],
+        "gated": { "action": "Premiere access grants a paid-tier entitlement early", "reason": "Entitlement changes require human release" }
+      },
+      "outcome": {
+        "period": "One trial cycle (fictional)",
+        "winner": { "label": "Your First Watchlist", "value": "+4.9pp conversion", "pct": 85 },
+        "runnerUp": { "label": "Weekend Premiere Pass", "value": "+2.1pp conversion", "pct": 44 },
+        "actions": ["Second-session rate up 19pp in the low-activation cohort", "Price held — no trial discounts introduced"],
+        "lift": "Most of the lost conversion recovered through activation alone."
+      }
+    },
+    {
+      "id": "consumer-apps",
+      "label": "Consumer Apps",
+      "fictionalLabel": "Demo data — fictional",
+      "brand": { "name": "Orbyn", "descriptor": "a payments and rewards super-app" },
+      "systems": ["App backend", "CDP", "Campaign manager", "Messaging channels"],
+      "signal": {
+        "timestamp": "MON 12:33",
+        "headline": "Day-30 retention for the newest signup cohort fell to 24% — 7 points under target",
+        "metric": "D30 retention, June cohort",
+        "delta": "−7pp vs target",
+        "detail": "Users who complete 2 transactions in week one retain at 58%. The drop traces to a longer KYC flow shipped last month."
+      },
+      "plan": {
+        "goal": "Lift D30 retention for new cohorts back to target by accelerating first transactions.",
+        "thoughtSeconds": 10,
+        "steps": [
+          { "who": "Acquire agent", "what": "Identify 410K new users stalled between KYC and first transaction", "expect": "Stall-point cohort mapped" },
+          { "who": "Convert agent", "what": "Configure a first-transaction reward ladder with step-by-step KYC completion nudges", "expect": "Activation ladder live" },
+          { "who": "Retain agent", "what": "Track weekly transactions per user through day 30 by cohort", "expect": "Retention read at day 30" }
+        ],
+        "campaigns": [
+          { "name": "First Move Bonus", "channel": "Push + in-app", "offer": "Cashback on first 2 transactions" },
+          { "name": "KYC Fast Lane", "channel": "In-app + SMS", "offer": "Guided flow, no incentive" }
+        ],
+        "governanceRule": "Your rule: cashback budgets above ₹1.5 Cr per cohort need approval."
+      },
+      "approval": {
+        "auto": [
+          { "action": "Stall-point cohort synced to campaign manager", "status": "Recorded" },
+          { "action": "KYC nudge sequence configured", "status": "Recorded" }
+        ],
+        "gated": { "action": "First Move Bonus projects ₹1.9 Cr in cashback", "reason": "Exceeds your ₹1.5 Cr cohort budget threshold" }
+      },
+      "outcome": {
+        "period": "One cohort cycle, 30 days (fictional)",
+        "winner": { "label": "First Move Bonus", "value": "D30 24% → 30%", "pct": 82 },
+        "runnerUp": { "label": "KYC Fast Lane", "value": "D30 24% → 27%", "pct": 51 },
+        "actions": ["First-week 2-transaction rate up 13pp", "Cashback outlay finished 8% under the approved budget"],
+        "lift": "Retention back within 1 point of target in a single cohort cycle."
+      }
+    }
+  ]
+}

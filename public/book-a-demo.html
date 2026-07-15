@@ -3,191 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Book a Demo — See aiRA on Your Use Cases | aiRA by Capillary</title>
-<meta name="description" content="A 30-minute walkthrough of aiRA on your use cases: agents built live from one goal, straight answers on integration and security, and a clear pilot plan.">
-<link rel="canonical" href="https://www.ask-aira.com/book-a-demo">
-<meta property="og:title" content="Book a Demo — See aiRA on Your Use Cases | aiRA by Capillary">
-<meta property="og:description" content="A 30-minute walkthrough of aiRA on your use cases: agents built live from one goal, straight answers on integration and security, and a clear pilot plan.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.ask-aira.com/book-a-demo">
+<title>Get a demo — aiRA</title>
+<meta name="description" content="Bring one growth problem. We'll show you how aiRA would run it — signal to sign-off. 30 minutes, your industry, your questions.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300;400;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/aira.css?v=redo5">
+<script src="/assets/boot.js"></script>
+<style>
+  .lead-grid { display: grid; grid-template-columns: minmax(0,5fr) minmax(0,6fr); gap: var(--sp-16); align-items: start; padding: var(--sp-12) 0 var(--section-pad); text-align: left; }
+  .lead-points { list-style: none; margin: var(--sp-8) 0; padding: 0; }
+  .lead-points li { display: flex; gap: var(--sp-4); align-items: baseline; padding: var(--sp-3) 0; border-bottom: 1px solid var(--line-soft); font-size: var(--fs-small); color: var(--ink-body); }
+  .lead-points li span:first-child { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--accent); flex: 0 0 auto; }
+  .lead-proof { border-left: 2px solid var(--accent); padding-left: var(--sp-4); font-size: var(--fs-small); color: var(--ink-muted); }
+  .lead-form { padding: var(--sp-6); display: grid; gap: var(--sp-4); }
+  .lead-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+  .lead-form label { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+  .lead-form input, .lead-form select, .lead-form textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line-soft); border-radius: 6px;
+    background: var(--bg-raised); font-family: var(--font-body); font-size: 14px; color: var(--ink); }
+  .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+  .lead-form .err { font-size: 12px; color: var(--negative); display: none; }
+  .lead-form .field.invalid .err { display: block; }
+  .lead-form .field.invalid input { border-color: var(--negative); }
+  .lead-success { padding: var(--sp-10); text-align: center; display: none; }
+  .lead-success .core-status__ok { font-size: 28px; display: block; margin-bottom: var(--sp-4); }
+  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; gap: var(--sp-8); } .lead-form .row2 { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- brand mark sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
     </linearGradient>
-    <symbol id="aira-mark" viewBox="0 0 24 24">
-      <g fill="url(#aira-grad)">
-        <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <symbol id="aira-spark" viewBox="0 0 28 28">
+      <g fill="url(#spark-grad)">
+        <path transform="translate(13 17) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(22.5 10) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(23 22) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
       </g>
     </symbol>
   </defs>
 </svg>
 
-<!-- Minimal nav -->
 <header class="nav">
-  <div class="container container--wide nav__inner">
-    <a class="lockup" href="/" aria-label="aiRA home">
-      <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-      <span class="lockup__word">aiRA</span>
-      <span class="lockup__by">by capillary</span>
+  <div class="nav__inner">
+    <a class="nav__logo" href="/" aria-label="aiRA home">
+      <svg width="28" height="28" aria-hidden="true"><use href="#aira-spark"/></svg>
+      <span class="nav__wordmark">aiRA</span>
     </a>
-    <a class="btn--ghost" href="/">← Back to site</a>
+    <ul class="nav__links">
+      <li><a href="/platform">Platform</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/customers">Customers</a></li>
+      <li><a href="/security">Security</a></li>
+      <li><a href="/how-it-works">How it works</a></li>
+    </ul>
+    <span class="nav__cta"></span>
+    <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="nav__sheet" aria-label="Mobile">
+    <a href="/platform">Platform</a>
+    <a href="/agents">Agents</a>
+    <a href="/customers">Customers</a>
+    <a href="/security">Security</a>
+    <a href="/how-it-works">How it works</a>
+  </nav>
 </header>
 
-<main id="main">
-  <section id="demo" class="demo-section" aria-labelledby="demo-title">
-    <div class="container">
-      <div class="demo-grid">
-
-        <!-- Pitch column -->
-        <div class="demo-pitch">
-          <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Book a demo</p>
-          <h1 id="demo-title">See aiRA work a goal from your business</h1>
-          <p class="lede">No canned pitch. Bring a real growth objective and a list of the systems you run — we'll show you exactly what aiRA would read, decide, and do.</p>
-
-          <div class="expect">
-            <b>What to expect</b>
-            <ul>
-              <li><span class="step-badge step-badge--m28" aria-hidden="true">1</span><span>A 30-minute walkthrough built around your use cases — not a generic tour.</span></li>
-              <li><span class="step-badge step-badge--m28" aria-hidden="true">2</span><span>See agents built live from one goal: you state the objective, aiRA proposes the team.</span></li>
-              <li><span class="step-badge step-badge--m28" aria-hidden="true">3</span><span>Straight answers on connecting your systems, approval controls, and security.</span></li>
-              <li><span class="step-badge step-badge--m28" aria-hidden="true">4</span><span>Clear next steps and a scoped pilot plan before the call ends.</span></li>
-            </ul>
-          </div>
-
-          <p class="demo-trust">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>Your details are used only to arrange this conversation. No mailing lists, no cold outreach.</span>
-          </p>
-        </div>
-
-        <!-- Form column -->
-        <div class="form-card">
-          <h2>Tell us where to reach you</h2>
-          <form id="demo-form" novalidate>
-            <div class="field-row">
-              <div class="field">
-                <label for="first_name">First name <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="first_name" name="first_name" placeholder="e.g., Amara" autocomplete="given-name" required>
-              </div>
-              <div class="field">
-                <label for="last_name">Last name <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="last_name" name="last_name" placeholder="e.g., Osei" autocomplete="family-name" required>
-              </div>
+<main>
+<section class="hero" style="padding-bottom:0">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="container">
+    <div class="lead-grid">
+      <div>
+        <p class="eyebrow eyebrow--left">Get a demo</p>
+        <h1 class="grad-text" style="font-size:var(--fs-h2)">Bring one growth problem. <em class="accent-serif">Watch aiRA run it.</em></h1>
+        <p class="lede">Thirty minutes, your industry. We'll walk your problem through the workflow you saw on the homepage — signal, plan, approval, outcome — and answer the hard questions.</p>
+        <ul class="lead-points">
+          <li><span>//01</span><span>Your vertical, not a canned script</span></li>
+          <li><span>//02</span><span>Governance and security questions welcome</span></li>
+          <li><span>//03</span><span>No commitment, no follow-up sequence</span></li>
+        </ul>
+        <p class="lead-proof">Teams like yours cut configuration effort 75% and grew new customers 29.4% year on year — measured in production, names withheld.</p>
+      </div>
+      <div class="frame">
+        <span class="frame__tab">book a demo · 30 minutes</span>
+        <div class="frame__bar" aria-hidden="true"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span></div>
+        <div class="frame__body">
+          <form class="lead-form" id="lead-form" novalidate>
+            <div class="row2">
+              <div class="field"><label for="lf-first">First name</label><input id="lf-first" name="first_name" autocomplete="given-name" required><span class="err">Please enter your name.</span></div>
+              <div class="field"><label for="lf-last">Last name</label><input id="lf-last" name="last_name" autocomplete="family-name" required><span class="err">Please enter your last name.</span></div>
             </div>
-            <div class="field">
-              <label for="email">Work email <span class="req" aria-hidden="true">*</span></label>
-              <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            <div class="field"><label for="lf-email">Work email</label><input id="lf-email" name="email" type="email" autocomplete="email" required><span class="err">Please enter a valid work email.</span></div>
+            <div class="row2">
+              <div class="field"><label for="lf-company">Company</label><input id="lf-company" name="company" autocomplete="organization" required><span class="err">Please enter your company.</span></div>
+              <div class="field"><label for="lf-role">Role</label><input id="lf-role" name="role"></div>
             </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="company">Company <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="company" name="company" placeholder="Your company name" autocomplete="organization" required>
+            <div class="row2">
+              <div class="field"><label for="lf-size">Company size</label>
+                <select id="lf-size" name="company_size">
+                  <option value="">Select…</option><option>Under 200</option><option>200–1,000</option><option>1,000–5,000</option><option>5,000+</option>
+                </select>
               </div>
-              <div class="field">
-                <label for="role">Job title</label>
-                <input type="text" id="role" name="role" placeholder="e.g., VP, CRM &amp; Loyalty" autocomplete="organization-title">
+              <div class="field"><label for="lf-interest">Interested in</label>
+                <select id="lf-interest" name="interest">
+                  <option value="">Select…</option><option>Acquire</option><option>Convert</option><option>Retain</option><option>The whole platform</option>
+                </select>
               </div>
             </div>
-            <div class="field">
-              <label for="company_size">Company size <span class="req" aria-hidden="true">*</span></label>
-              <select id="company_size" name="company_size" required>
-                <option value="" selected disabled>Select company size</option>
-                <option value="1–200 employees">1–200 employees</option>
-                <option value="201–1,000 employees">201–1,000 employees</option>
-                <option value="1,001–5,000 employees">1,001–5,000 employees</option>
-                <option value="5,000+ employees">5,000+ employees</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="interest">Primary interest <span class="req" aria-hidden="true">*</span></label>
-              <select id="interest" name="interest" required>
-                <option value="" selected disabled>Select your primary interest</option>
-                <option value="Customer growth &amp; loyalty">Customer growth &amp; loyalty</option>
-                <option value="Data &amp; analytics intelligence">Data &amp; analytics intelligence</option>
-                <option value="Autonomous campaigns">Autonomous campaigns</option>
-                <option value="Platform / integration evaluation">Platform / integration evaluation</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="message">What would you like to see? (optional)</label>
-              <textarea id="message" name="message" rows="4" placeholder='e.g., "We run Salesforce and Snowflake — show us retention."'></textarea>
-            </div>
-
-            <!-- honeypot: humans never see or fill this -->
-            <div class="hp" aria-hidden="true">
-              <label for="website">Website</label>
-              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-            </div>
-
-            <button type="submit" class="btn btn--primary btn--primary-aa">Book my demo</button>
-            <p class="form-privacy">By submitting, you agree to be contacted about your demo. We handle your information in line with the Capillary Technologies privacy policy. We never sell your data.</p>
+            <div class="field"><label for="lf-message">The growth problem you'd bring</label><textarea id="lf-message" name="message" rows="3" placeholder="e.g. Our repeat rate is slipping in one region and we don't know why."></textarea></div>
+            <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+            <button class="btn btn-primary" type="submit">Get a demo</button>
+            <p class="err" id="lead-fail" style="margin:0">That didn&#8217;t go through &#8212; please try again in a moment.</p>
+            <p class="small muted" style="margin:0">We reply within one business day. Your details go to the <span class="brand-case">aiRA</span> team only.</p>
           </form>
+          <div class="lead-success" id="lead-success">
+            <span class="core-status__ok">✓</span>
+            <h3>Request recorded</h3>
+            <p class="small">We'll reply within one business day to schedule your session. Meanwhile, <a class="link-more" href="/#demo">run the interactive demo →</a></p>
+          </div>
         </div>
-
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </main>
 
-<!-- FOOTER -->
-<footer class="footer on-navy">
-  <div class="container container--wide">
-    <div class="footer__grid">
-      <div>
-        <a class="lockup lockup--navy" href="/" aria-label="aiRA home">
-          <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-          <span class="lockup__word">aiRA</span>
-          <span class="lockup__by">by capillary</span>
-        </a>
-        <p class="footer__tag">aiRA — the System of Intelligence for your Systems of Record.</p>
-        <p class="footer__attr">aiRA is built by <a href="https://www.capillarytech.com/aira/">Capillary Technologies</a>.</p>
-      </div>
-      <nav aria-labelledby="foot-product">
-        <h2 id="foot-product">Product</h2>
-        <ul>
-          <li><a href="/platform">Platform</a></li>
-          <li><a href="/agents">Agents</a></li>
-          <li><a href="/how-it-works">How it works</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-solutions">
-        <h2 id="foot-solutions">Solutions</h2>
-        <ul>
-          <li><a href="/acquire">Acquire</a></li>
-          <li><a href="/convert">Convert</a></li>
-          <li><a href="/retain">Retain</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-company">
-        <h2 id="foot-company">Company</h2>
-        <ul>
-          <li><a href="/book-a-demo">Book a demo</a></li>
-          <li><a href="https://www.capillarytech.com/aira/">aiRA by Capillary</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="footer__bottom">
-      <span>© 2026 Capillary Technologies · aiRA</span>
+<footer class="band on-dark" style="padding:var(--sp-10) 0">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:0;padding-bottom:0">
+      <span><span class="brand-case">aiRA</span> — built by the team at Capillary Technologies</span>
+      <span>© 2026 <span class="brand-case">aiRA</span>. All rights reserved.</span>
     </div>
   </div>
 </footer>
 
-<script src="/site.js" defer></script>
+<script src="/assets/aira.js?v=redo5" defer></script>
+<script src="/assets/lead.js?v=1" defer></script>
 </body>
 </html>

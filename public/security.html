@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security &amp; governance — aiRA</title>
+<meta name="description" content="aiRA's trust model is architectural: your data stays in your systems, access is scoped per system and per action, human gates hold consequential work, and every action is recorded in an audit trail.">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300;400;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/aira.css?v=redo5">
+<script src="/assets/boot.js"></script>
+<style>
+  /* Page-specific — security.html only, on aira.css tokens */
+  .nav__links a[aria-current="page"] { color: var(--accent); }
+
+  .hero--lite { padding: clamp(72px, 9vh, 112px) 0 var(--sp-12); }
+
+  /* Four pillars — 2x2 hairline cards */
+  .pillars {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-6);
+    max-width: 1000px; margin: 0 auto;
+  }
+  .pillar {
+    background: var(--bg-raised); border: 1px solid var(--line-soft);
+    border-radius: var(--r-card); padding: var(--sp-8);
+    transition: border-color var(--dur-hover) var(--ease-house),
+                box-shadow var(--dur-hover) var(--ease-house);
+  }
+  .pillar:hover { border-color: var(--line-strong); box-shadow: var(--shadow-pill); }
+  .pillar__no {
+    display: block; font-family: var(--font-mono); font-size: var(--fs-mono);
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: var(--sp-4);
+  }
+  .pillar h3 { font-size: var(--fs-h3); margin: 0 0 var(--sp-3); }
+  .pillar p { font-size: var(--fs-small); color: var(--ink-body); margin: 0; line-height: 1.6; }
+
+  /* Governance-in-production proof blocks */
+  .lead-proof {
+    border: 1px solid var(--line-soft); border-left: 3px solid var(--accent);
+    border-radius: var(--r-card); background: var(--bg-raised); padding: var(--sp-6);
+  }
+  .lead-proof + .lead-proof { margin-top: var(--sp-5); }
+  .lead-proof__tag {
+    display: block; font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+    margin-bottom: var(--sp-3);
+  }
+  .lead-proof p { margin: 0; font-size: var(--fs-body); line-height: 1.55; color: var(--ink-body); }
+  .lead-proof b { color: var(--ink); font-weight: 600; }
+
+  /* Responsible use */
+  .responsible-body { max-width: 640px; margin: 0 auto; text-align: center; }
+  .responsible-body .lede { margin-bottom: var(--sp-5); }
+  .responsible-body p { color: var(--ink-body); }
+  .responsible-body .link-more { display: inline-block; margin-top: var(--sp-4); }
+
+  /* Dark band CTA */
+  .band-cta { max-width: 720px; margin: 0 auto; text-align: center; }
+  .band-cta h2 { margin-bottom: var(--sp-4); }
+  .band-cta .lede { margin-bottom: var(--sp-8); }
+
+  @media (max-width: 720px) { .pillars { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
+    </linearGradient>
+    <symbol id="aira-spark" viewBox="0 0 28 28">
+      <g fill="url(#spark-grad)">
+        <path transform="translate(13 17) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(22.5 10) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(23 22) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="/" aria-label="aiRA home">
+      <svg width="28" height="28" aria-hidden="true"><use href="#aira-spark"/></svg>
+      <span class="nav__wordmark">aiRA</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/platform">Platform</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/customers">Customers</a></li>
+      <li><a href="/security" aria-current="page">Security</a></li>
+      <li><a href="/how-it-works">How it works</a></li>
+    </ul>
+    <a class="btn btn-primary btn--compact nav__cta" href="/book-a-demo?source=v3-security-nav">Get a demo</a>
+    <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav__sheet" aria-label="Mobile">
+    <a href="/platform">Platform</a>
+    <a href="/agents">Agents</a>
+    <a href="/customers">Customers</a>
+    <a href="/security" aria-current="page">Security</a>
+    <a href="/how-it-works">How it works</a>
+    <a class="btn btn-primary" href="/book-a-demo?source=v3-security-nav">Get a demo</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- S1 · Hero-lite -->
+<section class="hero hero--lite">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow eyebrow--center" data-spring="1">Security &amp; governance</p>
+    <h1 class="grad-text" data-spring="2">Built to be <em class="accent-serif">audited</em></h1>
+    <p class="lede hero__sub" data-spring="3">aiRA's trust model is architectural — scoped access, human gates, and a complete record of every action.</p>
+  </div>
+</section>
+
+<!-- S2 · Four pillars -->
+<section class="rule-dashed" id="trust-model">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">The trust model</p>
+      <h2 class="grad-text">Where trust <em class="accent-serif">actually lives</em></h2>
+      <p class="lede">Not a policy binder. Four architectural facts about how aiRA works inside your stack.</p>
+    </div>
+    <div class="pillars" data-reveal>
+      <article class="pillar">
+        <span class="pillar__no">//01</span>
+        <h3>Your data stays in your systems</h3>
+        <p>aiRA reads and writes through your systems of record — your loyalty engine, CDP, and data warehouse. Offers execute in the tools you already run.</p>
+      </article>
+      <article class="pillar">
+        <span class="pillar__no">//02</span>
+        <h3>Scoped permissions</h3>
+        <p>Access is granted per system and per action: read where aiRA analyzes, write only where you allow. It starts narrow and widens only as your team extends it.</p>
+      </article>
+      <article class="pillar">
+        <span class="pillar__no">//03</span>
+        <h3>Human gates</h3>
+        <p>You set the thresholds — discount caps, audience limits, spend ceilings. Crossing one holds the action, with the reason stated. Regulated work routes through your compliance process before anything reaches a customer.</p>
+      </article>
+      <article class="pillar">
+        <span class="pillar__no">//04</span>
+        <h3>Audit trail</h3>
+        <p>Every action — automatic or approved — is recorded with the actor, the time, and the reason. Exceptions carry why they were held.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- S3 · Governance in production -->
+<section class="section-rule" id="governance">
+  <div class="container gov">
+    <div>
+      <p class="eyebrow eyebrow--left">Governance in production</p>
+      <h2 class="grad-text">The gates that <em class="accent-serif">held the line</em></h2>
+      <p class="lede">The gates are not theoretical. In live deployments, aiRA works inside the limits a team sets and holds anything that crosses them for a person to decide — and regulated work routes to your compliance process before it reaches a customer.</p>
+      <ul class="gov__rows">
+        <li><span>//01</span><span>You set the limit</span></li>
+        <li><span>//02</span><span><span class="brand-case">aiRA</span> works inside it</span></li>
+        <li><span>//03</span><span>Exceptions and regulated work wait for a human</span></li>
+      </ul>
+    </div>
+    <div data-reveal>
+      <div class="lead-proof">
+        <span class="lead-proof__tag">Anonymized · premium menswear</span>
+        <p>A premium menswear brand's programme redesign held a <b>&le;10% discount cap</b> through every iteration — no margin leakage.</p>
+      </div>
+      <div class="lead-proof">
+        <span class="lead-proof__tag">Anonymized · US healthcare</span>
+        <p>A leading US healthcare provider runs error-free loyalty configuration through structured, human-approved execution plans — <b>99.9% accuracy</b> across 90+ partner organisations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 · Responsible use -->
+<section class="section-rule" id="responsible">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">Responsible use</p>
+      <h2 class="grad-text">aiRA proposes. <em class="accent-serif">You approve.</em></h2>
+    </div>
+    <div class="responsible-body">
+      <p class="lede">The human veto is a product feature, not a policy promise. Nothing consequential reaches a customer until a person on your team signs off.</p>
+      <p>For your security documentation, vendor questionnaires, and the details of how data is processed, we would rather give you real answers in a conversation than claims on a page.</p>
+      <a class="link-more" href="/book-a-demo?source=v3-security">Talk to us &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- S5 · Dark band CTA -->
+<section class="band on-dark" id="cta">
+  <div class="container band-cta">
+    <p class="eyebrow eyebrow--center">Bring your team</p>
+    <h2 class="grad-text">Bring your security team <em class="accent-serif">to the demo</em></h2>
+    <p class="lede">We would rather answer the hard questions early.</p>
+    <a class="btn btn-primary" href="/book-a-demo?source=v3-security-cta">Get a demo</a>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="band on-dark footer-band">
+  <div class="container">
+    <div class="footer-cta">
+      <div>
+        <h2 class="grad-text">Ready to see your growth plan?</h2>
+        <p class="lede">Bring one growth problem. We'll show you how <span class="brand-case">aiRA</span> would run it — signal to sign-off.</p>
+        <div class="footer-cta__actions">
+          <a class="btn btn-primary" href="/book-a-demo?source=v3-security-footer">Get a demo</a>
+          <a class="link-more" href="/book-a-demo?source=v3-security-footer-talk">Talk to us &rarr;</a>
+        </div>
+      </div>
+      <div class="footer-cta__mascot">
+        <img src="/assets/aira-mascot.png?v=1" alt="The aiRA mascot" width="140" height="226" loading="lazy">
+      </div>
+    </div>
+    <hr class="footer-hairline">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="nav__logo" href="/" aria-label="aiRA home">
+          <svg width="24" height="24" aria-hidden="true"><use href="#aira-spark"/></svg>
+          <span class="nav__wordmark" style="color:#fff">aiRA</span>
+        </a>
+        <p>The AI agent that drives growth across your business — and asks before it acts.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="/#demo">Interactive demo</a></li>
+          <li><a href="/#agents">The agents</a></li>
+          <li><a href="/#governance">Governance</a></li>
+          <li><a href="/book-a-demo?source=v3-security-footer-col">Get a demo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/security">Security</a></li>
+          <li><a href="/customers">Customers</a></li>
+          <li><a href="/#numbers">Results</a></li>
+          <li><a href="/book-a-demo?source=v3-security-footer-contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><span class="brand-case">aiRA</span> — built by the team at Capillary Technologies</span>
+      <span>© 2026 <span class="brand-case">aiRA</span>. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/aira.js?v=redo5" defer></script>
+</body>
+</html>

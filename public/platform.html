@@ -3,432 +3,450 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Platform — How aiRA Works With the Systems You Already Run</title>
-<meta name="description" content="See how aiRA connects to your CRM, data, and loyalty systems, decides what should happen next, and carries out approved actions inside them.">
-<link rel="canonical" href="https://www.ask-aira.com/platform">
-<meta property="og:title" content="Platform — How aiRA Works With the Systems You Already Run">
-<meta property="og:description" content="See how aiRA connects to your CRM, data, and loyalty systems, decides what should happen next, and carries out approved actions inside them.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.ask-aira.com/platform">
+<title>Platform — aiRA</title>
+<meta name="description" content="aiRA connects to the systems you already operate — loyalty, CDP, campaigns, commerce — reads the signals in them, and executes approved plans through them, inside rules your team sets.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300;400;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/aira.css?v=redo5">
+<script src="/assets/boot.js"></script>
+<style>
+  /* Page-specific — platform.html only, on aira.css tokens */
+  .nav__links a[aria-current="page"] { color: var(--accent); }
+
+  .hero--lite { padding: clamp(72px, 9vh, 112px) 0 var(--sp-12); }
+
+  /* Constellation section — reuses the homepage .hero__core component */
+  .connect { padding-bottom: var(--sp-16); }
+  .connect .section-head { margin-bottom: 0; }
+  .connect .hero__core { margin-top: clamp(32px, 5vh, 56px); }
+
+  /* Console snapshot — static recreation of the workspace */
+  .workspace-wrap { max-width: 920px; margin: 0 auto; }
+  .console-body { padding: var(--sp-6); display: grid; gap: var(--sp-3); }
+  .console-label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-muted); margin: var(--sp-3) 0 0;
+  }
+  .console-body .signal-card__sources { margin-bottom: 0; }
+  .console-body .plan-card { margin-bottom: 0; }
+  .workspace-foot {
+    text-align: center; margin: var(--sp-8) auto 0; max-width: 620px;
+    font-size: var(--fs-small); color: var(--ink-muted);
+  }
+
+  /* Systems-of-record grid — hairline cards */
+  .sys-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
+  .sys-card {
+    background: var(--bg-raised); border: 1px solid var(--line-soft);
+    border-radius: var(--r-card); padding: var(--sp-6);
+    transition: border-color var(--dur-hover) var(--ease-house),
+                box-shadow var(--dur-hover) var(--ease-house);
+  }
+  .sys-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-pill); }
+  .sys-card h3 {
+    font-size: 17px; line-height: 1.3; letter-spacing: -0.01em;
+    margin: 0 0 var(--sp-4);
+  }
+  .sys-card__row { display: block; font-size: 13px; line-height: 1.5;
+    color: var(--ink-body); margin: 0 0 var(--sp-3); }
+  .sys-card__row:last-child { margin-bottom: 0; }
+  .sys-card__row span {
+    display: block; font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+    margin-bottom: 2px;
+  }
+  .sys-note {
+    text-align: center; font-family: var(--font-mono); font-size: var(--fs-mono);
+    letter-spacing: 0.04em; color: var(--ink-muted);
+    margin: var(--sp-8) auto 0; max-width: 640px;
+  }
+  @media (max-width: 980px) { .sys-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .sys-grid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- brand mark sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="aira-grad" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="spark-grad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
     </linearGradient>
-    <symbol id="aira-mark" viewBox="0 0 24 24">
-      <g fill="url(#aira-grad)">
-        <path transform="translate(9 13) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(18.5 6) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
-        <path transform="translate(19 18) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+    <symbol id="aira-spark" viewBox="0 0 28 28">
+      <g fill="url(#spark-grad)">
+        <path transform="translate(13 17) scale(.95)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(22.5 10) scale(.42)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
+        <path transform="translate(23 22) scale(.32)" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z"/>
       </g>
     </symbol>
   </defs>
 </svg>
 
-<!-- NAV -->
 <header class="nav">
-  <div class="container container--wide nav__inner">
-    <a class="lockup" href="/" aria-label="aiRA home">
-      <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-      <span class="lockup__word">aiRA</span>
-      <span class="lockup__by">by capillary</span>
+  <div class="nav__inner">
+    <a class="nav__logo" href="/" aria-label="aiRA home">
+      <svg width="28" height="28" aria-hidden="true"><use href="#aira-spark"/></svg>
+      <span class="nav__wordmark">aiRA</span>
     </a>
-    <nav class="nav__links" aria-label="Primary">
-      <a href="/platform" aria-current="page">Platform</a>
-      <a href="/agents">Agents</a>
-      <div class="nav__dd">
-        <button type="button" class="nav__dd-btn" aria-expanded="false" aria-haspopup="true" aria-controls="solutions-menu">Solutions
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <ul class="nav__dd-panel" id="solutions-menu">
-          <li><a href="/acquire">
-            <span class="dd-ic dd-ic--acquire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M19 6v6m-3-3h6"/></svg></span>
-            <span><span class="dd-t">Acquire</span><span class="dd-d">Turn strangers into customers</span></span>
-          </a></li>
-          <li><a href="/convert">
-            <span class="dd-ic dd-ic--convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
-            <span><span class="dd-t">Convert</span><span class="dd-d">Meet every visitor at their moment</span></span>
-          </a></li>
-          <li><a href="/retain">
-            <span class="dd-ic dd-ic--retain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-9-9c-1.3-3 1-7 4.5-7C9.5 4 11 5 12 6.7 13 5 14.5 4 16.5 4 20 4 22.3 8 21 11c-2 4.5-9 9-9 9z"/></svg></span>
-            <span><span class="dd-t">Retain</span><span class="dd-d">Keep and recover your best customers</span></span>
-          </a></li>
-        </ul>
-      </div>
-      <a href="/how-it-works">How it works</a>
-    </nav>
-    <div class="nav__actions">
-      <a class="btn btn--primary btn--s" href="/book-a-demo">Book a demo</a>
-      <button type="button" class="nav__burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <nav class="nav__mobile" id="mobile-menu" aria-label="Primary mobile">
-    <ul>
+    <ul class="nav__links">
       <li><a href="/platform" aria-current="page">Platform</a></li>
       <li><a href="/agents">Agents</a></li>
-      <li>
-        <span class="group-label">Solutions</span>
-        <ul class="indent">
-          <li><a href="/acquire">Acquire</a></li>
-          <li><a href="/convert">Convert</a></li>
-          <li><a href="/retain">Retain</a></li>
-        </ul>
-      </li>
+      <li><a href="/customers">Customers</a></li>
+      <li><a href="/security">Security</a></li>
       <li><a href="/how-it-works">How it works</a></li>
-      <li><a href="/book-a-demo">Book a demo</a></li>
     </ul>
+    <a class="btn btn-primary btn--compact nav__cta" href="/book-a-demo?source=v3-platform-nav">Get a demo</a>
+    <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav__sheet" aria-label="Mobile">
+    <a href="/platform" aria-current="page">Platform</a>
+    <a href="/agents">Agents</a>
+    <a href="/customers">Customers</a>
+    <a href="/security">Security</a>
+    <a href="/how-it-works">How it works</a>
+    <a class="btn btn-primary" href="/book-a-demo?source=v3-platform-nav">Get a demo</a>
   </nav>
 </header>
 
-<main id="main">
+<main>
 
-  <!-- HERO -->
-  <section id="hero" class="hero hero--cool hero--inner hero--center" aria-labelledby="hero-title">
-    <div class="container hero__inner">
-      <div class="hero__copy">
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Platform</p>
-        <h1 id="hero-title">The intelligence layer your systems have been missing</h1>
-        <p class="lede">Every system you run is a System of Record — the CRM, billing, loyalty, and data tools built to store what happened, not to decide what's next. aiRA sits above them all: reading what they know, making decisions you approve, and acting back inside them.</p>
-        <div class="hero__btns">
-          <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
-          <a class="btn btn--secondary" href="/how-it-works">See how it works <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+<!-- S1 · Hero-lite -->
+<section class="hero hero--lite">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow eyebrow--center" data-spring="1">The platform</p>
+    <h1 class="grad-text" data-spring="2">One agent core. <em class="accent-serif">Every system you run.</em></h1>
+    <p class="lede hero__sub" data-spring="3">aiRA connects to the systems you already operate — loyalty, CDP, campaigns, commerce — reads the signals in them, and executes plans through them, inside rules your team sets.</p>
+  </div>
+</section>
+
+<!-- S2 · The constellation -->
+<section class="rule-dashed connect" id="constellation">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">How it connects</p>
+      <p class="lede">Signals in from your systems of record — approved actions out through your channels.</p>
+    </div>
+
+    <!-- Live agent-core constellation: systems in → aiRA core → channels out -->
+    <div class="hero__core" data-spring="5" aria-hidden="true">
+      <svg class="core-svg" viewBox="0 0 1160 340" fill="none">
+        <path id="cp1" class="core-path" d="M172,60 C300,60 320,140 424,150"/>
+        <path id="cp2" class="core-path" d="M138,125 C260,128 300,160 424,166"/>
+        <path id="cp3" class="core-path" d="M120,190 C260,192 320,182 424,182"/>
+        <path id="cp4" class="core-path" d="M146,255 C280,252 320,204 424,198"/>
+        <path id="cp5" class="core-path" d="M188,305 C330,300 330,222 424,214"/>
+        <path id="cp6" class="core-path" d="M736,150 C840,140 880,62 992,60"/>
+        <path id="cp7" class="core-path" d="M736,168 C860,164 900,126 1022,124"/>
+        <path id="cp8" class="core-path" d="M736,184 C860,186 900,190 1040,190"/>
+        <path id="cp9" class="core-path" d="M736,200 C860,204 900,254 1014,256"/>
+        <path id="cp10" class="core-path" d="M736,216 C840,224 880,302 972,304"/>
+        <circle class="core-pulse" r="3.2"><animateMotion dur="3.6s" begin="0s"    repeatCount="indefinite"><mpath href="#cp1"/></animateMotion></circle>
+        <circle class="core-pulse" r="3.2"><animateMotion dur="3.9s" begin="0.7s" repeatCount="indefinite"><mpath href="#cp2"/></animateMotion></circle>
+        <circle class="core-pulse" r="3.2"><animateMotion dur="3.4s" begin="1.4s" repeatCount="indefinite"><mpath href="#cp3"/></animateMotion></circle>
+        <circle class="core-pulse" r="3.2"><animateMotion dur="4.1s" begin="0.3s" repeatCount="indefinite"><mpath href="#cp4"/></animateMotion></circle>
+        <circle class="core-pulse" r="3.2"><animateMotion dur="3.7s" begin="1.9s" repeatCount="indefinite"><mpath href="#cp5"/></animateMotion></circle>
+        <circle class="core-pulse core-pulse--out" r="3.2"><animateMotion dur="3.6s" begin="1.1s" repeatCount="indefinite"><mpath href="#cp6"/></animateMotion></circle>
+        <circle class="core-pulse core-pulse--out" r="3.2"><animateMotion dur="3.9s" begin="2.2s" repeatCount="indefinite"><mpath href="#cp7"/></animateMotion></circle>
+        <circle class="core-pulse core-pulse--out" r="3.2"><animateMotion dur="3.3s" begin="0.5s" repeatCount="indefinite"><mpath href="#cp8"/></animateMotion></circle>
+        <circle class="core-pulse core-pulse--out" r="3.2"><animateMotion dur="4.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#cp9"/></animateMotion></circle>
+        <circle class="core-pulse core-pulse--out" r="3.2"><animateMotion dur="3.8s" begin="2.8s" repeatCount="indefinite"><mpath href="#cp10"/></animateMotion></circle>
+      </svg>
+      <span class="core-node" style="left:6.5%;top:11%">Loyalty engine</span>
+      <span class="core-node" style="left:3.5%;top:31%">CDP</span>
+      <span class="core-node" style="left:2%;top:51%">Commerce &amp; POS</span>
+      <span class="core-node" style="left:4%;top:70%">Data warehouse</span>
+      <span class="core-node" style="left:8%;top:86%">Campaign manager</span>
+      <span class="core-node core-node--out" style="right:6.5%;top:11%">Email</span>
+      <span class="core-node core-node--out" style="right:3.5%;top:30%">SMS</span>
+      <span class="core-node core-node--out" style="right:2%;top:51%">App push</span>
+      <span class="core-node core-node--out" style="right:4%;top:70%">Journeys</span>
+      <span class="core-node core-node--out" style="right:7%;top:85%">Offers</span>
+      <span class="core-flowlabel" style="left:26%">— signals in</span>
+      <span class="core-flowlabel core-flowlabel--r" style="right:26%">actions out —</span>
+      <div class="core-card">
+        <span class="core-chip"><svg width="12" height="12"><use href="#aira-spark"/></svg><span class="brand-case">aiRA</span> agent core</span>
+        <div class="core-steps">
+          <span class="core-step" style="--ph:0">Signal</span><i>—</i>
+          <span class="core-step" style="--ph:1">Plan</span><i>—</i>
+          <span class="core-step core-step--ask" style="--ph:2">Ask</span><i>—</i>
+          <span class="core-step" style="--ph:3">Execute</span>
         </div>
-      </div>
-      <div class="frame-dashed teaser-strip" data-reveal aria-hidden="true">
-        <div class="teaser-flow">
-          <div class="soi-chips"><span>CRM</span><span>Billing</span><span>Loyalty</span><span>Data platform</span></div>
-          <span class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
-          <span class="aira-pill"><svg aria-hidden="true"><use href="#aira-mark"/></svg>aiRA</span>
-          <span class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
-          <div class="soi-chips"><span>Campaigns launched</span><span>Offers issued</span><span>Customer lists updated</span></div>
-        </div>
+        <div class="core-progress"><i></i></div>
+        <div class="core-status"><span class="core-status__ok">✓</span> Plan approved by you — executing</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ARCHITECTURE -->
-  <section id="architecture" class="section" aria-labelledby="arch-title">
-    <div class="container container--wide">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Architecture</p>
-        <h2 id="arch-title">Records below. Intelligence above. Actions flowing both ways.</h2>
-        <p class="lede">aiRA doesn't replace your systems — it completes them. Information flows up from the tools you run; decisions and actions flow back down into them. Nothing gets ripped out. Everything gets smarter.</p>
-      </div>
+<!-- S3 · The workspace -->
+<section class="rule-dashed" id="workspace">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">What your team sees</p>
+      <h2 class="grad-text">A working console, <em class="accent-serif">not a dashboard</em></h2>
+      <p class="lede">The signal it found, the plan it drafted, and the approval it's waiting on — in plain language, on one screen.</p>
+    </div>
+    <div class="workspace-wrap" data-reveal>
+      <div class="frame">
+        <span class="frame__tab"><span class="brand-case">aiRA</span> console · demo data (fictional)</span>
+        <div class="frame__bar" aria-hidden="true">
+          <span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span>
+        </div>
+        <div class="frame__body">
+          <div class="console-body">
+            <div class="demo-brandline">
+              <span><span class="demo-brandline__name">Harbourline Stores</span> <span class="demo-brandline__desc">— a 260-store home &amp; lifestyle retailer</span></span>
+              <span class="demo-brandline__desc">Demo data — fictional</span>
+            </div>
 
-      <div class="frame-dashed" data-reveal data-draw>
-        <span class="frame-dashed__tab" aria-hidden="true">The full loop</span>
+            <p class="console-label">01 · Signal</p>
+            <div class="signal-card">
+              <div class="signal-card__ts">THU 08:26 · SIGNAL DETECTED</div>
+              <div class="signal-card__headline">Second-purchase conversion slipped 4.1pp among new members in eight weeks</div>
+              <div class="signal-card__metric"><b>Second-purchase rate, new members</b>
+              <span class="signal-card__delta">−4.1pp vs prior quarter</span></div>
+              <p class="signal-card__detail">Members who joined in the spring window are stalling after their first order — 28,400 sit one nudge away from a second purchase.</p>
+              <div class="signal-card__sources">
+                <span class="chip chip-agent">Loyalty engine</span>
+                <span class="chip chip-agent">CDP</span>
+                <span class="chip chip-agent">Campaign manager</span>
+                <span class="chip chip-agent">Commerce &amp; POS</span>
+              </div>
+            </div>
 
-        <svg class="soi-diagram" viewBox="0 0 960 520" role="img" aria-label="Three-layer diagram: the business systems a company already runs at the base, the aiRA intelligence layer above them, and approved actions flowing back into the systems.">
-          <defs>
-            <linearGradient id="soiGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#2080BD"/><stop offset="1" stop-color="#23959A"/>
-            </linearGradient>
-            <marker id="mBlue" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#2080BD"/></marker>
-            <marker id="mTeal" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#23959A"/></marker>
-            <marker id="mGreen" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#399D49"/></marker>
-          </defs>
+            <p class="console-label">02 · Plan — drafted by <span class="brand-case">aiRA</span></p>
+            <div class="plan-card">
+              <div class="plan-row is-in">
+                <span class="plan-row__who">Acquire agent</span>
+                <span class="plan-row__what">Split the 28,400 stalled members into 2 cohorts by first-order category and join channel</span>
+                <span class="plan-row__expect">Cohorts sized 19.1K / 9.3K</span>
+              </div>
+              <div class="plan-row is-in">
+                <span class="plan-row__who">Convert agent</span>
+                <span class="plan-row__what">Configure a second-purchase journey — curated picks first, points booster if still idle at day 10</span>
+                <span class="plan-row__expect">2 campaigns, staged over 3 weeks</span>
+              </div>
+              <div class="plan-row is-in">
+                <span class="plan-row__who">Retain agent</span>
+                <span class="plan-row__what">Track second-purchase rate weekly and hold ATV flat; recalibrate the booster per cycle</span>
+                <span class="plan-row__expect">Rate back above baseline</span>
+              </div>
+            </div>
 
-          <text x="480" y="26" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.5" fill="#58595B" style="font-family:var(--font-head)">APPROVED ACTIONS, BACK INTO YOUR SYSTEMS</text>
-          <g>
-            <rect x="99" y="44" width="160" height="40" rx="20" fill="#EAF6FD" stroke="#2080BD" stroke-opacity=".3"/>
-            <text x="179" y="69" text-anchor="middle" font-size="13" font-weight="600" fill="#16669A">Campaigns launched</text>
-            <rect x="275" y="44" width="122" height="40" rx="20" fill="#EAF6FD" stroke="#2080BD" stroke-opacity=".3"/>
-            <text x="336" y="69" text-anchor="middle" font-size="13" font-weight="600" fill="#16669A">Offers issued</text>
-            <rect x="413" y="44" width="184" height="40" rx="20" fill="#EAF6FD" stroke="#2080BD" stroke-opacity=".3"/>
-            <text x="505" y="69" text-anchor="middle" font-size="13" font-weight="600" fill="#16669A">Customer lists updated</text>
-            <rect x="613" y="44" width="248" height="40" rx="20" fill="#EAF6FD" stroke="#2080BD" stroke-opacity=".3"/>
-            <text x="737" y="69" text-anchor="middle" font-size="13" font-weight="600" fill="#16669A">People pointed to the right tool</text>
-          </g>
-
-          <g stroke="#23959A" stroke-width="2.5" fill="none">
-            <path class="draw d3" pathLength="1" d="M179 186 V92" marker-end="url(#mTeal)"/>
-            <path class="draw d3" pathLength="1" d="M336 186 V92" marker-end="url(#mTeal)"/>
-            <path class="draw d3" pathLength="1" d="M505 186 V92" marker-end="url(#mTeal)"/>
-            <path class="draw d3" pathLength="1" d="M737 186 V92" marker-end="url(#mTeal)"/>
-          </g>
-
-          <g>
-            <rect x="140" y="190" width="680" height="140" rx="20" fill="#FFFFFF"/>
-            <rect x="140" y="190" width="680" height="140" rx="20" fill="url(#soiGrad)" opacity=".08"/>
-            <rect class="draw d2" pathLength="1" x="141" y="191" width="678" height="138" rx="19" fill="none" stroke="url(#soiGrad)" stroke-width="2"/>
-            <use href="#aira-mark" x="330" y="216" width="20" height="20"/>
-            <text x="358" y="232" font-size="18" font-weight="700" fill="#142737" style="font-family:var(--font-head)">aiRA — System of Intelligence</text>
-            <g font-size="13" font-weight="600" fill="#58595B">
-              <rect x="165" y="264" width="184" height="30" rx="15" fill="#fff" stroke="#E3E8EE"/>
-              <circle cx="183" cy="279" r="3" fill="#23959A"/><text x="193" y="284">Live business picture</text>
-              <rect x="363" y="264" width="102" height="30" rx="15" fill="#fff" stroke="#E3E8EE"/>
-              <circle cx="381" cy="279" r="3" fill="#23959A"/><text x="391" y="284">Decisions</text>
-              <rect x="479" y="264" width="146" height="30" rx="15" fill="#fff" stroke="#E3E8EE"/>
-              <circle cx="497" cy="279" r="3" fill="#23959A"/><text x="507" y="284">Always-on agents</text>
-              <rect x="639" y="264" width="156" height="30" rx="15" fill="#fff" stroke="#E3E8EE"/>
-              <circle cx="657" cy="279" r="3" fill="#23959A"/><text x="667" y="284">Approvals &amp; rules</text>
-            </g>
-          </g>
-
-          <g stroke="#2080BD" stroke-width="2" fill="none" opacity=".55">
-            <path class="draw" pathLength="1" d="M250 368 C255 352 258 348 262 338" marker-end="url(#mBlue)"/>
-            <path class="draw" pathLength="1" d="M480 368 V338" marker-end="url(#mBlue)"/>
-            <path class="draw" pathLength="1" d="M710 368 C705 352 702 348 698 338" marker-end="url(#mBlue)"/>
-          </g>
-          <g>
-            <rect x="42" y="342" width="150" height="22" rx="11" fill="#fff"/>
-            <text x="117" y="357" text-anchor="middle" font-size="12" fill="#6D6F72">what your systems know</text>
-          </g>
-
-          <rect x="50" y="372" width="860" height="118" rx="16" fill="none" stroke="#B9C6D2" stroke-width="1.5" stroke-dasharray="6 6"/>
-          <rect x="66" y="362" width="428" height="20" rx="10" fill="#fff"/>
-          <text x="280" y="376" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.5" fill="#58595B" style="font-family:var(--font-head)">YOUR SYSTEMS OF RECORD — THE TOOLS YOU ALREADY RUN</text>
-          <g>
-            <rect x="70" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <ellipse cx="132" cy="418" rx="9" ry="4" fill="none" stroke="#58595B" stroke-width="1.6"/>
-            <path d="M123 418v10c0 2.2 4 4 9 4s9-1.8 9-4v-10" fill="none" stroke="#58595B" stroke-width="1.6"/>
-            <text x="132" y="450" text-anchor="middle" font-size="13" font-weight="600" fill="#212121">CRM</text>
-
-            <rect x="209" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <rect x="263" y="410" width="17" height="14" rx="2" fill="none" stroke="#58595B" stroke-width="1.6"/>
-            <path d="M263 415h17" stroke="#58595B" stroke-width="1.6"/>
-            <text x="271" y="450" text-anchor="middle" font-size="12" font-weight="600" fill="#212121">Billing &amp; ERP</text>
-
-            <rect x="348" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <path d="m410 407 8 4.5-8 4.5-8-4.5 8-4.5z M402 419l8 4.5 8-4.5" fill="none" stroke="#58595B" stroke-width="1.6" stroke-linejoin="round"/>
-            <text x="410" y="450" text-anchor="middle" font-size="11.5" font-weight="600" fill="#212121">Customer database</text>
-
-            <rect x="487" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <path d="M541 410h17v13h-17z M541 416h17" fill="none" stroke="#58595B" stroke-width="1.6"/>
-            <text x="549" y="450" text-anchor="middle" font-size="12" font-weight="600" fill="#212121">Data platform</text>
-
-            <rect x="626" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <path d="M688 409.5 690.4 415l5.6.5-4.3 3.8 1.3 5.7-5-3-5 3 1.3-5.7-4.3-3.8 5.6-.5z" fill="none" stroke="#58595B" stroke-width="1.5" stroke-linejoin="round"/>
-            <text x="688" y="450" text-anchor="middle" font-size="12" font-weight="600" fill="#212121">Loyalty program</text>
-
-            <rect x="765" y="398" width="125" height="66" rx="12" fill="#fff" stroke="#C9D2DC" stroke-width="1.5"/>
-            <path d="M819 411h3l2 9h9l2-6h-11" fill="none" stroke="#58595B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="826" cy="423.5" r="1.6" fill="#58595B"/><circle cx="832" cy="423.5" r="1.6" fill="#58595B"/>
-            <text x="827" y="450" text-anchor="middle" font-size="13" font-weight="600" fill="#212121">Online store</text>
-          </g>
-
-          <path class="draw d4" pathLength="1" d="M824 260 C930 272 940 380 916 424" fill="none" stroke="#399D49" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#mGreen)"/>
-          <g>
-            <rect x="686" y="500" width="260" height="20" rx="10" fill="#fff"/>
-            <text x="816" y="514" text-anchor="middle" font-size="12" font-weight="600" fill="#2F7E3C">approved actions, back into your systems</text>
-          </g>
-        </svg>
-
-        <div class="soi-stack">
-          <div class="soi-card">
-            <p class="soi-card__label">Approved actions, back into your systems</p>
-            <div class="soi-chips"><span>Campaigns launched</span><span>Offers issued</span><span>Customer lists updated</span><span>People pointed to the right tool</span></div>
+            <p class="console-label">03 · Approval</p>
+            <div class="ledger">
+              <div class="ledger__row">
+                <span class="ledger__action">Journey audience synced to campaign manager — 28,400 profiles</span>
+                <span class="pill-status pill-status--ok">Recorded</span>
+              </div>
+              <div class="ledger__row ledger__row--gated">
+                <span class="ledger__action">Points booster implies an 18% effective discount for idle members
+                  <span class="ledger__reason">Crosses your 15% threshold — held for your approval</span>
+                </span>
+                <span class="pill-status pill-status--wait">Waiting for you</span>
+              </div>
+            </div>
           </div>
-          <div class="soi-stack__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m-6 8 6-6 6 6"/></svg></div>
-          <div class="soi-card soi-card--aira">
-            <p class="soi-card__label"><span class="brand-case">aiRA</span> — System of Intelligence</p>
-            <div class="soi-chips"><span>Live business picture</span><span>Decisions</span><span>Always-on agents</span><span>Approvals &amp; rules</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="workspace-foot">Click through the live version on the homepage. <a class="link-more" href="/#demo">See aiRA work →</a></p>
+  </div>
+</section>
+
+<!-- S4 · Systems of record -->
+<section class="section-rule" id="systems">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">Systems of record</p>
+      <h2 class="grad-text">Built to run <em class="accent-serif">inside your stack</em></h2>
+      <p class="lede">aiRA is engine-agnostic: it works with the systems you already run, whichever vendor they come from.</p>
+    </div>
+    <div class="sys-grid" data-reveal>
+      <article class="sys-card">
+        <h3>Loyalty engine</h3>
+        <p class="sys-card__row"><span>Reads</span>Tier movement, points earn and burn, milestone progress.</p>
+        <p class="sys-card__row"><span>Executes</span>Programme rules, milestone rewards and points configuration.</p>
+      </article>
+      <article class="sys-card">
+        <h3>CDP</h3>
+        <p class="sys-card__row"><span>Reads</span>Unified profiles, segments, consent and preference flags.</p>
+        <p class="sys-card__row"><span>Executes</span>Segment builds and audience refreshes for approved plans.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Campaign manager</h3>
+        <p class="sys-card__row"><span>Reads</span>Calendar coverage, send history, engagement by channel.</p>
+        <p class="sys-card__row"><span>Executes</span>Campaign setup, audience sync and scheduling.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Commerce &amp; POS</h3>
+        <p class="sys-card__row"><span>Reads</span>Transactions, baskets and store-level sales patterns.</p>
+        <p class="sys-card__row"><span>Executes</span>Offer activation at the point of sale.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Data warehouse</h3>
+        <p class="sys-card__row"><span>Reads</span>The historical joins behind every plan it proposes.</p>
+        <p class="sys-card__row"><span>Executes</span>Persona and segment definitions, written back where you allow.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Messaging channels</h3>
+        <p class="sys-card__row"><span>Reads</span>Delivery, engagement and opt-outs across every channel.</p>
+        <p class="sys-card__row"><span>Executes</span>Approved sends through the gateways you already use.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Offer engine</h3>
+        <p class="sys-card__row"><span>Reads</span>Live offer templates, redemption rates and stacking rules.</p>
+        <p class="sys-card__row"><span>Executes</span>Offer configuration, pushed to your engine after human approval.</p>
+      </article>
+      <article class="sys-card">
+        <h3>Analytics</h3>
+        <p class="sys-card__row"><span>Reads</span>KPIs, scorecards and the attribution views your team tracks.</p>
+        <p class="sys-card__row"><span>Executes</span>Outcome reports published for every executed plan.</p>
+      </article>
+    </div>
+    <p class="sys-note">Generic categories, not vendors. Every write is scoped by your permissions — per system, per action.</p>
+  </div>
+</section>
+
+<!-- S5 · Governance split -->
+<section class="rule-dashed" id="governance">
+  <div class="container gov">
+    <div>
+      <p class="eyebrow eyebrow--left">Scoped by design</p>
+      <h2 class="grad-text">Broad where it reads. <em class="accent-serif">Narrow where it writes.</em></h2>
+      <p class="lede">Access starts narrow and widens only as your team grants it. Analysis can roam. Execution stays scoped, and everything lands in the audit trail.</p>
+      <ul class="gov__rows">
+        <li><span>//01</span><span>Read where it analyzes</span></li>
+        <li><span>//02</span><span>Write only where you allow</span></li>
+        <li><span>//03</span><span>Every action recorded</span></li>
+      </ul>
+      <p class="gov__proof">A leading US healthcare provider runs structured, human-approved execution plans through <span class="brand-case">aiRA</span> — 99.9% execution accuracy across 90+ partner organisations.</p>
+    </div>
+    <div>
+      <div class="frame">
+        <span class="frame__tab">audit trail · scoped writes · fictional</span>
+        <div class="frame__bar" aria-hidden="true"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span></div>
+        <div class="frame__body">
+          <div class="ledger">
+            <div class="ledger__row">
+              <span class="ledger__action">Warehouse read — repeat-rate query across 12 markets</span>
+              <span class="pill-status pill-status--ok">Recorded</span>
+            </div>
+            <div class="ledger__row">
+              <span class="ledger__action">Segment write — lapsed-member cohort created in CDP</span>
+              <span class="pill-status pill-status--ok">Recorded</span>
+            </div>
+            <div class="ledger__row ledger__row--gated">
+              <span class="ledger__action">Offer write — a 20% offer exceeds the 15% cap you set
+                <span class="ledger__reason">Held with the reason stated — waiting for a named approver</span>
+              </span>
+              <span class="pill-status pill-status--wait">Waiting for you</span>
+            </div>
+            <div class="ledger__row">
+              <span class="ledger__action">Channel send — approved campaign queued to email and push</span>
+              <span class="pill-status pill-status--ok">Recorded</span>
+            </div>
           </div>
-          <div class="soi-stack__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m-6 8 6-6 6 6"/></svg></div>
-          <div class="soi-card">
-            <p class="soi-card__label">Your Systems of Record — the tools you already run</p>
-            <div class="soi-chips"><span>CRM</span><span>Billing &amp; ERP</span><span>Customer database</span><span>Data platform</span><span>Loyalty program</span><span>Online store</span></div>
-          </div>
-          <p class="soi-stack__return">approved actions, back into your systems</p>
-        </div>
-
-        <div class="soi-legend" aria-hidden="true">
-          <span><i class="k-blue"></i>signals in</span>
-          <span><i class="k-teal"></i>intelligence</span>
-          <span><i class="k-green"></i>actions out</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTEXT ENGINE -->
-  <section id="context-engine" class="section bg-soft" aria-labelledby="ctx-title">
-    <div class="container">
-      <div class="ctx-split">
-        <div class="sec-head sec-head--left" data-reveal style="margin-bottom:0">
-          <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Context engine</p>
-          <h2 id="ctx-title">Grounded in your data, not generic guesses</h2>
-          <p class="lede">The context engine is aiRA's live picture of your business — customers, purchases, stock, campaigns — drawn from every system you connect. Every decision starts from what is actually true, right now.</p>
-        </div>
-        <div class="ctx-stack" data-reveal aria-hidden="true">
-          <div class="ctx-card"><span>Purchase history · 24 mo</span><span class="src">Data platform</span></div>
-          <div class="ctx-card"><span>Stock levels · live</span><span class="src">Billing &amp; ERP</span></div>
-          <div class="ctx-card"><span>Campaign results · all channels</span><span class="src">Marketing platform</span></div>
-        </div>
-      </div>
-      <div class="grid grid--2" data-reveal-stagger>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></span>
-          <h3>One picture, no new copy of your data</h3>
-          <p>aiRA reads customers, transactions, stock, and campaign history where they already live. Your data stays put, under the controls you already have.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-          <h3>Live, not last-quarter</h3>
-          <p>The picture refreshes continuously. Agents decide on today's signals, not last month's report.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/></svg></span>
-          <h3>Speaks your language</h3>
-          <p>aiRA understands your business terms — tiers, products, regions, campaigns — so plans come back in plain English, not database names.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></span>
-          <h3>Evidence attached</h3>
-          <p>Every recommendation shows the records and signals behind it. Your team can check the work before anyone approves it.</p>
-        </div>
-      </div>
+<!-- S6 · Dark band — production numbers -->
+<section class="band on-dark" id="numbers">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--center">Measured in production</p>
+      <h2 class="grad-text">Proof from <em class="accent-serif">production, not pilots</em></h2>
+      <p class="lede">Every number links to the anonymized story behind it.</p>
     </div>
-  </section>
-
-  <!-- DECIDE → ACT -->
-  <section id="decide-act" class="section" aria-labelledby="da-title">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Decide → Act</p>
-        <h2 id="da-title">Intelligence that ends in your systems, not in a slide deck</h2>
-        <p class="lede">Most AI stops at an insight. aiRA finishes the job: decisions become actions, and actions land back inside your systems — where they are carried out, measured, and recorded.</p>
-      </div>
-      <div class="grid grid--2" data-reveal-stagger>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-          <h3>Plans, not just answers</h3>
-          <p>Ask a question, get a plan: which customers, what actions, in what order, and the expected result — ready for your approval, not your interpretation.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
-          <h3>Work done in your tools</h3>
-          <p>Agents write the work back: campaigns into your marketing platform, offers into your loyalty program, updated lists into your customer database. Live in the tools your team checks daily.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h9a4 4 0 0 0 4-4V4"/><path d="m13 8 4-4 4 4"/></svg></span>
-          <h3>People pointed to the right place</h3>
-          <p>When a step needs a person, aiRA sends them to the exact system — or the right website — with the background already attached, ready to act.</p>
-        </div>
-        <div class="card">
-          <span class="icon-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10m6 10V4m6 16v-7"/><path d="M2 20h20"/></svg></span>
-          <h3>Results measured at the source</h3>
-          <p>Outcomes are read back from the same systems the actions ran in — closing the loop between decision, action, and result.</p>
-        </div>
-      </div>
+    <div class="stat-grid" data-reveal>
+      <a class="stat-card" href="/customers#healthcare">
+        <span class="stat-card__num" data-count="75" data-suffix="%">0%</span>
+        <span class="stat-card__label">Configuration effort cut</span>
+        <span class="stat-card__mech">90 days to 21, per cycle.</span>
+      </a>
+      <a class="stat-card" href="/customers#healthcare">
+        <span class="stat-card__num" data-count="80" data-suffix="%">0%</span>
+        <span class="stat-card__label">Labour reduction</span>
+        <span class="stat-card__mech">20 specialists down to 4.</span>
+      </a>
+      <a class="stat-card" href="/customers#superapp">
+        <span class="stat-card__num" data-count="0">0</span>
+        <span class="stat-card__label">Configuration errors</span>
+        <span class="stat-card__mech">20+ monthly templates, without engineering.</span>
+      </a>
+      <a class="stat-card" href="/customers#healthcare">
+        <span class="stat-card__num" data-count="99.9" data-suffix="%">0%</span>
+        <span class="stat-card__label">Execution accuracy</span>
+        <span class="stat-card__mech">Measured across 90+ partner organisations.</span>
+      </a>
     </div>
-  </section>
-
-  <!-- GOVERNANCE -->
-  <section id="governance" class="band trust on-navy" aria-labelledby="gov-title">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Governance</p>
-        <h2 id="gov-title">You set the rules. aiRA stays inside them.</h2>
-        <p class="lede">Autonomy without accountability is a liability. aiRA is built so your risk, compliance, and security teams can say yes — and keep saying yes.</p>
-      </div>
-      <div class="trust__grid" data-reveal-stagger>
-        <div class="trust__item">
-          <span class="trust__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
-          <div><h3>Approval gates</h3><p>You decide which actions run on their own and which pause for a person. These are enforced controls, not promises.</p></div>
-        </div>
-        <div class="trust__item">
-          <span class="trust__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
-          <div><h3>Full audit trail</h3><p>Goal, evidence, decision, action, result — every step recorded and time-stamped, end to end.</p></div>
-        </div>
-        <div class="trust__item">
-          <span class="trust__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></svg></span>
-          <div><h3>Privacy &amp; consent built in</h3><p>Each customer's privacy choices, as recorded in your systems, are honored by every agent, on every channel.</p></div>
-        </div>
-        <div class="trust__item">
-          <span class="trust__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-          <div><h3>Enterprise controls</h3><p>Strict access controls, data encrypted at every step, separated environments, and a security posture built for enterprise review.</p></div>
-        </div>
-      </div>
-      <div class="trust__chips" data-reveal>
-        <span>Approval gates</span><span>Full audit trail</span><span>Respects customer privacy choices</span><span>Strict access controls</span><span>Separated environments</span>
-      </div>
+    <div class="band__cta">
+      <a class="btn btn-secondary" href="/customers">Read the stories</a>
     </div>
-  </section>
-
-  <!-- INTEGRATIONS -->
-  <section id="integrations" class="section bg-warm" aria-labelledby="int-title">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow"><svg class="spark" aria-hidden="true"><use href="#aira-mark"/></svg>Integrations</p>
-        <h2 id="int-title">Works with the systems you already run</h2>
-        <p class="lede">Standard connections are designed to bring your first systems online in days, not quarters — and each one stays the official record it is today.</p>
-      </div>
-      <div class="int-chips" data-reveal role="img" aria-label="Grid of integration names including Snowflake, BigQuery, Databricks, Salesforce, SAP, Oracle, Microsoft Dynamics, Segment, Adobe, Shopify, and REST APIs and webhooks.">
-        <span>Snowflake</span><span>BigQuery</span><span>Databricks</span><span>Salesforce</span><span>SAP</span><span>Oracle</span><span>Microsoft Dynamics</span><span>Segment</span><span>Adobe</span><span>Shopify</span><span>REST APIs &amp; webhooks</span><span class="plus">+ your systems</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta" class="band cta-band on-navy" aria-labelledby="cta-title">
-    <div class="container container--text cta-band__inner" data-reveal>
-      <svg class="spark-lg" aria-hidden="true"><use href="#aira-mark"/></svg>
-      <h2 id="cta-title">See it mapped to your own systems</h2>
-      <p class="lede">Bring a list of what you run. We'll show you exactly where aiRA reads, decides, and acts.</p>
-      <div class="cta-band__btns">
-        <a class="btn btn--primary" href="/book-a-demo">Book a demo</a>
-        <a class="btn btn--secondary" href="/how-it-works">See how it works <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer on-navy">
-  <div class="container container--wide">
-    <div class="footer__grid">
+<!-- Footer -->
+<footer class="band on-dark footer-band">
+  <div class="container">
+    <div class="footer-cta">
       <div>
-        <a class="lockup lockup--navy" href="/" aria-label="aiRA home">
-          <svg class="lockup__mark" width="28" height="28" aria-hidden="true"><use href="#aira-mark"/></svg>
-          <span class="lockup__word">aiRA</span>
-          <span class="lockup__by">by capillary</span>
-        </a>
-        <p class="footer__tag">aiRA — the System of Intelligence for your Systems of Record.</p>
-        <p class="footer__attr">aiRA is built by <a href="https://www.capillarytech.com/aira/">Capillary Technologies</a>.</p>
+        <h2 class="grad-text">Ready to see your growth plan?</h2>
+        <p class="lede">Bring one growth problem. We'll show you how <span class="brand-case">aiRA</span> would run it — signal to sign-off.</p>
+        <div class="footer-cta__actions">
+          <a class="btn btn-primary" href="/book-a-demo?source=v3-platform-footer">Get a demo</a>
+          <a class="link-more" href="/book-a-demo?source=v3-platform-footer-talk">Talk to us →</a>
+        </div>
       </div>
-      <nav aria-labelledby="foot-product">
-        <h2 id="foot-product">Product</h2>
-        <ul>
-          <li><a href="/platform">Platform</a></li>
-          <li><a href="/agents">Agents</a></li>
-          <li><a href="/how-it-works">How it works</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-solutions">
-        <h2 id="foot-solutions">Solutions</h2>
-        <ul>
-          <li><a href="/acquire">Acquire</a></li>
-          <li><a href="/convert">Convert</a></li>
-          <li><a href="/retain">Retain</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="foot-company">
-        <h2 id="foot-company">Company</h2>
-        <ul>
-          <li><a href="/book-a-demo">Book a demo</a></li>
-          <li><a href="https://www.capillarytech.com/aira/">aiRA by Capillary</a></li>
-        </ul>
-      </nav>
+      <div class="footer-cta__mascot">
+        <img src="/assets/aira-mascot.png?v=1" alt="The aiRA mascot" width="140" height="226" loading="lazy">
+      </div>
     </div>
-    <div class="footer__bottom">
-      <span>© 2026 Capillary Technologies · aiRA</span>
+    <hr class="footer-hairline">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="nav__logo" href="/" aria-label="aiRA home">
+          <svg width="24" height="24" aria-hidden="true"><use href="#aira-spark"/></svg>
+          <span class="nav__wordmark" style="color:#fff">aiRA</span>
+        </a>
+        <p>The AI agent that drives growth across your business — and asks before it acts.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="/#demo">Interactive demo</a></li>
+          <li><a href="/#agents">The agents</a></li>
+          <li><a href="/#governance">Governance</a></li>
+          <li><a href="/book-a-demo?source=v3-platform-footer-col">Get a demo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/security">Security</a></li>
+          <li><a href="/customers">Customers</a></li>
+          <li><a href="/#numbers">Results</a></li>
+          <li><a href="/book-a-demo?source=v3-platform-footer-contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><span class="brand-case">aiRA</span> — built by the team at Capillary Technologies</span>
+      <span>© 2026 <span class="brand-case">aiRA</span>. All rights reserved.</span>
     </div>
   </div>
 </footer>
 
-<script src="/site.js" defer></script>
+<script src="/assets/aira.js?v=redo5" defer></script>
 </body>
 </html>
